@@ -28,10 +28,10 @@ all : $(NAME)
 
 # **************************************************************************** #
 
-$(NAME): $(OBJS) $(INC_DIR)/minishell.h
+$(NAME): $(OBJS) $(INC_DIR)/cub3D.h
 	$(CC) $(CFLAGS) $(OBJS) -I $(INC_DIR) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.c $(INC_DIR)/minishell.h | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c $(INC_DIR)/cub3D.h | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 
 $(OBJ_DIR) :
