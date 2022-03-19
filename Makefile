@@ -3,13 +3,16 @@ NAME = cub3D
 OBJ_DIR		=	objs
 INC_DIR		=	includes
 SRC_DIR		=	$(shell find srcs -type d)
-
+LIB_DIR		=	-Lminilibx-linux -l
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
 # --  Redirection in OBJS  -- #
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 SRCS =	main.c                      	\
+		get_next_line.c             	\
+		get_next_line_utils.c       	\
+		get_next_line_utils2.c      	\
 
 
 # --   Compilation flags  -- #
