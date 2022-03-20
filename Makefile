@@ -9,10 +9,11 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 # --  Redirection in OBJS  -- #
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-SRCS =	main.c                      	\
-		get_next_line.c             	\
+SRCS =	get_next_line.c             	\
 		get_next_line_utils.c       	\
 		get_next_line_utils2.c      	\
+		start_mlx.c                 	\
+		main.c                      	\
 
 
 # --   Compilation flags  -- #
@@ -27,7 +28,13 @@ ifeq ($(DEBUG), 1)
 endif
 
 .PHONY: all
+ifeq ($(DEBUG), 1)
 all : $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
+	norminette srcs | grep Error
+else
+all : $(NAME)
+endif
 
 # **************************************************************************** #
 

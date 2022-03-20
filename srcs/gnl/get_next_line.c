@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 14:07:57 by fcatinau          #+#    #+#             */
-/*   Updated: 2021/11/06 18:36:48 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/20 23:14:38 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	ft_newline_in_buffer(struct s_data *data, struct s_mem *rest, char **line)
 	return (0);
 }
 
-//too may fct on file
 int	get_next_line_2(char **line, struct s_data *data, struct s_mem *rest)
 {
 	if (data->error)
@@ -92,6 +91,7 @@ int	get_next_line_2(char **line, struct s_data *data, struct s_mem *rest)
 	}
 	else if (!rest->size && !data->rd_size && !data->line_size)
 	{
+		ft_lstdelall(&(data->gnl));
 		*line = NULL;
 		return (0);
 	}
@@ -106,7 +106,11 @@ int	get_next_line(int fd, char **line, int reset)
 	data = (struct s_data){0};
 	*line = NULL;
 	if (reset)
+	{
 		rest = (struct s_mem){};
+		ft_lstdelall(&(data.gnl));
+		free(data.gnl);
+	}
 	if (rest.size && !ft_no_newline_in_rest(&data, &rest, line))
 		return (data.line_size);
 	else if (!rest.status)

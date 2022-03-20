@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/20 13:31:57 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/20 22:42:33 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,17 @@
 # include <fcntl.h>
 # include "get_next_line.h"
 # include <stdio.h>
+# include "mlx.h"
 
+/*
+**---------------Enum---------------
+*/
+
+/*
+**--------------struct--------------
+*/
 typedef struct s_tmp t_tmp;
+typedef struct s_mlx t_mlx;
 
 struct s_tmp
 {
@@ -27,4 +36,16 @@ struct s_tmp
 	t_tmp	*next;
 };
 
+struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+};
+
+/*
+**----------------------------------
+**----------------MLX---------------
+**----------------------------------
+*/
+void	start_mlx(t_tmp *file);
 #endif

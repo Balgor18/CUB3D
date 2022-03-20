@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 14:03:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/19 20:17:11 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/20 23:12:07 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ enum e_error
 	E_MALLOC_FAIL = -1,
 	E_READ_FAIL = -2,
 };
+
+// const char	*e_message[] =
+// {
+// 	"-",
+// 	"Malloc Has FAILED!",
+// 	"Read Has FAILED!"
+// };
 
 typedef struct s_gnl
 {
@@ -51,9 +58,10 @@ struct s_mem
 	char	str[BUFF_SIZE];
 	size_t	size;
 	int		status;
-}		t_mem;
+};
 
 int		get_next_line(int fd, char **line, int reset);
+// int		get_next_line(int fd, char **line);
 int		ft_lstaddnew_front(struct s_data *data);
 int		ft_no_newline_in_rest(struct s_data *data,
 			struct s_mem *rest, char **line);
