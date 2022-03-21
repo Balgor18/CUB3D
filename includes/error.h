@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/21 10:13:40 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 10:17:25 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@
 # define OPENDIRERR "🍀🌸🦊      Map is  Directory not a File        🦊🌸🍀\n"
 # define CLOSEERR "🍀🌸🦊           Can't Close Map File            🦊🌸🍀\n"
 # define EMPTYMAP "🍀🌸🦊               Map is empty               🦊🌸🍀\n"
-# define NRECTMAP "🍀🌸🦊          Map is not a rectangle          🦊🌸🍀\n"
-# define WCHARMAP "🍀🌸🦊   Map is not only 0, 1, P, C, E chars    🦊🌸🍀\n"
+# define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
 # define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"
-# define ZEROCMAP "🍀🌸🦊          Map has no collectible          🦊🌸🍀\n"
-# define ZEROEMAP "🍀🌸🦊              Map has no exit             🦊🌸🍀\n"
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
 # define DATAFAIL "🍀🌸🦊          Data Malloc fail error          🦊🌸🍀\n"
 # define ARRAYFAIL "🍀🌸🦊          Array Malloc fail error         🦊🌸🍀\n"
@@ -57,8 +54,9 @@
 # define SCREEN "Max res = 2560 * 1440\n"
 # define SCREENY "Map y = 22 tiles * 64 pixels = 1408"
 # define SCREENX "Map x = 40 tiles * 64 pixels = 2560"
-# define MAPTOOWIDE "🍀🌸🦊      Map's width is too big (40 max)     🦊🌸🍀\n"
-# define MAPTOOHIGH "🍀🌸🦊      Map's height is too big (22 max)    🦊🌸🍀\n"
+# define MAPTOOWIDE "🍀🌸🦊     Map's width is too big (1440 max)    🦊🌸🍀\n"
+# define MAPTOOHIGH "🍀🌸🦊     Map's height is too big (2560 max)   🦊🌸🍀\n"
+# define MAPTOOBIG "🍀🌸🦊        Map's res max = 2560 * 1440       🦊🌸🍀\n"
 
 # define MAPCHAR "01NSWE"
 
