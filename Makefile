@@ -14,6 +14,8 @@ SRCS =	get_next_line.c             	\
 		get_next_line_utils2.c      	\
 		start_mlx.c                 	\
 		main.c                      	\
+		lst_utils.c 					\
+		string_utils.c 					\
 
 
 # --   Compilation flags  -- #

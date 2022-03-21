@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 10:33:49 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 11:17:31 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "get_next_line.h"
 # include "mlx.h"
-# include "erro.h"
+# include "error.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,19 +41,49 @@ enum	e_MOVE
 
 enum	e_TEXTURE
 {
-	GROUNDTEX = 0,
-	SKYTEX,
+	FLOORTEX = 0,
+	CEILINGTEX,
 	NORTHTEX,
 	SOUTHTEX,
 	WESTTEXT,
 	EASTTEX
 };
 
+enum	e_RGB
+{
+	RED_COLOR = 0,
+	GREEN_COOR,
+	BLUE_COLOR
+};
+
 /*
 **--------------struct--------------
 */
+typedef struct s_data	t_data;
+typedef struct s_rgb	t_rgb;
 typedef struct s_map	t_map;
 typedef struct s_mlx	t_mlx;
+
+struct s_infos
+{
+	char	**map;
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	t_rgb	*floor;
+	t_rgb	*ceiling;
+	int		map_height;
+	int		map_width;
+	int		map_chars;
+};
+
+struct s_rgb
+{
+	int		red;
+	int		green;
+	int		blue;
+};
 
 struct s_map
 {
@@ -74,6 +104,9 @@ struct s_mlx
 **----------------------------------
 */
 void	start_mlx(t_map *file);
+
+// string_utils.c
+int		ft_strlen(char *str);
 
 // lst_utils.c
 t_map	*ft_lst_create(char *line);
