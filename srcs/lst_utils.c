@@ -6,11 +6,24 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:29:16 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/21 10:30:07 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 11:28:48 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	ft_lst_size(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map)
+	{
+		i++;
+		map = map->next;
+	}
+	return (i);
+}
 
 t_map	*ft_lst_create(char *line)
 {

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/21 10:17:25 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 11:34:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@
 # define TMARG "🍀🌸🦊           Too Many Arguments             🦊🌸🍀\n"
 # define WEXT "🍀🌸🦊           Wrong Map Extension            🦊🌸🍀\n"
 # define OPENERR "🍀🌸🦊           Can't Open Map File            🦊🌸🍀\n"
+# define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"
 # define OPENDIRERR "🍀🌸🦊      Map is  Directory not a File        🦊🌸🍀\n"
+# define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define CLOSEERR "🍀🌸🦊           Can't Close Map File            🦊🌸🍀\n"
+# define CLOSETEX "🍀🌸🦊         Can't Close Texture File          🦊🌸🍀\n"
 # define EMPTYMAP "🍀🌸🦊               Map is empty               🦊🌸🍀\n"
+# define EMPTYTEX "🍀🌸🦊             Texture is empty             🦊🌸🍀\n"
+
 # define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"

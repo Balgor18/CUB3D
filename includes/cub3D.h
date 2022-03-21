@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 11:17:31 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 11:30:18 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ enum	e_RGB
 /*
 **--------------struct--------------
 */
-typedef struct s_data	t_data;
+typedef struct s_data	t_infos;
 typedef struct s_rgb	t_rgb;
 typedef struct s_map	t_map;
 typedef struct s_mlx	t_mlx;
@@ -105,10 +105,14 @@ struct s_mlx
 */
 void	start_mlx(t_map *file);
 
+// basic_parsing.c
+void	parsing(int argc, char **argv);
+
 // string_utils.c
 int		ft_strlen(char *str);
 
 // lst_utils.c
+int		ft_lst_size(t_map *map);
 t_map	*ft_lst_create(char *line);
 void	ft_lst_clear(t_map **map);
 t_map	*ft_lstlast(t_map *map);
