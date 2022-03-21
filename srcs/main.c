@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/20 23:14:26 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/21 09:21:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ static void	free_tmp(t_tmp *file)
 
 int	main(void)
 {
-	char	file_name[] = "map.cub";
+	char	*file_name;
 	char	*line;
 	int		fd;
 	t_tmp	*file;
 
 	file = NULL;
+	file_name = "map.cub";
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		return (EXIT_FAILURE);
