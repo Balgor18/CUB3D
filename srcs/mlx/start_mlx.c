@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   start_mlx.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/20 22:49:07 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/21 10:08:00 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	start_mlx(t_tmp *file)
+void	start_mlx(t_map *file)
 {
 	t_mlx	mlx;
 
