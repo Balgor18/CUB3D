@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 11:30:18 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 15:32:08 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,11 @@ t_map	*ft_lst_create(char *line);
 void	ft_lst_clear(t_map **map);
 t_map	*ft_lstlast(t_map *map);
 t_map	*ft_lst_addback(t_map **map, t_map *elem);
+
+// main.c
+void	exit_error(char *msg);
+void	check_open(char *filename, int *fd);
+void	clear_map_exit(t_map **map, char *msg);
+int		check_close(int fd, t_map *map);
 
 #endif
