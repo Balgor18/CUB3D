@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 10:13:22 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 10:33:49 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "get_next_line.h"
 # include "mlx.h"
+# include "erro.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -73,4 +74,11 @@ struct s_mlx
 **----------------------------------
 */
 void	start_mlx(t_map *file);
+
+// lst_utils.c
+t_map	*ft_lst_create(char *line);
+void	ft_lst_clear(t_map **map);
+t_map	*ft_lstlast(t_map *map);
+t_map	*ft_lst_addback(t_map **map, t_map *elem);
+
 #endif
