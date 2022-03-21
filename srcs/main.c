@@ -6,82 +6,32 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 09:21:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/21 09:57:10 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static	t_tmp	*last_tmp(t_tmp *file)
+void	exit_error(char *msg)
 {
-	while (file->next)
-	{
-		file = file->next;
-	}
-	return (file);
+	write(2, "Error\n", 6);
+	printf(K A "%s" A K, msg);
+	exit (EXIT_FAILURE);
 }
 
-static	void	create_tmp(t_tmp **file, char *add)
+void	basic_parsing(int argc, char **argv)
 {
-	t_tmp	*tmp;
-
-	if (!add)
-		return ;
-	tmp = malloc(sizeof(t_tmp));
-	if (!tmp)
-		return ;
-	tmp->next = NULL;
-	tmp->line = add;
-	if (!*file)
-	{
-		*file = tmp;
-		return ;
-	}
-	last_tmp(*file)->next = tmp;
-	return ;
+	(void)argv;
+	if (argc == 2)
+		printf("Go to parsing\n");
+	else if (argc == 1)
+		exit_error(MARG);
+	else if (argc > 2)
+		exit_error(TMARG);
 }
 
-static void	print_struct(t_tmp *file)
+int	main(int argc, char **argv)
 {
-	while (file)
-	{
-		printf("%s\n", file->line);
-		file = file->next;
-	}
-}
-
-static void	free_tmp(t_tmp *file)
-{
-	t_tmp	*tmp;
-
-	while (file)
-	{
-		tmp = file;
-		file = file->next;
-		free(tmp->line);
-		free(tmp);
-	}
-}
-
-int	main(void)
-{
-	char	*file_name;
-	char	*line;
-	int		fd;
-	t_tmp	*file;
-
-	file = NULL;
-	file_name = "map.cub";
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-		return (EXIT_FAILURE);
-	while (get_next_line(fd, &line, 0) > 0)
-		create_tmp(&file, line);
-	get_next_line(fd, &line, 1);
-	free(line);
-	close(fd);
-	print_struct(file);
-	start_mlx(file);
-	free_tmp(file);
+	basic_parsing(argc, argv);
 	return (EXIT_SUCCESS);
 }
