@@ -6,26 +6,12 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 20:07:14 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:59:27 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// 0 = HEIGHT
-// 1 = WIDTH;
-// static void	print_map(t_tmp *file, t_mlx mlx)
-// {
-// 	int	i[2];
-
-// 	(void)file;
-// 	(void)mlx;
-// 	(void)i;
-// 	// while ()
-// }
-
-// pos[0] = X;
-// pos[1] = Y;
 static bool	is_player(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -33,6 +19,8 @@ static bool	is_player(char c)
 	return false;
 }
 
+// pos[0] = X;
+// pos[1] = Y;
 static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 {
 	int	pos[2];
@@ -57,68 +45,146 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 	}
 }
 
-static void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char	*dst;
+// 0x00FFFF00
+// 0x00FF00FF
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(char *)dst = color;
-}
+// 0x00FF0000 --> Nothing
+// 0x00FFFFFF --> Blue Again
+// 0x000000FF --> Blue
+// 0x00000F00 --> Nothing
 
-// i[0] = X
-// i[1] = Y
-static void	draw_player(t_mlx *mlx)
-{
-	int	i[2];
-	int	tmp;
-
-	i[0] = (mlx->player[X_POS] * 64) - 8;
-	i[1] = (mlx->player[Y_POS] * 64) - 8;
-
-	while (i[1] < (mlx->player[Y_POS] * 64) + 8)
-	{
-		tmp = (mlx->player[X_POS] * 64) - 8;
-		while (tmp < (mlx->player[X_POS] * 64) + 8)
-		{
-			printf("[%d] [%d] player pos\n", i[1], tmp);
-			my_mlx_pixel_put(&mlx->pict, tmp, i[1], 0x00F280FFFF);
-			tmp++;
-		}
-		i[1]++;
-	}
-}
-// 0x00F280FF
-// 0x0000FF00
-// 0x000000FF
+// 0xTTRRGGBB
+// 0x00F280FF --> BLUE
+// 0x0000FF00 --> Nothing
+// 0x000000FF --> BLUE
 // 0x0000FF --> BLUE
 // 0x00FF00 --> Nothing
 // 0xFF0000 --> Nothing
-void	start_mlx(t_tmp *file)
+// 0x00FF4D00
+
+// static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
+// {
+// 	img->img = mlx_new_image(mlx_ptr, 64, 64);
+// 	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
+// 	memset((void *)img->addr, byte, 64 * 64);
+// }
+
+static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
 {
-	t_mlx	mlx;
+	int	i;
+
+	i = 0;
+	img->img = mlx_new_image(mlx_ptr, 16, 16);
+	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
+	while (i < 256)
+	{
+		img->addr[i] = byte;
+		i++;
+	}
+}
+
+/**
+ * @brief	Function create all the texture
+ *
+ * @param	t_mlx	All the informations we need for create the texture
+ *
+ * @return	return void
+**/
+static void	create_texture(t_mlx *mlx)
+{
 	int		width;
 	int		height;
 
 	width = 64 * 16;
 	height = 6 * 64;
+	mlx->mlx_ptr = mlx_init();
+	if (!mlx->mlx_ptr)
+		return ;
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, width, height, "Test win");
+	if (!mlx->win_ptr)
+		return (free_mlx(mlx));
+
+	xpm_file_and_addr_player(mlx->mlx_ptr, &mlx->pict[PLAYER], 0x0000FF00);
+	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
+	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
+	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
+}
+
+static void	player_move(t_mlx *mlx, char move)
+{
+	if (move == 'R')// move this for ptr fct
+		mlx->player[X_POS] += 0.1;
+	else if (move == 'L')// move this for ptr fct
+		mlx->player[X_POS] -= 0.1;
+	else if (move == 'U')// move this for ptr fct
+		mlx->player[Y_POS] -= 0.1;
+	else if (move == 'D')// move this for ptr fct
+		mlx->player[Y_POS] += 0.1;
+}
+
+static int	key_hook(int key, t_mlx *mlx)
+{
+	if (key == ESCAPE)
+	{
+		// if (mlx->map.player.move != 0)
+		// 	ft_putchar_fd('\n', 1);
+		mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
+		free_mlx(mlx);
+		exit(0);
+	}
+	else if (key == D || key == RIGHT)
+		player_move(mlx, 'R');
+	else if (key == A || key == Q || key == LEFT)
+		player_move(mlx, 'L');
+		// press_move(all, &all->map, 'L');
+	else if (key == S || key == DOWN)
+		player_move(mlx, 'D');
+		// press_move(all, &all->map, 'D');
+	else if (key == W || key == Z || key == UP)
+		player_move(mlx, 'U');
+		// press_move(all, &all->map, 'U');
+	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
+	int	i[2];
+
+	i[0] = (mlx->player[X_POS] * 64) - 8;
+	i[1] = (mlx->player[Y_POS] * 64) - 8;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
+	return (0);
+}
+
+static int	ft_close(t_mlx *mlx)
+{
+	// mlx_do_key_autorepeaton(all->mlx.mlx);
+	// ft_trash(all);
+	(void)mlx;
+	exit(0);
+	return (0);
+}
+
+/**
+	@brief	Function start to create the mlx for the graphics
+
+	@param	t_tmp	Take in param all the info from the parsing
+
+	@return	Return void
+ **/
+void	start_mlx(t_tmp *file)
+{
+	t_mlx	mlx;
 
 	mlx = (t_mlx){0};
-	mlx.mlx_ptr = mlx_init();
-	if (!mlx.mlx_ptr)
-		return ;
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, width, height, "Test win");//16 | 6
-	if (!mlx.win_ptr)
-		return (mlx_destroy_display(mlx.mlx_ptr), free(mlx.mlx_ptr));
-	mlx.pict.img = mlx_new_image(mlx.mlx_ptr, width, height);
-	if (!mlx.pict.img)
-		return (mlx_destroy_window(mlx.mlx_ptr, mlx.win_ptr), mlx_destroy_display(mlx.mlx_ptr), free(mlx.mlx_ptr));
-	// print_map(file, mlx);
-	// mlx.pict.addr = (int *)mlx_get_data_addr(mlx.pict.img, &mlx.pict.bits_per_pixel, &mlx.pict.line_length, &mlx.pict.endian);
-	mlx.pict.addr = mlx_get_data_addr(mlx.pict.img, &mlx.pict.bits_per_pixel, &mlx.pict.line_length, &mlx.pict.endian);
 	find_player_pos(file, &mlx);
-	printf("x = %f\ny = %f\n", mlx.player[X_POS], mlx.player[Y_POS]);
-	draw_player(&mlx);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict.img, 0, 0);
+	create_texture(&mlx);
+
+	int	i[2];
+	i[0] = (mlx.player[X_POS] * 64) - 8;
+	i[1] = (mlx.player[Y_POS] * 64) - 8;
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[PLAYER].img, i[0], i[1]);
+
+	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
+
+	// mlx_hook(mlx.mlx_win, 15, 1L << 16, reset_window, all);
+
+	mlx_hook(mlx.win_ptr, 33, 1L << 17, ft_close, &mlx);
 	mlx_loop(mlx.mlx_ptr);
-	// mlx;
 }

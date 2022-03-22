@@ -13,6 +13,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 SRCS =	get_next_line.c             	\
 		get_next_line_utils.c       	\
 		get_next_line_utils2.c      	\
+		free_mlx.c                  	\
 		start_mlx.c                 	\
 		main.c                      	\
 
