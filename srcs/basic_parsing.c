@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 14:27:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 14:36:08 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,23 @@ void	check_list_syntax(t_list **list)
 		tmp = tmp->next;
 	}
 }
+
+/*
+PARSING TO DO LIST
+check que pas plus que 4 textures et une de chaque
+pas plus de 2 colors lines et une de chaque
+que les cardinaux aient 2 chars
+que les colors aient un seul char
+que les couleurs soient entre 0 et 255 inclus
+que les couleurs soient separees par des virgules
+qu'il y ait 3 nombres de couleurs, pas plus pas moins
+-> split sur virgule puis trim whitespaces
+verif format direct 4 lignes daffillee, au moin une ligne vide
+deux lignes couleurs, au moins une ligne vide, puis map
+
+verif ouverture des textures
+
+*/
 
 void	parsing(int argc, char **argv, t_data **data)
 {
