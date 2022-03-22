@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 11:43:16 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:50:00 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_list	*ft_lstlast(t_list *list);
 t_list	*ft_lst_addback(t_list **list, t_list *elem);
 
 // free.c
-void	clear_list_exit(t_list **list, char *sg);
+void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 
 // print.c

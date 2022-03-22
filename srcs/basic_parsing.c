@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:35:06 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 12:18:06 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,29 @@ void	fill_data(t_data **data)
 	(void)data;
 }
 
+
+void	check_list_syntax(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->type == 0)
+		{
+			write(2, "Error\n", 6);
+			printf(K A SYNTAX A K);
+			printf("[%d] " YELLOW "[%s]" RESET"\n", i, tmp->line);
+			ft_lst_clear(list);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+		tmp = tmp->next;
+	}
+}
+
 void	parsing(int argc, char **argv, t_data **data)
 {
 	int	fd;
@@ -57,6 +80,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	basic_parsing(argc, argv);
 	check_open(argv[1], &fd);
 	fill_list(fd, &list);
+	check_list_syntax(&list);
 	print_list(list);
 	check_close(fd, list);
 	fill_data(data);

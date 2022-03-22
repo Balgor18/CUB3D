@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:45:52 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 12:15:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exit_error(char *msg)
 {
 	write(2, "Error\n", 6);
 	printf(K A "%s" A K, msg);
-	exit (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 void	print_list(t_list *list)

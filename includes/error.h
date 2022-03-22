@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:32:22 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:58:17 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 # define CLOSEERR "🍀🌸🦊           Can't Close Map File            🦊🌸🍀\n"
 # define CLOSETEX "🍀🌸🦊         Can't Close Texture File          🦊🌸🍀\n"
 # define EMPTYMAP "🍀🌸🦊               Map is empty               🦊🌸🍀\n"
+# define SYNTAX "🍀🌸🦊       Wrong line syntax in mapfile       🦊🌸🍀\n"
+
+
 # define EMPTYTEX "🍀🌸🦊             Texture is empty             🦊🌸🍀\n"
 
 # define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
