@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 11:13:30 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:43:16 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ toutes les fonctions de math.h
 /*
 **---------------Enum---------------
 */
+
+enum	e_TYPE
+{
+	ERROR_TYPE = 0,
+	EMPTY_LINE,
+	TEXTURE_LINE,
+	COLOR_LINE,
+	MAP_LINE
+};
 
 enum	e_MOVE
 {
@@ -88,6 +97,7 @@ struct s_list
 {
 	char	*line;
 	int		line_size;
+	int		type;
 	t_list	*next;
 };
 
@@ -105,6 +115,10 @@ void	fill_list(int fd, t_list **list);
 
 // string_utils.c
 int		ft_strlen(char *str);
+char	*ft_strndup(char *str, int n);
+int		is_cardinal_char(char c);
+int		is_color_char(char c);
+int		set_line_type(char *str);
 
 // lst_utils.c
 int		ft_lst_size(t_list *list);

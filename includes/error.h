@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:07:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:32:22 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
 # define DATAFAIL "🍀🌸🦊          Data Malloc fail error          🦊🌸🍀\n"
 # define ARRAYFAIL "🍀🌸🦊          Array Malloc fail error         🦊🌸🍀\n"
-# define GAMEFAIL "🍀🌸🦊           Game Malloc fail error         🦊🌸🍀\n"
-# define SCREENFAIL "🍀🌸🦊           Sceen Malloc fail error        🦊🌸🍀\n"
+# define SCREENFAIL "🍀🌸🦊           Screen Malloc fail error        🦊🌸🍀\n"
 # define IMGFAIL "🍀🌸🦊           Image Malloc fail error        🦊🌸🍀\n"
 # define TEXFAIL "🍀🌸🦊          Texture Malloc fail error        🦊🌸🍀\n"
 # define IMGTEXFAIL "🍀🌸🦊       Texture Image Malloc fail error     🦊🌸🍀\n"

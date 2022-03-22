@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:12:11 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:35:06 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	basic_parsing(int argc, char **argv)
 		exit_error(TMARG);
 }
 
+void	fill_data(t_data **data)
+{
+	(void)data;
+}
+
 void	parsing(int argc, char **argv, t_data **data)
 {
 	int	fd;
@@ -54,6 +59,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	print_list(list);
 	check_close(fd, list);
+	fill_data(data);
 	print_data(*data);
 	ft_lst_clear(&list);
 }

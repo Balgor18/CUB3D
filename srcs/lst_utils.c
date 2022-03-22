@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:29:16 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:01:42 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:39:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_list	*ft_lst_create(char *line)
 		return (NULL);
 	elem->line = line;
 	elem->line_size = ft_strlen(elem->line);
+	elem->type = set_line_type(elem->line);
 	elem->next = NULL;
 	return (elem);
 }

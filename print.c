@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:21:39 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:45:52 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	print_list(t_list *list)
 	printf(K A LIST A K "\n");
 	while (list)
 	{
-		printf("[%d] [len = %d] " GREEN "[" RESET "%s" GREEN "]" RESET "\n", \
-			i, list->line_size, list->line);
+		printf("[%3d] [len = %3d] [type = %d] " GREEN "[" RESET "%s" GREEN "]" RESET "\n", \
+			i, list->line_size, list->type, list->line);
 		i++;
 		list = list->next;
 	}
