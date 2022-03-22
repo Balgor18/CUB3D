@@ -9,11 +9,7 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 # --  Redirection in OBJS  -- #
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-SRCS =	get_next_line.c             	\
-		get_next_line_utils.c       	\
-		get_next_line_utils2.c      	\
-		start_mlx.c                 	\
-		main.c                      	\
+SRCS =	main.c                      	\
 		basic_parsing.c					\
 		lst_utils.c 					\
 		string_utils.c 					\
