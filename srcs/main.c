@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/21 11:30:39 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 08:59:43 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ void	check_open(char *filename, int *fd)
 	*fd = open(filename, O_RDONLY);
 	if (*fd == -1)
 		exit_error(OPENERR);
-}
-
-void	clear_map_exit(t_map **map, char *msg)
-{
-	ft_lst_clear(map);
-	exit_error(msg);
 }
 
 int	check_close(int fd, t_map *map)

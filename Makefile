@@ -14,14 +14,17 @@ SRCS =	get_next_line.c             	\
 		get_next_line_utils2.c      	\
 		start_mlx.c                 	\
 		main.c                      	\
-		basic_parsing.c 					\
+		basic_parsing.c					\
 		lst_utils.c 					\
 		string_utils.c 					\
+		free.c		 					\
 
 
 # --   Compilation flags  -- #
 CC			=	clang
 CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
+
 
 # -- Nominette -- #
 NORME = norminette srcs includes
