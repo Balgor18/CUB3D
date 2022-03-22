@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 12:18:06 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 14:27:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	basic_parsing(int argc, char **argv)
 		exit_error(TMARG);
 }
 
-void	fill_data(t_data **data)
+void	fill_data(t_data **data, t_list *list)
 {
 	(void)data;
+	(void)list;
 }
 
 
@@ -58,13 +59,7 @@ void	check_list_syntax(t_list **list)
 	while (tmp)
 	{
 		if (tmp->type == 0)
-		{
-			write(2, "Error\n", 6);
-			printf(K A SYNTAX A K);
-			printf("[%d] " YELLOW "[%s]" RESET"\n", i, tmp->line);
-			ft_lst_clear(list);
-			exit(EXIT_FAILURE);
-		}
+			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
 		i++;
 		tmp = tmp->next;
 	}
@@ -83,7 +78,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_list_syntax(&list);
 	print_list(list);
 	check_close(fd, list);
-	fill_data(data);
+	fill_data(data, list);
 	print_data(*data);
 	ft_lst_clear(&list);
 }

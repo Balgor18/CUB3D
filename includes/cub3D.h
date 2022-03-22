@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 11:50:00 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 14:27:34 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ char	*ft_strndup(char *str, int n);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
 int		set_line_type(char *str);
+int		ft_strcmp(char *str1, char *str2);
+int		ft_strncmp(char *str1, char *str2, unsigned int n);
 
 // lst_utils.c
 int		ft_lst_size(t_list *list);
@@ -129,6 +131,7 @@ t_list	*ft_lst_addback(t_list **list, t_list *elem);
 
 // free.c
 void	clear_list_exit(t_list **list, char *msg);
+void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 
 // print.c
