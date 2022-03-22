@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 16:13:44 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/22 23:18:29 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ struct s_mlx
 	void	*win_ptr;
 	t_img	pict[MAX_IMG];
 	float	player[MAX_POS];
+	t_tmp	*file;
 };
 
 /*

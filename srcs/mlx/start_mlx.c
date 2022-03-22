@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 15:59:27 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/22 23:43:10 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,31 @@ static bool	is_player(char c)
 static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 {
 	int	pos[2];
+	t_tmp	*tmpb;
+	char	*s;
 
+	tmpb = tmp;
 	pos[1] = 1;// see if need to start 1
 	while (tmp)
 	{
 		pos[0] = 1;// see if need to start 1
-		while (*(tmp->line))
+		s = tmp->line;
+		while (*s)
 		{
-			if (is_player(*(tmp->line)))
+			if (is_player(*s))
 			{
+				*s = '0';
 				mlx->player[X_POS] = pos[0];
 				mlx->player[Y_POS] = pos[1];
 				return ;
 			}
 			pos[0]++;
-			tmp->line++;
+			s++;
 		}
 		pos[1]++;
 		tmp = tmp->next;
 	}
+	tmp = tmpb;
 }
 
 // 0x00FFFF00
@@ -62,12 +68,19 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 // 0xFF0000 --> Nothing
 // 0x00FF4D00
 
-// static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
-// {
-// 	img->img = mlx_new_image(mlx_ptr, 64, 64);
-// 	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
-// 	memset((void *)img->addr, byte, 64 * 64);
-// }
+static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
+{
+	int	i;
+
+	i = 0;
+	img->img = mlx_new_image(mlx_ptr, 64, 64);
+	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
+	while (i < 4096)
+	{
+		img->addr[i] = byte;
+		i++;
+	}
+}
 
 static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
 {
@@ -105,8 +118,8 @@ static void	create_texture(t_mlx *mlx)
 		return (free_mlx(mlx));
 
 	xpm_file_and_addr_player(mlx->mlx_ptr, &mlx->pict[PLAYER], 0x0000FF00);
-	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
-	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
+	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
+	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
 	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
 }
 
@@ -120,6 +133,43 @@ static void	player_move(t_mlx *mlx, char move)
 		mlx->player[Y_POS] -= 0.1;
 	else if (move == 'D')// move this for ptr fct
 		mlx->player[Y_POS] += 0.1;
+}
+
+//	i[0] == Y
+//	i[1] == X
+static void	print_min_map(t_mlx *mlx)
+{
+	t_tmp *tmp;
+	char	*s;
+	int		in[2];
+
+	in[0] = 0;
+	tmp = mlx->file;
+	while (mlx->file)
+	{
+		s = mlx->file->line;
+		in[1] = 0;
+		printf("s = %s\n", s);
+		while (*s)
+		{
+			printf("%c Y = %d x = %d\n", *s,  in[0], in[1]);
+			if (*s == '1')
+				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[WALL].img, in[1], in[0]);
+			else if (*s == '0')
+				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
+			s++;
+			in[1] += 64;
+		}
+		in[0] += 64;
+		mlx->file = mlx->file->next;
+	}
+	mlx->file = tmp;
+	//player
+	int	i[2];
+
+	i[0] = (mlx->player[X_POS] * 64) - 40;
+	i[1] = (mlx->player[Y_POS] * 64) - 40;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
 }
 
 static int	key_hook(int key, t_mlx *mlx)
@@ -144,11 +194,7 @@ static int	key_hook(int key, t_mlx *mlx)
 		player_move(mlx, 'U');
 		// press_move(all, &all->map, 'U');
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
-	int	i[2];
-
-	i[0] = (mlx->player[X_POS] * 64) - 8;
-	i[1] = (mlx->player[Y_POS] * 64) - 8;
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
+	print_min_map(mlx);
 	return (0);
 }
 
@@ -173,14 +219,13 @@ void	start_mlx(t_tmp *file)
 	t_mlx	mlx;
 
 	mlx = (t_mlx){0};
+	mlx.file = file;
 	find_player_pos(file, &mlx);
 	create_texture(&mlx);
 
-	int	i[2];
-	i[0] = (mlx.player[X_POS] * 64) - 8;
-	i[1] = (mlx.player[Y_POS] * 64) - 8;
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[PLAYER].img, i[0], i[1]);
-
+	print_min_map(&mlx);
+	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[WALL].img, 0, 0);
+	
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
 
 	// mlx_hook(mlx.mlx_win, 15, 1L << 16, reset_window, all);
