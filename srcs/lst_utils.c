@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:29:16 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 09:15:50 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 10:44:55 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	print_list(t_map *map)
 	printf(GREEN "List:" RESET "\n");
 	while (map)
 	{
-		printf("[%d] [len = %d] [%s]\n", i, map->line_size, map->mapline);
+		printf("[%d] [len = %d] " GREEN "[" RESET "%s" GREEN "]" RESET "\n", \
+			i, map->line_size, map->mapline);
 		i++;
 		map = map->next;
 	}

@@ -6,14 +6,13 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 09:04:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 10:43:28 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "get_next_line.h"
 # include "mlx.h"
 # include "error.h"
 # include <unistd.h>
