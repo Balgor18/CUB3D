@@ -6,18 +6,11 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 08:59:43 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:10:34 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	exit_error(char *msg)
-{
-	write(2, "Error\n", 6);
-	printf(K A "%s" A K, msg);
-	exit (EXIT_FAILURE);
-}
 
 void	check_open(char *filename, int *fd)
 {
@@ -32,23 +25,23 @@ void	check_open(char *filename, int *fd)
 		exit_error(OPENERR);
 }
 
-int	check_close(int fd, t_map *map)
+int	check_close(int fd, t_list *list)
 {
 	int	ret;
 
 	ret = close(fd);
 	if (ret == -1)
-		clear_map_exit(&map, CLOSEERR);
+		clear_list_exit(&list, CLOSEERR);
 	return (EXIT_SUCCESS);
 }
 
 
 int	main(int argc, char **argv)
 {
-	t_infos	*infos;
+	t_data	*data;
 
-	infos = NULL;
-	parsing(argc, argv);
+	data = NULL;
+	parsing(argc, argv, &data);
 
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 10:43:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:13:30 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ enum	e_RGB
 /*
 **--------------struct--------------
 */
-typedef struct s_data	t_infos;
+typedef struct s_data	t_data;
 typedef struct s_rgb	t_rgb;
-typedef struct s_map	t_map;
+typedef struct s_list	t_list;
 typedef struct s_mlx	t_mlx;
 
-struct s_infos
+struct s_data
 {
 	char	**map;
 	char	*north_texture;
@@ -84,11 +84,11 @@ struct s_rgb
 	int		blue;
 };
 
-struct s_map
+struct s_list
 {
-	char	*mapline;
+	char	*line;
 	int		line_size;
-	t_map	*next;
+	t_list	*next;
 };
 
 struct s_mlx
@@ -97,35 +97,33 @@ struct s_mlx
 	void	*win_ptr;
 };
 
-/*
-**----------------------------------
-**----------------MLX---------------
-**----------------------------------
-*/
-void	start_mlx(t_map *file);
-
 // basic_parsing.c
-void	parsing(int argc, char **argv);
+void	parsing(int argc, char **arg, t_data **data);
+
+// fill_list.c
+void	fill_list(int fd, t_list **list);
 
 // string_utils.c
 int		ft_strlen(char *str);
 
 // lst_utils.c
-int		ft_lst_size(t_map *map);
-t_map	*ft_lst_create(char *line);
-void	ft_lst_clear(t_map **map);
-t_map	*ft_lstlast(t_map *map);
-t_map	*ft_lst_addback(t_map **map, t_map *elem);
-void	print_list(t_map *map);
+int		ft_lst_size(t_list *list);
+t_list	*ft_lst_create(char *line);
+void	ft_lst_clear(t_list **list);
+t_list	*ft_lstlast(t_list *list);
+t_list	*ft_lst_addback(t_list **list, t_list *elem);
 
 // free.c
-void	clear_map_exit(t_map **map, char *sg);
-void	clear_map_free_line_exit(t_map **map, char *line);
+void	clear_list_exit(t_list **list, char *sg);
+void	clear_list_free_line_exit(t_list **list, char *line);
+
+// print.c
+void	exit_error(char *msg);
+void	print_list(t_list *list);
+void	print_data(t_data *data);
 
 // main.c
-void	exit_error(char *msg);
 void	check_open(char *filename, int *fd);
-void	clear_map_exit(t_map **map, char *msg);
-int		check_close(int fd, t_map *map);
+int		check_close(int fd, t_list *list);
 
 #endif

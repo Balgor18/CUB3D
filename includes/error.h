@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/21 11:34:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/22 11:07:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # define K "🔮🧡🍁🐞🍄🍀🌸🐹🌳🦊🐼🌿🧡🦊🧡🌿🐼🦊🌳🐹🌸🍀🍄🐞🍁🧡🔮\n"
 # define Y "🍀🌸🦊    Launch ./cub3D map_filename.cub     🦊🌸🍀\n"
 # define A "🍀🌸🦊                                          🦊🌸🍀\n"
+# define LIST "🍀🌸🦊          Linked list of map file         🦊🌸🍀\n"
+# define GAME "🍀🌸🦊                Game Infos                🦊🌸🍀\n"
+# define MAP "🍀🌸🦊                  Map                     🦊🌸🍀\n"
+
 # define MARG "🍀🌸🦊             Missing Map file             🦊🌸🍀\n"
 # define TMARG "🍀🌸🦊           Too Many Arguments             🦊🌸🍀\n"
 # define WEXT "🍀🌸🦊           Wrong Map Extension            🦊🌸🍀\n"
@@ -54,8 +58,6 @@
 # define MLXWINFAIL "🍀🌸🦊          Mlx new window failed           🦊🌸🍀\n"
 # define MLXIMGFAIL "🍀🌸🦊           Mlx new image failed           🦊🌸🍀\n"
 # define MLXADDRFAIL "🍀🌸🦊         Mlx data address failed          🦊🌸🍀\n"
-# define GAME "🍀🌸🦊                Game Infos                🦊🌸🍀\n"
-# define MAP "🍀🌸🦊                  Map                     🦊🌸🍀\n"
 # define SCREEN "Max res = 2560 * 1440\n"
 # define SCREENY "Map y = 22 tiles * 64 pixels = 1408"
 # define SCREENX "Map x = 40 tiles * 64 pixels = 2560"

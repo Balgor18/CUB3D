@@ -11,9 +11,11 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 SRCS =	main.c                      	\
 		basic_parsing.c					\
+		fill_list.c						\
 		lst_utils.c 					\
 		string_utils.c 					\
 		free.c		 					\
+		print.c							\
 
 
 # --   Compilation flags  -- #
