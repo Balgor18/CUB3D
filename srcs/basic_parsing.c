@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 14:36:08 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 01:57:42 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	check_list_syntax(t_list **list)
 
 	tmp = *list;
 	i = 0;
+	if (!tmp)
+		clear_list_exit(list, EMPTYMAP);
 	while (tmp)
 	{
 		if (tmp->type == 0)
