@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 04:20:50 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 05:02:20 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,81 @@ void	fill_data(t_data **data, t_list *list)
 	(void)list;
 }
 
+// PASSING INT TAB ADDRESS DOES NOT WORK
+/*
+void	check_cardinal_duplicates(t_list **list, int *infos, char *str, int i)
+{
+	if (ft_strncmp(str, "NO ", 3) == 0)
+	{
+		printf("infos[NORTH] = %d\n", infos[NORTH]);
+		infos[NORTH] += 1;
+		printf("infos[NORTH] = %d\n", infos[NORTH]);
+		if (infos[NORTH] > 1)
+			clear_list_syntax_exit(list, i, str, DUPNO);
+	}
+	else if (ft_strncmp(str, "SO ", 3) == 0)
+	{
+		infos[SOUTH] += 1;
+		if (infos[SOUTH] > 1)
+			clear_list_syntax_exit(list, i, str, DUPSO);
+	}
+	else if (ft_strncmp(str, "WE ", 3) == 0)
+	{
+		infos[WEST] += 1;
+		if (infos[WEST] > 1)
+			clear_list_syntax_exit(list, i, str, DUPWE);
+	}
+	else if (ft_strncmp(str, "EA ", 3) == 0)
+	{
+		infos[EAST] += 1;
+		if (infos[EAST] > 1)
+			clear_list_syntax_exit(list, i, str, DUPEA);
+	}
+}
+
+void	check_color_duplicates(t_list **list, int *infos, char *str, int i)
+{
+	if (ft_strncmp(str, "F ", 2) == 0)
+	{
+		infos[FLOOR] += 1;
+		if (infos[FLOOR] > 1)
+			clear_list_syntax_exit(list, i, str, DUPF);
+	}
+	else if (ft_strncmp(str, "C ", 2) == 0)
+	{
+		infos[CEILING] += 1;
+		if (infos[CEILING] > 1)
+			clear_list_syntax_exit(list, i, str, DUPC);
+	}
+}
+
+void	check_duplicates(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+	int		infos[6];
+
+	tmp = *list;
+	i = 0;
+	infos[NORTH] = 0;
+	infos[SOUTH] = 0;
+	infos[WEST] = 0;
+	infos[EAST] = 0;
+	infos[FLOOR] = 0;
+	infos[CEILING] = 0;
+	while (tmp)
+	{
+		if (tmp->type == 2)
+			check_cardinal_duplicates(list, &infos[6], tmp->line, i);
+		if (tmp->type == 3)
+			check_color_duplicates(list, &infos[6], tmp->line, i);
+		i++;
+		tmp = tmp->next;
+	}
+}
+*/
+
+// beofre norme
 void	check_duplicates(t_list **list)
 {
 	t_list	*tmp;
@@ -70,31 +145,31 @@ void	check_duplicates(t_list **list)
 			if (infos[NORTH] > 1)
 				clear_list_syntax_exit(list, i, tmp->line, DUPNO);
 		}
-		if (tmp->type == 2 && (ft_strncmp(tmp->line, "SO ", 3) == 0))
+		else if (tmp->type == 2 && (ft_strncmp(tmp->line, "SO ", 3) == 0))
 		{
 			infos[SOUTH] += 1;
 			if (infos[SOUTH] > 1)
 				clear_list_syntax_exit(list, i, tmp->line, DUPSO);
 		}
-		if (tmp->type == 2 && (ft_strncmp(tmp->line, "WE ", 3) == 0))
+		else if (tmp->type == 2 && (ft_strncmp(tmp->line, "WE ", 3) == 0))
 		{
 			infos[WEST] += 1;
 			if (infos[WEST] > 1)
 				clear_list_syntax_exit(list, i, tmp->line, DUPWE);
 		}
-		if (tmp->type == 2 && (ft_strncmp(tmp->line, "EA ", 3) == 0))
+		else if (tmp->type == 2 && (ft_strncmp(tmp->line, "EA ", 3) == 0))
 		{
 			infos[EAST] += 1;
 			if (infos[EAST] > 1)
 				clear_list_syntax_exit(list, i, tmp->line, DUPEA);
 		}
-		if (tmp->type == 3 && (ft_strncmp(tmp->line, "F ", 2) == 0))
+		else if (tmp->type == 3 && (ft_strncmp(tmp->line, "F ", 2) == 0))
 		{
 			infos[FLOOR] += 1;
 			if (infos[FLOOR] > 1)
 				clear_list_syntax_exit(list, i, tmp->line, DUPF);
 		}
-		if (tmp->type == 3 && (ft_strncmp(tmp->line, "C ", 2) == 0))
+		else if (tmp->type == 3 && (ft_strncmp(tmp->line, "C ", 2) == 0))
 		{
 			infos[CEILING] += 1;
 			if (infos[CEILING] > 1)
@@ -103,7 +178,6 @@ void	check_duplicates(t_list **list)
 		i++;
 		tmp = tmp->next;
 	}
-
 }
 
 void	check_list_syntax(t_list **list)
