@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 02:33:33 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 04:11:33 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,21 @@ int	is_color_char(char c)
 	return (c == 'F' || c == 'C');
 }
 
+int	check_cardinal_syntax(char *str)
+{
+	if (ft_strncmp(str, "NO ", 3) == 0 || ft_strncmp(str, "SO ", 3) == 0 \
+		|| ft_strncmp(str, "WE ", 3) == 0 || ft_strncmp(str, "EA ", 3) == 0)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
+int	check_floor_ceiling_syntax(char *str)
+{
+	if ((ft_strncmp(str, "F ", 2) == 0) || (ft_strncmp(str, "C ", 2) == 0))
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
 int	set_line_type(char *str)
 {
 	int	type;
@@ -45,5 +60,7 @@ int	set_line_type(char *str)
 		type = COLOR_LINE;
 	else if (str[0] == ' ' || str[0] == '0' || str[0] == '1')
 		type = MAP_LINE;
+	else
+		type = ERROR_LINE;
 	return (type);
 }

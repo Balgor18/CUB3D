@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/23 02:34:54 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 04:12:28 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,18 @@ enum	e_TYPE
 	EMPTY_LINE,
 	TEXTURE_LINE,
 	COLOR_LINE,
-	MAP_LINE
+	MAP_LINE,
+	ERROR_LINE
+};
+
+enum	e_INFOS
+{
+	NORTH = 0,
+	SOUTH,
+	WEST,
+	EAST,
+	FLOOR,
+	CEILING
 };
 
 enum	e_MOVE
@@ -120,6 +131,8 @@ void	fill_list(int fd, t_list **list);
 int		ft_strlen(char *str);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
+int		check_cardinal_syntax(char *str);
+int		check_floor_ceiling_syntax(char *str);
 int		set_line_type(char *str);
 
 // string_utils2.c

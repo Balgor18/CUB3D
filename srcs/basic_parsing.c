@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 02:16:37 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 04:20:50 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,64 @@ void	fill_data(t_data **data, t_list *list)
 	(void)list;
 }
 
+void	check_duplicates(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+	int		infos[6];
+
+	tmp = *list;
+	i = 0;
+	infos[NORTH] = 0;
+	infos[SOUTH] = 0;
+	infos[WEST] = 0;
+	infos[EAST] = 0;
+	infos[FLOOR] = 0;
+	infos[CEILING] = 0;
+	while (tmp)
+	{
+		if (tmp->type == 2 && (ft_strncmp(tmp->line, "NO ", 3) == 0))
+		{
+			infos[NORTH] += 1;
+			if (infos[NORTH] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPNO);
+		}
+		if (tmp->type == 2 && (ft_strncmp(tmp->line, "SO ", 3) == 0))
+		{
+			infos[SOUTH] += 1;
+			if (infos[SOUTH] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPSO);
+		}
+		if (tmp->type == 2 && (ft_strncmp(tmp->line, "WE ", 3) == 0))
+		{
+			infos[WEST] += 1;
+			if (infos[WEST] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPWE);
+		}
+		if (tmp->type == 2 && (ft_strncmp(tmp->line, "EA ", 3) == 0))
+		{
+			infos[EAST] += 1;
+			if (infos[EAST] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPEA);
+		}
+		if (tmp->type == 3 && (ft_strncmp(tmp->line, "F ", 2) == 0))
+		{
+			infos[FLOOR] += 1;
+			if (infos[FLOOR] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPF);
+		}
+		if (tmp->type == 3 && (ft_strncmp(tmp->line, "C ", 2) == 0))
+		{
+			infos[CEILING] += 1;
+			if (infos[CEILING] > 1)
+				clear_list_syntax_exit(list, i, tmp->line, DUPC);
+		}
+		i++;
+		tmp = tmp->next;
+	}
+
+}
+
 void	check_list_syntax(t_list **list)
 {
 	t_list	*tmp;
@@ -59,7 +117,11 @@ void	check_list_syntax(t_list **list)
 		clear_list_exit(list, EMPTYMAP);
 	while (tmp)
 	{
-		if (tmp->type == 0)
+		if (tmp->type == 5)
+			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
+		if (tmp->type == 2 && check_cardinal_syntax(tmp->line))
+			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
+		if (tmp->type == 3 && check_floor_ceiling_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
 		i++;
 		tmp = tmp->next;
@@ -92,6 +154,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_open(argv[1], &fd);
 	fill_list(fd, &list);
 	check_list_syntax(&list);
+	check_duplicates(&list);
 	print_list(list);
 	check_close(fd, list);
 	fill_data(data, list);
