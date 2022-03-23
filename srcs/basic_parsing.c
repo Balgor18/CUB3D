@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:19:52 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 01:57:42 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 02:16:37 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	fill_data(t_data **data, t_list *list)
 	(void)list;
 }
 
-
 void	check_list_syntax(t_list **list)
 {
 	t_list	*tmp;
@@ -79,14 +78,12 @@ qu'il y ait 3 nombres de couleurs, pas plus pas moins
 -> split sur virgule puis trim whitespaces
 verif format direct 4 lignes daffillee, au moin une ligne vide
 deux lignes couleurs, au moins une ligne vide, puis map
-
 verif ouverture des textures
-
 */
 
 void	parsing(int argc, char **argv, t_data **data)
 {
-	int	fd;
+	int		fd;
 	t_list	*list;
 
 	fd = 0;

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 11:10:34 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 02:17:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,16 @@ int	check_close(int fd, t_list *list)
 	return (EXIT_SUCCESS);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
 	data = NULL;
 	parsing(argc, argv, &data);
-
 	return (EXIT_SUCCESS);
 }
 
 /* SO LONG PARSING
-
 static void	check_valid_map(t_map **map)
 {
 	check_map_size(map);
@@ -56,7 +53,6 @@ static void	check_valid_map(t_map **map)
 	check_closed_map(map);
 	check_items(map);
 }
-
 void	parse(t_data **data, int argc, char **argv)
 {
 	t_map	*map;

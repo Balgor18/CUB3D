@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 14:27:34 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 02:34:54 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ struct s_data
 	int		map_height;
 	int		map_width;
 	int		map_chars;
+	void	*mlx;
+	int		res_x;
+	int		res_y;
 };
 
 struct s_rgb
@@ -115,10 +118,12 @@ void	fill_list(int fd, t_list **list);
 
 // string_utils.c
 int		ft_strlen(char *str);
-char	*ft_strndup(char *str, int n);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
 int		set_line_type(char *str);
+
+// string_utils2.c
+char	*ft_strndup(char *str, int n);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
 
@@ -133,6 +138,8 @@ t_list	*ft_lst_addback(t_list **list, t_list *elem);
 void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
+void	free_map(char **map);
+void	clear_data(t_data *data);
 
 // print.c
 void	exit_error(char *msg);

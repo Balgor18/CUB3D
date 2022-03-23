@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/22 11:58:17 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 02:34:27 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define CLOSETEX "🍀🌸🦊         Can't Close Texture File          🦊🌸🍀\n"
 # define EMPTYMAP "🍀🌸🦊               Map is empty               🦊🌸🍀\n"
 # define SYNTAX "🍀🌸🦊       Wrong line syntax in mapfile       🦊🌸🍀\n"
-
 
 # define EMPTYTEX "🍀🌸🦊             Texture is empty             🦊🌸🍀\n"
 
