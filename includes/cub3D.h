@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/23 04:12:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/23 09:31:09 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ struct s_data
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	t_rgb	*floor;
-	t_rgb	*ceiling;
+	t_rgb	*floor;// Est ce que ca te dis d'essayer de menvoyer un int pour les color ?
+	t_rgb	*ceiling;// Est ce que ca te dis d'essayer de menvoyer un int pour les color ?
 	int		map_height;
 	int		map_width;
-	int		map_chars;
-	void	*mlx;
-	int		res_x;
+	int		map_chars;//Pourquoi map char ?
+	void	*mlx;// Normalement jen aurai pas besoin.
+	int		res_x;// ext ce que un int[2] serait pas mieux ? On en parlera
 	int		res_y;
 };
 
