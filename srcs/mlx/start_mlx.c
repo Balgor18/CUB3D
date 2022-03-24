@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 21:07:51 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/25 00:54:06 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ static void	print_min_map(t_mlx *mlx)
 	float	end_point[2];
 	i[0] += 8;
 	i[1] += 8;
-	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i[0], i[1], 0x00FFFF00);
+	// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i[0], i[1], 0x00FFFF00);
 
 	int		j;
 	j = 0;
@@ -200,18 +200,18 @@ static void	print_min_map(t_mlx *mlx)
 	{
 		end_point[0] = 0.1 * mlx->delta[0];
 		end_point[1] = 0.1 * mlx->delta[1];
-
 		// ----- X -----
 		if (mlx->delta[0] > 0)
-			end_point[0] *= j;
-		else if (mlx->delta[0] > -1)
-			end_point[0] *= j;
+			end_point[0] *= -j;
+		else
+			end_point[0] *= -j;
 
 		// ----- Y -----
 		if (mlx->delta[1] > 0)
-			end_point[1] *= j;
-		else if (mlx->delta[1] < 0)
-			end_point[1] *= j;
+			end_point[1] *= -j;
+		else
+			end_point[1] *= -j;
+
 		end_point[0] += i[0];
 		end_point[1] += i[1];
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
