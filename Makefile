@@ -3,7 +3,7 @@ NAME = cub3D
 OBJ_DIR		=	objs
 INC_DIR		=	includes
 SRC_DIR		=	$(shell find srcs -type d)
-LIB_DIR		=	-Llibrairie/minilibx-linux -lmlx -lXext -lX11
+LIB_DIR		=	-Llibrairie/minilibx-linux -lm -lmlx -lXext -lX11
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 

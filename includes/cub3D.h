@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 23:18:29 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/24 01:09:51 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,23 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 # include <fcntl.h>
 # include "get_next_line.h"
 # include <stdio.h>
 # include "mlx.h"
 # include <stdbool.h>
 # include "key_linux.h"
+
+# define BLACK "\033[0;30m"
+# define BLUE "\033[0;34m"
+# define CYAN "\033[0;36m"
+# define GREEN "\033[0;32m"
+# define PURPLE "\033[0;35m"
+# define RED "\033[0;31m"
+# define WHITE "\033[0;37m"
+# define YELLOW "\033[0;33m"
+# define RESET "\e[0m"
 
 /*
 **---------------Enum---------------
@@ -30,6 +41,7 @@ enum	e_player
 {
 	X_POS,
 	Y_POS,
+	ANGLE,
 	MAX_POS,
 };
 
@@ -70,6 +82,7 @@ struct s_mlx
 	void	*win_ptr;
 	t_img	pict[MAX_IMG];
 	float	player[MAX_POS];
+	float	delta[2];// 0 = X | 1 = Y check if needed
 	t_tmp	*file;
 };
 

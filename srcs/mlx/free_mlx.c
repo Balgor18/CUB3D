@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:10:22 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 12:17:36 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/24 02:33:43 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_mlx(t_mlx *mlx)
 	if (mlx->win_ptr)
 		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	if (mlx->mlx_ptr)
+	{
 		mlx_destroy_display(mlx->mlx_ptr);
+		free(mlx->mlx_ptr);
+	}
 }
-
