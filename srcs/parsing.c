@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 21:12:26 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 22:50:23 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	fill_data(t_data **data, t_list *list)
 /*
 PARSING TO DO LIST
 check que pas plus que 4 textures et une de chaque
+check texture manquante / color maquante
 pas plus de 2 colors lines et une de chaque
 que les cardinaux aient 2 chars
 que les colors aient un seul char
