@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 02:58:14 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/24 21:07:51 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_player(char c, float *angle)
 		if (c == 'N')
 			*angle = M_PI / 2;
 		else if (c == 'S')
-			*angle = 3/2 * M_PI;
+			*angle = 1.5 * M_PI;
 		else if (c == 'E')
 			*angle = M_PI;
 		else if (c == 'W')
@@ -38,10 +38,10 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 	char	*s;
 
 	tmpb = tmp;
-	pos[1] = 1;// see if need to start 1
+	pos[1] = 1;
 	while (tmp)
 	{
-		pos[0] = 1;// see if need to start 1
+		pos[0] = 1;
 		s = tmp->line;
 		while (*s)
 		{
@@ -52,8 +52,7 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 				mlx->player[Y_POS] = pos[1];
 				mlx->delta[0] = cos(mlx->player[ANGLE]);
 				mlx->delta[1] = sin(mlx->player[ANGLE]);
-				// mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
-				// mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
+				// printf("x = %f | y = %f\n", mlx->delta[0], mlx->delta[1]);
 				return ;
 			}
 			pos[0]++;
@@ -64,23 +63,6 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 	}
 	tmp = tmpb;
 }
-
-// 0x00FFFF00
-// 0x00FF00FF
-
-// 0x00FF0000 --> Nothing
-// 0x00FFFFFF --> Blue Again
-// 0x000000FF --> Blue
-// 0x00000F00 --> Nothing
-
-// 0xTTRRGGBB
-// 0x00F280FF --> BLUE
-// 0x0000FF00 --> Nothing
-// 0x000000FF --> BLUE
-// 0x0000FF --> BLUE
-// 0x00FF00 --> Nothing
-// 0xFF0000 --> Nothing
-// 0x00FF4D00
 
 static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
 {
@@ -145,8 +127,6 @@ static void	player_move(t_mlx *mlx, char move)
 		mlx->player[ANGLE] += 0.1;
 		if(mlx->player[ANGLE] < 0)
 			mlx->player[ANGLE] += 2 * M_PI;
-		// mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
-		// mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 		mlx->delta[0] = cos(mlx->player[ANGLE]);
 		mlx->delta[1] = sin(mlx->player[ANGLE]);
 	}
@@ -155,22 +135,16 @@ static void	player_move(t_mlx *mlx, char move)
 		mlx->player[ANGLE] -= 0.1;
 		if(mlx->player[ANGLE] > 2 * M_PI)
 			mlx->player[ANGLE] -= 2 * M_PI;
-		// mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
-		// mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 		mlx->delta[0] = cos(mlx->player[ANGLE]);
 		mlx->delta[1] = sin(mlx->player[ANGLE]);
 	}
 	else if (move == 'U')// move this for ptr fct
 	{
-		// mlx->player[Y_POS] -= mlx->delta[1];
-		// mlx->player[X_POS] -= mlx->delta[0];
 		mlx->player[Y_POS] -= (0.1 * mlx->delta[1]);
 		mlx->player[X_POS] -= (0.1 * mlx->delta[0]);
 	}
 	else if (move == 'D')// move this for ptr fct
 	{
-		// mlx->player[Y_POS] += mlx->delta[1];
-		// mlx->player[X_POS] += mlx->delta[0];
 		mlx->player[Y_POS] += (0.1 * mlx->delta[1]);
 		mlx->player[X_POS] += (0.1 * mlx->delta[0]);
 	}
@@ -211,19 +185,37 @@ static void	print_min_map(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
 
 	// Juste a direction line
-	int	j;
 
+	// float	start_point[2];
+	float	end_point[2];
+	i[0] += 8;
+	i[1] += 8;
+	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i[0], i[1], 0x00FFFF00);
+
+	int		j;
 	j = 0;
-	i[0] = (mlx->player[X_POS] * 64) - 32;
-	i[1] = (mlx->player[Y_POS] * 64) - 40;
-	// printf("player = \n\r X = %f\n\r Y = %f \n", i[0], i[1]);
-	while (j < 30)
+	// printf("Player :\n\rX = %f\n\rY = %f\n", i[0], i[1]);
+	// printf("Delta : \n\rX = %f\n\rY = %f\n", mlx->delta[0], mlx->delta[1]);
+	while (j < 400)
 	{
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i[0] - (mlx->delta[0]* 1e1), i[1] + (mlx->delta[1] * 1e1), 0x00FFFF00);
-		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->delta[0], 0x00FFFF22);
-		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, i[0], i[1] - M_PI, 0x00FFFF22);
-		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, (i[0] + M_PI) + j/64, (i[1] * M_PI) - j/64, 0x00FFFF22);
-		j ++;
+		end_point[0] = 0.1 * mlx->delta[0];
+		end_point[1] = 0.1 * mlx->delta[1];
+
+		// ----- X -----
+		if (mlx->delta[0] > 0)
+			end_point[0] *= j;
+		else if (mlx->delta[0] > -1)
+			end_point[0] *= j;
+
+		// ----- Y -----
+		if (mlx->delta[1] > 0)
+			end_point[1] *= j;
+		else if (mlx->delta[1] < 0)
+			end_point[1] *= j;
+		end_point[0] += i[0];
+		end_point[1] += i[1];
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+		j++;
 	}
 }
 
