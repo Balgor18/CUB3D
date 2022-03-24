@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 02:34:16 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:30:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ deux lignes couleurs, au moins une ligne vide, puis map
 verif ouverture des textures
 */
 
+/**
+	@brief blala
+
+	@param argc argument count
+	@param argv array of string argument
+	@param data structure with all infos
+	@return rien
+**/
 void	parsing(int argc, char **argv, t_data **data)
 {
 	int		fd;
