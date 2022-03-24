@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 20:30:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:45:23 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ verif ouverture des textures
 */
 
 /**
-	@brief blala
+	@brief parse the map file. check the extension, open, syntax, dupplicates,
+	values and fill data if correct to send to mlx
 
-	@param argc argument count
-	@param argv array of string argument
-	@param data structure with all infos
-	@return rien
+	@param argc main's argument count
+	@param argv main's array of argument's strings
+	@param data structure with all infos parsed in map file
+	@return nothing
 **/
 void	parsing(int argc, char **argv, t_data **data)
 {
