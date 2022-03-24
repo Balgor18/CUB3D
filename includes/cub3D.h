@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 01:51:54 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 02:42:10 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,8 @@ struct s_data
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	t_rgb	*floor;// Est ce que ca te dis d'essayer de menvoyer un int pour les color ?
-	t_rgb	*ceiling;// Est ce que ca te dis d'essayer de menvoyer un int pour les color ?
-	int		map_height;
-	int		map_width;
-	int		map_chars;//Pourquoi map char ?
-	void	*mlx;// Normalement jen aurai pas besoin.
-	int		res_x;// ext ce que un int[2] serait pas mieux ? On en parlera
-	int		res_y;
+	t_rgb	*floor; // Un seul INT en hexa style 0xFF000FF au lieu de struct
+	t_rgb	*ceiling;// pareil
 };
 
 struct s_rgb
@@ -121,8 +115,12 @@ struct s_mlx
 	void	*win_ptr;
 };
 
-// basic_parsing.c
+// parsing.c
 void	parsing(int argc, char **arg, t_data **data);
+
+// parsing_utils.c
+void	check_argc(int argc, char **argv);
+void	check_duplicates(t_list **list);
 
 // fill_list.c
 void	fill_list(int fd, t_list **list);
@@ -133,12 +131,12 @@ int		is_cardinal_char(char c);
 int		is_color_char(char c);
 int		check_cardinal_syntax(char *str);
 int		check_floor_ceiling_syntax(char *str);
-int		set_line_type(char *str);
 
 // string_utils2.c
 char	*ft_strndup(char *str, int n);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
+int		set_line_type(char *str);
 
 // atoi_base.c
 int		ft_atoi_base(char *str, int str_base);

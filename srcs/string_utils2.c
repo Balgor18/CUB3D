@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 02:33:04 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 02:33:39 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 02:40:04 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ char	*ft_strndup(char *str, int n)
 	}
 	new_str[i] = '\0';
 	return (new_str);
+}
+
+int	set_line_type(char *str)
+{
+	int	type;
+
+	type = 0;
+	if (str[0] == '\0')
+		type = EMPTY_LINE;
+	else if (is_cardinal_char(str[0]))
+		type = TEXTURE_LINE;
+	else if (is_color_char(str[0]))
+		type = COLOR_LINE;
+	else if (str[0] == ' ' || str[0] == '0' || str[0] == '1')
+		type = MAP_LINE;
+	else
+		type = ERROR_LINE;
+	return (type);
 }
