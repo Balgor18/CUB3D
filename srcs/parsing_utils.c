@@ -6,66 +6,42 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:33:22 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 02:35:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:14:28 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	check_extension(char *str, char *ext)
-{
-	int	len;
-	int	len_ext;
-
-	len = ft_strlen(str);
-	len_ext = ft_strlen(ext);
-	while ((str[len] == ext[len_ext]) && len > 0)
-	{
-		if (len_ext == 0)
-			return (EXIT_SUCCESS);
-		len--;
-		len_ext--;
-	}
-	return (EXIT_FAILURE);
-}
-
-void	check_argc(int argc, char **argv)
-{
-	if (argc == 2)
-	{
-		if (check_extension(argv[1], ".cub"))
-			exit_error(WEXT);
-	}
-	else if (argc == 1)
-		exit_error(MARG);
-	else if (argc > 2)
-		exit_error(TMARG);
-}
 
 static void	check_cardinal_duplicates(t_list **list, int *dup, char *str, int i)
 {
 	if (ft_strncmp(str, "NO ", 3) == 0)
 	{
 		dup[NORTH] += 1;
-		if (*(dup + NORTH) > 1)
+		// *(dup + NORTH) += 1;
+		// if (*(dup + NORTH) > 1)
+		if (dup[NORTH] > 1)
 			clear_list_syntax_exit(list, i, str, DUPNO);
 	}
 	else if (ft_strncmp(str, "SO ", 3) == 0)
 	{
 		dup[SOUTH] += 1;
-		if (*(dup + SOUTH) > 1)
+		// if (*(dup + SOUTH) > 1)
+		if (dup[SOUTH] > 1)
 			clear_list_syntax_exit(list, i, str, DUPSO);
 	}
 	else if (ft_strncmp(str, "WE ", 3) == 0)
 	{
 		dup[WEST] += 1;
-		if (*(dup + WEST) > 1)
+		// if (*(dup + WEST) > 1)
+		if (dup[WEST] > 1)
 			clear_list_syntax_exit(list, i, str, DUPWE);
 	}
 	else if (ft_strncmp(str, "EA ", 3) == 0)
 	{
 		dup[EAST] += 1;
-		if (*(dup + EAST) > 1)
+		// if (*(dup + EAST) > 1)
+		if (dup[EAST] > 1)
 			clear_list_syntax_exit(list, i, str, DUPEA);
 	}
 }
@@ -75,14 +51,28 @@ static void	check_color_duplicates(t_list **list, int *dup, char *str, int i)
 	if (ft_strncmp(str, "F ", 2) == 0)
 	{
 		dup[FLOOR] += 1;
-		if (*(dup + FLOOR) > 1)
+		// if (*(dup + FLOOR) > 1)
+		if (dup[FLOOR] > 1)
 			clear_list_syntax_exit(list, i, str, DUPF);
 	}
 	else if (ft_strncmp(str, "C ", 2) == 0)
 	{
 		dup[CEILING] += 1;
-		if (*(dup + CEILING) > 1)
+		// if (*(dup + CEILING) > 1)
+		if (dup[CEILING] > 1)
 			clear_list_syntax_exit(list, i, str, DUPC);
+	}
+}
+
+void	bzero_int_tab(int *tab, int tab_size, int value)
+{
+	int	i;
+
+	i = 0;
+	while (i < tab_size)
+	{
+		tab[i] = value;
+		i++;
 	}
 }
 
