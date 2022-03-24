@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 20:45:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 20:50:10 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,6 @@ void	fill_data(t_data **data, t_list *list)
 {
 	(void)data;
 	(void)list;
-}
-
-void	check_list_syntax(t_list **list)
-{
-	t_list	*tmp;
-	int		i;
-
-	tmp = *list;
-	i = 0;
-	if (!tmp)
-		clear_list_exit(list, EMPTYMAP);
-	while (tmp)
-	{
-		if (tmp->type == 5)
-			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 2 && check_cardinal_syntax(tmp->line))
-			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 3 && check_floor_ceiling_syntax(tmp->line))
-			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		i++;
-		tmp = tmp->next;
-	}
 }
 
 /*

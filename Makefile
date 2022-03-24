@@ -17,6 +17,7 @@ SRCS =	main.c                      	\
 		string_utils.c 					\
 		string_utils2.c					\
 		file_utils.c					\
+		check_syntax.c					\
 		atoi_base.c						\
 		free.c		 					\
 		print.c							\
