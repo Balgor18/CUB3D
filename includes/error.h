@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 04:23:03 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:37:59 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@
 # define DUPEA "🍀🌸🦊          Multiple East textures          🦊🌸🍀\n"
 # define DUPF "🍀🌸🦊       Multiple Floor colors line        🦊🌸🍀\n"
 # define DUPC "🍀🌸🦊      Multiple Ceiling colors lines      🦊🌸🍀\n"
+# define MISSNO "🍀🌸🦊        North texture line missing        🦊🌸🍀\n"
+# define MISSSO "🍀🌸🦊        South texture line missing        🦊🌸🍀\n"
+# define MISSWE "🍀🌸🦊        West texture line missing         🦊🌸🍀\n"
+# define MISSEA "🍀🌸🦊        East texture line missing         🦊🌸🍀\n"
+# define MISSF "🍀🌸🦊         FLoor color line missing         🦊🌸🍀\n"
+# define MISSC "🍀🌸🦊         Celing color line missing        🦊🌸🍀\n"
+
 
 # define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"

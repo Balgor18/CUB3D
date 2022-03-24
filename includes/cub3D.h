@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 20:51:13 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:24:55 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ struct s_mlx
 void	parsing(int argc, char **arg, t_data **data);
 
 // parsing_utils.c
-void	check_argc(int argc, char **argv);
 void	check_duplicates(t_list **list);
 
 // fill_list.c

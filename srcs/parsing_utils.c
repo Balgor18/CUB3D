@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:33:22 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 21:14:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/24 21:34:10 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ static void	check_color_duplicates(t_list **list, int *dup, char *str, int i)
 	}
 }
 
+void	check_missing_lines(t_list **list, int *dup)
+{
+	if (dup[NORTH] == 0)
+		clear_list_exit(list, MISSNO);
+	else if (dup[SOUTH] == 0)
+		clear_list_exit(list, MISSSO);
+	else if (dup[WEST] == 0)
+		clear_list_exit(list, MISSWE);
+	else if (dup[EAST] == 0)
+		clear_list_exit(list, MISSEA);
+	else if (dup[FLOOR] == 0)
+		clear_list_exit(list, MISSF);
+	else if (dup[CEILING] == 0)
+		clear_list_exit(list, MISSC);
+}
+
 void	bzero_int_tab(int *tab, int tab_size, int value)
 {
 	int	i;
@@ -84,12 +100,7 @@ void	check_duplicates(t_list **list)
 
 	tmp = *list;
 	i = 0;
-	dup[NORTH] = 0;
-	dup[SOUTH] = 0;
-	dup[WEST] = 0;
-	dup[EAST] = 0;
-	dup[FLOOR] = 0;
-	dup[CEILING] = 0;
+	bzero_int_tab(dup, 6, 0);
 	while (tmp)
 	{
 		if (tmp->type == 2)
@@ -99,4 +110,5 @@ void	check_duplicates(t_list **list)
 		i++;
 		tmp = tmp->next;
 	}
+	check_missing_lines(list, dup);
 }
