@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/23 09:31:09 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/24 01:51:54 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ int		set_line_type(char *str);
 char	*ft_strndup(char *str, int n);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
+
+// atoi_base.c
+int		ft_atoi_base(char *str, int str_base);
 
 // lst_utils.c
 int		ft_lst_size(t_list *list);
