@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:33:22 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 21:34:10 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 03:14:57 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,24 @@ static void	check_cardinal_duplicates(t_list **list, int *dup, char *str, int i)
 	if (ft_strncmp(str, "NO ", 3) == 0)
 	{
 		dup[NORTH] += 1;
-		// *(dup + NORTH) += 1;
-		// if (*(dup + NORTH) > 1)
 		if (dup[NORTH] > 1)
 			clear_list_syntax_exit(list, i, str, DUPNO);
 	}
 	else if (ft_strncmp(str, "SO ", 3) == 0)
 	{
 		dup[SOUTH] += 1;
-		// if (*(dup + SOUTH) > 1)
 		if (dup[SOUTH] > 1)
 			clear_list_syntax_exit(list, i, str, DUPSO);
 	}
 	else if (ft_strncmp(str, "WE ", 3) == 0)
 	{
 		dup[WEST] += 1;
-		// if (*(dup + WEST) > 1)
 		if (dup[WEST] > 1)
 			clear_list_syntax_exit(list, i, str, DUPWE);
 	}
 	else if (ft_strncmp(str, "EA ", 3) == 0)
 	{
 		dup[EAST] += 1;
-		// if (*(dup + EAST) > 1)
 		if (dup[EAST] > 1)
 			clear_list_syntax_exit(list, i, str, DUPEA);
 	}
@@ -51,14 +46,12 @@ static void	check_color_duplicates(t_list **list, int *dup, char *str, int i)
 	if (ft_strncmp(str, "F ", 2) == 0)
 	{
 		dup[FLOOR] += 1;
-		// if (*(dup + FLOOR) > 1)
 		if (dup[FLOOR] > 1)
 			clear_list_syntax_exit(list, i, str, DUPF);
 	}
 	else if (ft_strncmp(str, "C ", 2) == 0)
 	{
 		dup[CEILING] += 1;
-		// if (*(dup + CEILING) > 1)
 		if (dup[CEILING] > 1)
 			clear_list_syntax_exit(list, i, str, DUPC);
 	}

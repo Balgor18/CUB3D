@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 22:50:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 03:15:01 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ static void	check_argc(int argc, char **argv)
 		exit_error(TMARG);
 }
 
+void	check_last_element(t_list **list)
+{
+	t_list	*tmp;
+
+	tmp = *list;
+	while (tmp)
+		tmp = tmp->next;
+	if (tmp->line[0] != '1' || tmp->line[0] != '0' || tmp->line[0] != '\0')
+		clear_list_exit(list, ENDFILE);
+}
+
+
 void	fill_data(t_data **data, t_list *list)
 {
 	(void)data;
@@ -50,17 +62,16 @@ void	fill_data(t_data **data, t_list *list)
 
 /*
 PARSING TO DO LIST
-check que pas plus que 4 textures et une de chaque
-check texture manquante / color maquante
-pas plus de 2 colors lines et une de chaque
-que les cardinaux aient 2 chars
-que les colors aient un seul char
+check que pas plus que 4 textures et une de chaque OK
+check texture manquante / color maquante OK
+pas plus de 2 colors lines et une de chaque OK
+que les cardinaux aient 2 chars OK
+que les colors aient un seul char OK
 que les couleurs soient entre 0 et 255 inclus
 que les couleurs soient separees par des virgules
 qu'il y ait 3 nombres de couleurs, pas plus pas moins
+verif que la map soit le dernier element
 -> split sur virgule puis trim whitespaces
-verif format direct 4 lignes daffillee, au moin une ligne vide
-deux lignes couleurs, au moins une ligne vide, puis map
 verif ouverture des textures
 */
 
@@ -85,6 +96,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	check_list_syntax(&list);
 	check_duplicates(&list);
+	// check_last_element(&list);
 	print_list(list);
 	check_close(fd, list);
 	fill_data(data, list);
