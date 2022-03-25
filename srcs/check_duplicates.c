@@ -6,12 +6,11 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:23:18 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 19:23:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 19:28:29 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 static void	check_cardinal_duplicates(t_list **list, int *dup, char *str, int i)
 {
