@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/25 00:54:06 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:55:28 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,25 +116,32 @@ static void	create_texture(t_mlx *mlx)
 	xpm_file_and_addr_player(mlx->mlx_ptr, &mlx->pict[PLAYER], 0x0000FF00);
 	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
 	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
+	print_min_map(mlx);
+	// add a function for hook
 	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
 }
 
-static void	player_move(t_mlx *mlx, char move)
+void	*ft_ternary(int cond, void *valid_1, void *valid_2)
 {
-	printf(CYAN"Delta :\n\r X = %f\n\r Y = %f\n"RESET, mlx->delta[0], mlx->delta[1]);
-	if (move == 'R')// move this for ptr fct
+	if (cond)
+		return (valid_1);
+	return (valid_2);
+}
+
+static void	player_move(t_mlx *mlx, char move, float t[2])
+{
+	// printf(CYAN"Delta :\n\r X = %f\n\r Y = %f\n"RESET, mlx->delta[0], mlx->delta[1]);
+	// printf("-------- Avant --------\nAngle : \n\r %f \nrad : \n\r%f\n", mlx->player[ANGLE] * (180 / M_PI), mlx->player[ANGLE]);
+	if (move == 'R' || move == 'L')
 	{
-		mlx->player[ANGLE] += 0.1;
-		if(mlx->player[ANGLE] < 0)
-			mlx->player[ANGLE] += 2 * M_PI;
-		mlx->delta[0] = cos(mlx->player[ANGLE]);
-		mlx->delta[1] = sin(mlx->player[ANGLE]);
-	}
-	else if (move == 'L')// move this for ptr fct
-	{
-		mlx->player[ANGLE] -= 0.1;
-		if(mlx->player[ANGLE] > 2 * M_PI)
-			mlx->player[ANGLE] -= 2 * M_PI;
+		// mlx->player[ANGLE] += (move == 'R') ?  0.1 : -0.1;
+		mlx->player[ANGLE] += *(float *)ft_ternary(move == 'R', (void *)&t[0], (void *)&t[1]);
+		// if (move == 'R')// move this for ptr fct
+			if(mlx->player[ANGLE] < 0)
+				mlx->player[ANGLE] += 2 * M_PI;
+		// if (move == 'L')// move this for ptr fct
+			if(mlx->player[ANGLE] > 2 * M_PI)
+				mlx->player[ANGLE] -= 2 * M_PI;
 		mlx->delta[0] = cos(mlx->player[ANGLE]);
 		mlx->delta[1] = sin(mlx->player[ANGLE]);
 	}
@@ -148,6 +155,7 @@ static void	player_move(t_mlx *mlx, char move)
 		mlx->player[Y_POS] += (0.1 * mlx->delta[1]);
 		mlx->player[X_POS] += (0.1 * mlx->delta[0]);
 	}
+	// printf("-------- Apres --------\nAngle : \n\r %f \nrad : \n\r%f\n", mlx->player[ANGLE] * (180 / M_PI), mlx->player[ANGLE]);
 }
 
 //	i[0] == Y
@@ -230,15 +238,15 @@ static int	key_hook(int key, t_mlx *mlx)
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R');
+		player_move(mlx, 'R', (float [2]){0.1f, -0.1f});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L');
+		player_move(mlx, 'L', (float [2]){0.1f, -0.1f});
 		// press_move(all, &all->map, 'L');
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D');
+		player_move(mlx, 'D', (float [2]){0.1f, -0.1f});
 		// press_move(all, &all->map, 'D');
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U');
+		player_move(mlx, 'U', (float [2]){0.1f, -0.1f});
 		// press_move(all, &all->map, 'U');
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	printf("player value\n\r X = %f\n\r Y = %f\n", mlx->player[X_POS], mlx->player[Y_POS]);
@@ -270,7 +278,6 @@ void	start_mlx(t_tmp *file)
 	find_player_pos(file, &mlx);
 	create_texture(&mlx);
 
-	print_min_map(&mlx);
 	// print_rayon();
 
 	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[WALL].img, 0, 0);
