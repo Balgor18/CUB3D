@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 20:50:30 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 19:15:39 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ int	check_floor_ceiling_syntax(char *str)
 	if ((ft_strncmp(str, "F ", 2) == 0) || (ft_strncmp(str, "C ", 2) == 0))
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
+}
+
+static void	check_last_element(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (tmp->line[0] != '1' || tmp->line[0] != '0' || tmp->line[0] != '\0')
+		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
 void	check_list_syntax(t_list **list)
@@ -47,4 +63,5 @@ void	check_list_syntax(t_list **list)
 		i++;
 		tmp = tmp->next;
 	}
+	check_last_element(list);
 }
