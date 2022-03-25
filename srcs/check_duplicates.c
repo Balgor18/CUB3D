@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   check_duplicates.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 02:33:22 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 19:15:36 by grannou          ###   ########.fr       */
+/*   Created: 2022/03/25 19:23:18 by grannou           #+#    #+#             */
+/*   Updated: 2022/03/25 19:23:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_missing_lines(t_list **list, int *dup)
 		clear_list_exit(list, MISSC);
 }
 
-void	check_duplicates(t_list **list)
+void	check_list_duplicates(t_list **list)
 {
 	t_list	*tmp;
 	int		i;

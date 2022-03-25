@@ -11,14 +11,14 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 SRCS =	main.c                      	\
 		parsing.c						\
-		parsing_utils.c					\
+		check_syntax.c					\
+		check_duplicates.c				\
 		fill_list.c						\
 		lst_utils.c 					\
 		tab_utils.c 					\
 		string_utils.c 					\
 		string_utils2.c					\
 		file_utils.c					\
-		check_syntax.c					\
 		atoi_base.c						\
 		free.c		 					\
 		print.c							\
