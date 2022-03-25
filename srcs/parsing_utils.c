@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:33:22 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 03:14:57 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 19:12:58 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	check_color_duplicates(t_list **list, int *dup, char *str, int i)
 	}
 }
 
-void	check_missing_lines(t_list **list, int *dup)
+static void	check_missing_lines(t_list **list, int *dup)
 {
 	if (dup[NORTH] == 0)
 		clear_list_exit(list, MISSNO);
@@ -73,16 +73,20 @@ void	check_missing_lines(t_list **list, int *dup)
 		clear_list_exit(list, MISSC);
 }
 
-void	bzero_int_tab(int *tab, int tab_size, int value)
+static void	check_last_element(t_list **list)
 {
-	int	i;
+	t_list	*tmp;
+	int		i;
 
+	tmp = *list;
 	i = 0;
-	while (i < tab_size)
+	while (tmp->next)
 	{
-		tab[i] = value;
+		tmp = tmp->next;
 		i++;
 	}
+	if (tmp->line[0] != '1' || tmp->line[0] != '0' || tmp->line[0] != '\0')
+		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
 void	check_duplicates(t_list **list)
@@ -104,4 +108,5 @@ void	check_duplicates(t_list **list)
 		tmp = tmp->next;
 	}
 	check_missing_lines(list, dup);
+	check_last_element(list);
 }

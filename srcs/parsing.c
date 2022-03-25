@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 19:01:55 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 19:12:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ static void	check_argc(int argc, char **argv)
 		exit_error(MARG);
 	else if (argc > 2)
 		exit_error(TMARG);
-}
-
-void	check_last_element(t_list **list)
-{
-	t_list	*tmp;
-	int		i;
-
-	tmp = *list;
-	i = 0;
-	while (tmp->next)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	if (tmp->line[0] != '1' || tmp->line[0] != '0' || tmp->line[0] != '\0')
-		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
 void	fill_data(t_data **data, t_list *list)
@@ -100,7 +84,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	check_list_syntax(&list);
 	check_duplicates(&list);
-	check_last_element(&list);
+
 	print_list(list);
 	check_close(fd, list);
 	fill_data(data, list);

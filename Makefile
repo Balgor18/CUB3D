@@ -14,6 +14,7 @@ SRCS =	main.c                      	\
 		parsing_utils.c					\
 		fill_list.c						\
 		lst_utils.c 					\
+		tab_utils.c 					\
 		string_utils.c 					\
 		string_utils2.c					\
 		file_utils.c					\

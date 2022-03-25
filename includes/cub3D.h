@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 21:24:55 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/25 19:13:54 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ t_list	*ft_lst_create(char *line);
 void	ft_lst_clear(t_list **list);
 t_list	*ft_lstlast(t_list *list);
 t_list	*ft_lst_addback(t_list **list, t_list *elem);
+
+// tab_utils.c
+void	bzero_int_tab(int *tab, int tab_size, int value);
 
 // file_utils.c
 void	check_open(char *filename, int *fd);
