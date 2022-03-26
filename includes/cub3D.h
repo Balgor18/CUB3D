@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/25 19:23:32 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:04:25 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,15 @@ void	check_list_duplicates(t_list **list);
 // fill_list.c
 void	fill_list(int fd, t_list **list);
 
+// fill_data.c
+void	fill_data(t_data **data, t_list **list);
+
 // string_utils.c
 int		ft_strlen(char *str);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
+char	*ft_strchr(char *str, char c);
+char	*sub_trim_str(char *str, char *set);
 
 // string_utils2.c
 char	*ft_strndup(char *str, int n);
@@ -161,7 +166,8 @@ void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 void	free_map(char **map);
-void	clear_data(t_data *data);
+void	clear_data(t_data **data);
+void	clear_all_exit(t_data **data, t_list **list, char *msg);
 
 // print.c
 void	exit_error(char *msg);

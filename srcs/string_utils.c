@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 20:50:24 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 13:43:43 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,36 @@ int	is_cardinal_char(char c)
 int	is_color_char(char c)
 {
 	return (c == 'F' || c == 'C');
+}
+
+char	*ft_strchr(char *str, char c)
+{
+	while (*str && *str != c)
+		str++;
+	if (*str == c)
+		return (str);
+	return (NULL);
+}
+
+char	*sub_trim_str(char *str, char *set)
+{
+	int		len;
+	char	*substr;
+
+	len = 0;
+	substr = NULL;
+	if (!str || !set)
+		return (NULL);
+	while (*str && ft_strchr(set, *str))
+		str++;
+	len = ft_strlen(str);
+	while (len && ft_strchr(set, str[len]))
+		len--;
+	substr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	substr[len] = '\0';
+	while (len--)
+		substr[len] = str[len];
+	return (substr);
 }

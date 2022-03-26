@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 08:58:46 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/23 02:18:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:05:46 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,22 @@ void	free_map(char **map)
 	free(map);
 }
 
-void	clear_data(t_data *data)
+void	clear_data(t_data **data)
 {
-	if (!data)
+	if (!*data)
 		return ;
-	if (data->map)
-		free_map(data->map);
-	free(data->north_texture);
-	free(data->south_texture);
-	free(data->west_texture);
-	free(data->east_texture);
-	free(data);
+	if ((*data)->map)
+		free_map((*data)->map);
+	free((*data)->north_texture);
+	free((*data)->south_texture);
+	free((*data)->west_texture);
+	free((*data)->east_texture);
+	free((*data));
+}
+
+void	clear_all_exit(t_data **data, t_list **list, char *msg)
+{
+	clear_data(data);
+	ft_lst_clear(list);
+	exit_error(msg);
 }

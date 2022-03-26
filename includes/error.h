@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 03:06:19 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 13:59:29 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@
 # define MISSC "🍀🌸🦊        Ceiling color line missing        🦊🌸🍀\n"
 # define ENDFILE "🍀🌸🦊       Map must be the last element       🦊🌸🍀\n"
 
+# define DATAFAIL "🍀🌸🦊             Data Malloc fail             🦊🌸🍀\n"
+# define NORTHFAIL "🍀🌸🦊     Data North Texture Malloc fail       🦊🌸🍀\n"
+# define SOUTHFAIL "🍀🌸🦊     Data South Texture Malloc fail       🦊🌸🍀\n"
+# define WESTFAIL "🍀🌸🦊      Data West Texture Malloc fail       🦊🌸🍀\n"
+# define EASTFAIL "🍀🌸🦊      Data East Texture Malloc fail       🦊🌸🍀\n"
+
 # define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"
 # define EMPTYTEX "🍀🌸🦊             Texture is empty             🦊🌸🍀\n"
@@ -62,7 +68,6 @@
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
 # define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
-# define DATAFAIL "🍀🌸🦊          Data Malloc fail error          🦊🌸🍀\n"
 # define ARRAYFAIL "🍀🌸🦊          Array Malloc fail error         🦊🌸🍀\n"
 # define SCREENFAIL "🍀🌸🦊           Screen Malloc fail error        🦊🌸🍀\n"
 # define IMGFAIL "🍀🌸🦊           Image Malloc fail error        🦊🌸🍀\n"

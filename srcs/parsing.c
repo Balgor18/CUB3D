@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 19:21:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 13:54:32 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,12 @@ static void	check_argc(int argc, char **argv)
 		exit_error(TMARG);
 }
 
-void	fill_data(t_data **data, t_list *list)
-{
-	(void)data;
-	(void)list;
-}
-
 /*
 PARSING TO DO LIST
-check que pas plus que 4 textures et une de chaque OK
-check texture manquante / color maquante OK
 pas plus de 2 colors lines et une de chaque OK
-que les cardinaux aient 2 chars OK
-que les colors aient un seul char OK
 que les couleurs soient entre 0 et 255 inclus
 que les couleurs soient separees par des virgules
 qu'il y ait 3 nombres de couleurs, pas plus pas moins
-verif que la map soit le dernier element
 -> split sur virgule puis trim whitespaces
 verif ouverture des textures
 */
@@ -86,7 +75,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_list_duplicates(&list);
 	print_list(list);
 	check_close(fd, list);
-	fill_data(data, list);
+	fill_data(data, &list);
 	print_data(*data);
 	ft_lst_clear(&list);
 }
