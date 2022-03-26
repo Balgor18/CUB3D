@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/24 01:09:51 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/26 19:30:57 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,29 @@ enum	e_img
 };
 
 /*
+** Tmp
+*/
+enum e_ray3D
+{
+	RAYON,
+	MX,
+	MY,
+	MP,
+	DOF,
+	MAX_RAY,
+};
+
+enum e_floatray_3D
+{
+	RX,
+	RY,
+	RA,
+	XO,
+	YO,
+	MAX_FLOAT,
+};
+
+/*
 **--------------struct--------------
 */
 typedef struct	s_tmp t_tmp;
@@ -83,7 +106,7 @@ struct s_mlx
 	t_img	pict[MAX_IMG];
 	float	player[MAX_POS];
 	float	delta[2];// 0 = X | 1 = Y check if needed
-	t_tmp	*file;
+	char	**map;
 };
 
 /*
@@ -92,6 +115,6 @@ struct s_mlx
 **----------------------------------
 */
 
-void	start_mlx(t_tmp *file);
+void	start_mlx(char **file);
 void	free_mlx(t_mlx *mlx);
 #endif
