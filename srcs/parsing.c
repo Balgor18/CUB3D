@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 14:51:08 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 15:22:36 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ que les couleurs soient entre 0 et 255 inclus
 que les couleurs soient separees par des virgules
 qu'il y ait 3 nombres de couleurs, pas plus pas moins
 -> split sur virgule puis trim whitespaces
+verif if taille split == 3
+verif si 0 <= split[i] <= 255
+malloc string de len == 10
+prefix 0x00 (hexa + transparence T de TRGB a 0)
 verif ouverture des textures
 */
 
