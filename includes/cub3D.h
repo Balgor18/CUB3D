@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 14:15:10 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:52:05 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,12 @@ int		check_close(int fd, t_list *list);
 void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
+
+// free2.c
 void	free_map(char **map);
 void	clear_data(t_data **data);
 void	clear_all_exit(t_data **data, t_list **list, char *msg);
+
 
 // print.c
 void	exit_error(char *msg);

@@ -23,6 +23,7 @@ SRCS =	main.c                      	\
 		file_utils.c					\
 		atoi_base.c						\
 		free.c		 					\
+		free2.c		 					\
 		print.c							\
 
 
