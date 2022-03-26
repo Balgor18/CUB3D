@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 14:05:30 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:15:37 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,14 @@ static void	create_texture(t_mlx *mlx)
 	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
 }
 
+/**
+ * @brief Function for a ternaire
+ * 
+ * @param cond for the conditions
+ * @param valid_1 if cond is true return valid_1
+ * @param valid_2 if cond is false return valid_2
+ * @return void* the value of valid_1 or valid_2
+ */
 void	*ft_ternary(int cond, void *valid_1, void *valid_2)
 {
 	if (cond)
@@ -218,23 +226,12 @@ static void	player_move(t_mlx *mlx, char move, float t[2])
 		mlx->delta[0] = cos(mlx->player[ANGLE]);
 		mlx->delta[1] = sin(mlx->player[ANGLE]);
 	}
-	// else if (move == 'U' || move == 'R')
-	// {
-	//	 mlx->player[X_POS] += *(float *)ft_ternary(move == 'R', (void *)&t[0], (void *)&t[1]);
-	// }
-
-	mlx->player[X_POS] += (move == 'U') ? t[1] * mlx->delta[0] : t[0] * mlx->delta[0];
-	mlx->player[Y_POS] += (move == 'U') ? t[1] * mlx->delta[1] : t[0] * mlx->delta[1];
-	// else if (move == 'U')
-	// {
-	// 	mlx->player[Y_POS] -= (0.1 * mlx->delta[1]);
-	// 	mlx->player[X_POS] -= (0.1 * mlx->delta[0]);
-	// }
-	// else if (move == 'D')
-	// {
-	// 	mlx->player[Y_POS] += (0.1 * mlx->delta[1]);
-	// 	mlx->player[X_POS] += (0.1 * mlx->delta[0]);
-	// }
+	else if (move == 'U' || move == 'R')
+	{
+		mlx->player[Y_POS] += *(float *)ft_ternary(move == 'U', (void *)(&t[1] * mlx->delta[1]), (void *)&t[0] * mlx->delta[1]);
+		mlx->player[Y_POS] += (move == 'U') ? t[1] * mlx->delta[1] : t[0] * mlx->delta[1];
+		mlx->player[X_POS] += (move == 'U') ? t[1] * mlx->delta[0] : t[0] * mlx->delta[0];
+	}
 }
 
 
