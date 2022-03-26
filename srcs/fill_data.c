@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 14:04:48 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:18:31 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	get_south_texture(t_data **data, t_list **list)
 	{
 		if (ft_strncmp(tmp->line, "SO ", 3) == 0)
 		{
-			(*data)->north_texture = sub_trim_str(tmp->line, "SO ");
-			if (!(*data)->north_texture)
+			(*data)->south_texture = sub_trim_str(tmp->line, "SO ");
+			if (!(*data)->south_texture)
 				clear_all_exit(data, list, SOUTHFAIL);
 		}
 		tmp = tmp->next;
@@ -55,8 +55,8 @@ static void	get_west_texture(t_data **data, t_list **list)
 	{
 		if (ft_strncmp(tmp->line, "WE ", 3) == 0)
 		{
-			(*data)->north_texture = sub_trim_str(tmp->line, "WE ");
-			if (!(*data)->north_texture)
+			(*data)->west_texture = sub_trim_str(tmp->line, "WE ");
+			if (!(*data)->west_texture)
 				clear_all_exit(data, list, WESTFAIL);
 		}
 		tmp = tmp->next;
@@ -72,8 +72,8 @@ static void	get_east_texture(t_data **data, t_list **list)
 	{
 		if (ft_strncmp(tmp->line, "EA ", 3) == 0)
 		{
-			(*data)->north_texture = sub_trim_str(tmp->line, "EA ");
-			if (!(*data)->north_texture)
+			(*data)->east_texture = sub_trim_str(tmp->line, "EA ");
+			if (!(*data)->east_texture)
 				clear_all_exit(data, list, EASTFAIL);
 		}
 		tmp = tmp->next;
@@ -86,9 +86,7 @@ void	get_rgb(t_data **data, t_list **list, int side)
 
 void	fill_data(t_data **data, t_list **list)
 {
-	*data = (t_data *)malloc(sizeof(t_data) * 1);
-	if (!*data)
-		clear_all_exit(data, list, DATAFAIL);
+	init_data(data, list);
 	get_north_texture(data, list);
 	get_south_texture(data, list);
 	get_west_texture(data, list);

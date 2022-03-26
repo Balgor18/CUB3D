@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 14:06:19 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:11:32 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,13 @@ void	print_list(t_list *list)
 
 void	print_data(t_data *data)
 {
-	(void)data;
 	printf(K A GAME A K "\n");
+	printf("North texture path: %s\n", data->north_texture);
+	printf("South texture path: %s\n", data->south_texture);
+	printf("West texture path: %s\n", data->west_texture);
+	printf("East texture path: %s\n", data->east_texture);
+	printf("Floor RGB color: %x\n", data->floor_rgb);
+	printf("Ceiling RGB color: %x\n", data->ceiling_rgb);
 }
 
 void	print_map(char **map)

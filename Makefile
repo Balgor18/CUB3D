@@ -15,6 +15,7 @@ SRCS =	main.c                      	\
 		check_duplicates.c				\
 		fill_list.c						\
 		fill_data.c						\
+		data_utils.c					\
 		lst_utils.c 					\
 		tab_utils.c 					\
 		string_utils.c 					\

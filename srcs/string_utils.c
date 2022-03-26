@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 13:43:43 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 14:20:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*sub_trim_str(char *str, char *set)
 	while (*str && ft_strchr(set, *str))
 		str++;
 	len = ft_strlen(str);
-	while (len && ft_strchr(set, str[len]))
+	while (len && ft_strchr(set, str[len - 1]))
 		len--;
 	substr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!substr)
