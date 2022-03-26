@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 13:59:29 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 19:36:28 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@
 # define SOUTHFAIL "🍀🌸🦊     Data South Texture Malloc fail       🦊🌸🍀\n"
 # define WESTFAIL "🍀🌸🦊      Data West Texture Malloc fail       🦊🌸🍀\n"
 # define EASTFAIL "🍀🌸🦊      Data East Texture Malloc fail       🦊🌸🍀\n"
+# define FLOORFAIL "🍀🌸🦊         Data Floor RGB Malloc fail       🦊🌸🍀\n"
+# define CEILINGFAIL "🍀🌸🦊       Data Ceiling RGB Malloc fail       🦊🌸🍀\n"
+# define COMASFAIL "🍀🌸🦊     Split RGB on comas Malloc fail       🦊🌸🍀\n"
 
 # define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"

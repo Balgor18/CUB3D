@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 02:33:04 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 13:42:33 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 19:31:49 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_strndup(char *str, int n)
-{
-	char	*new_str;
-	int		i;
-
-	i = 0;
-	new_str = (char *)malloc(sizeof(char) * (n + 1));
-	if (!new_str)
-		return (NULL);
-	while (i < n)
-	{
-		new_str[i] = str[i];
-		i++;
-	}
-	new_str[i] = '\0';
-	return (new_str);
-}
-
 int	set_line_type(char *str)
 {
 	int	type;
@@ -68,4 +50,36 @@ int	set_line_type(char *str)
 	else
 		type = ERROR_LINE;
 	return (type);
+}
+
+char	*ft_strchr(char *str, char c)
+{
+	while (*str && *str != c)
+		str++;
+	if (*str == c)
+		return (str);
+	return (NULL);
+}
+
+char	*sub_trim_str(char *str, char *set)
+{
+	int		len;
+	char	*substr;
+
+	len = 0;
+	substr = NULL;
+	if (!str || !set)
+		return (NULL);
+	while (*str && ft_strchr(set, *str))
+		str++;
+	len = ft_strlen(str);
+	while (len && ft_strchr(set, str[len - 1]))
+		len--;
+	substr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	substr[len] = '\0';
+	while (len--)
+		substr[len] = str[len];
+	return (substr);
 }

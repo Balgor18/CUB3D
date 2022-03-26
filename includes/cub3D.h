@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 14:52:05 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 20:41:20 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ struct s_data
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	int		floor_rgb; // Un seul INT en hexa style 0xFF000FF
+	int		floor_rgb; // Un seul INT style 16 millions etc qui en %x = 0xFF...
 	int		ceiling_rgb;// pareil
 };
 
@@ -128,16 +128,20 @@ void	init_data(t_data **data, t_list **list);
 
 // string_utils.c
 int		ft_strlen(char *str);
+int		is_digit(char c);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
-char	*ft_strchr(char *str, char c);
-char	*sub_trim_str(char *str, char *set);
+char	*ft_strndup(char *str, int n);
 
 // string_utils2.c
-char	*ft_strndup(char *str, int n);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
 int		set_line_type(char *str);
+char	*ft_strchr(char *str, char c);
+char	*sub_trim_str(char *str, char *set);
+
+// ft_split.c
+char	**ft_split(char *str, char c);
 
 // atoi_base.c
 int		ft_atoi_base(char *str, int str_base);
@@ -163,7 +167,7 @@ void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 
 // free2.c
-void	free_map(char **map);
+void	free_array(char **array);
 void	clear_data(t_data **data);
 void	clear_all_exit(t_data **data, t_list **list, char *msg);
 
@@ -172,6 +176,8 @@ void	clear_all_exit(t_data **data, t_list **list, char *msg);
 void	exit_error(char *msg);
 void	print_list(t_list *list);
 void	print_data(t_data *data);
+void	print_map(char **map);
+void	print_array(char **array);
 
 // main.c
 void	check_open(char *filename, int *fd);

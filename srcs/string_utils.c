@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 14:20:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 19:31:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+int	is_digit(char c)
+{
+	return ( c >= '0' && c <= '9');
+}
+
 int	is_cardinal_char(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
@@ -32,34 +37,20 @@ int	is_color_char(char c)
 	return (c == 'F' || c == 'C');
 }
 
-char	*ft_strchr(char *str, char c)
+char	*ft_strndup(char *str, int n)
 {
-	while (*str && *str != c)
-		str++;
-	if (*str == c)
-		return (str);
-	return (NULL);
-}
+	char	*new_str;
+	int		i;
 
-char	*sub_trim_str(char *str, char *set)
-{
-	int		len;
-	char	*substr;
-
-	len = 0;
-	substr = NULL;
-	if (!str || !set)
+	i = 0;
+	new_str = (char *)malloc(sizeof(char) * (n + 1));
+	if (!new_str)
 		return (NULL);
-	while (*str && ft_strchr(set, *str))
-		str++;
-	len = ft_strlen(str);
-	while (len && ft_strchr(set, str[len - 1]))
-		len--;
-	substr = (char *)malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
-	substr[len] = '\0';
-	while (len--)
-		substr[len] = str[len];
-	return (substr);
+	while (i < n)
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
 }

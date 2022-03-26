@@ -6,23 +6,23 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:50:55 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 14:51:31 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/26 20:06:11 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	free_map(char **map)
+void	free_array(char **array)
 {
 	int	i;
 
 	i = 0;
-	while (map && map[i])
+	while (array && array[i])
 	{
-		free(map[i]);
+		free(array[i]);
 		i++;
 	}
-	free(map);
+	free(array);
 }
 
 void	clear_data(t_data **data)
@@ -30,7 +30,7 @@ void	clear_data(t_data **data)
 	if (!*data)
 		return ;
 	if ((*data)->map)
-		free_map((*data)->map);
+		free_array((*data)->map);
 	free((*data)->north_texture);
 	free((*data)->south_texture);
 	free((*data)->west_texture);
