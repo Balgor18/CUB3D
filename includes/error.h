@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 16:48:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:55:59 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@
 # define MISSF "🍀🌸🦊         FLoor color line missing         🦊🌸🍀\n"
 # define MISSC "🍀🌸🦊        Ceiling color line missing        🦊🌸🍀\n"
 # define ENDFILE "🍀🌸🦊       Map must be the last element       🦊🌸🍀\n"
-
 # define DATAFAIL "🍀🌸🦊             Data Malloc fail             🦊🌸🍀\n"
 # define NORTHFAIL "🍀🌸🦊     Data North Texture Malloc fail       🦊🌸🍀\n"
 # define SOUTHFAIL "🍀🌸🦊     Data South Texture Malloc fail       🦊🌸🍀\n"
@@ -60,10 +59,12 @@
 # define EASTFAIL "🍀🌸🦊      Data East Texture Malloc fail       🦊🌸🍀\n"
 # define FLOORFAIL "🍀🌸🦊         Data Floor RGB Malloc fail       🦊🌸🍀\n"
 # define CEILINGFAIL "🍀🌸🦊       Data Ceiling RGB Malloc fail       🦊🌸🍀\n"
+# define SUBTRIMFAIL "🍀🌸🦊           Sub trim Malloc fail           🦊🌸🍀\n"
 # define COMASFAIL "🍀🌸🦊     Split RGB on comas Malloc fail       🦊🌸🍀\n"
 # define MISSRGB "🍀🌸🦊     Missing RGV value, three needed      🦊🌸🍀\n"
 # define TMRGB "🍀🌸🦊     Too much RGB values, three needed    🦊🌸🍀\n"
 # define BIGRGB "🍀🌸🦊             RGB value too big            🦊🌸🍀\n"
+# define SYNTAXRGB "🍀🌸🦊          RGB value syntax error          🦊🌸🍀\n"
 
 # define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"

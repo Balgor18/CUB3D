@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/27 16:23:10 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 19:36:48 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ char	**ft_split(t_data **data, t_list **list, char *str, char c);
 
 // atoi_base.c
 int		ft_atoi_base(char *str, int str_base);
+int		ft_atoi(char *str);
 
 // lst_utils.c
 int		ft_lst_size(t_list *list);

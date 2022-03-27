@@ -6,24 +6,52 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 16:49:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 20:14:49 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	check_value_limits(t_data **data, t_list **list, char ***array)
+int	nbrlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str == ' ')
+		str++;
+	while (is_digit(*str))
+	{
+		i++;
+		str++;
+	}
+	while (*str == ' ')
+		str++;
+	if (is_digit(*str))
+		return (-1);
+	return (i);
+}
+
+void	check_value_limits(t_data **data, t_list **list, char **array)
 {
 	int	i;
 	int	len;
+	int	nbr;
 
 	i = 0;
 	len = 0;
-	while (i < 3)
+	nbr = 0;
+	while (array && array[i])
 	{
-		len = ft_strlen(*array[i]);
+		len = 0;
+		len = nbrlen(array[i]);
+		if (len == -1)
+			clear_all_exit(data, list, SYNTAXRGB);
 		if (len > 3)
 			clear_all_exit(data, list, BIGRGB);
+		nbr = ft_atoi(array[i]);
+		if (nbr > 255)
+			clear_all_exit(data, list, BIGRGB);
+		i++;
 	}
 }
 
@@ -39,7 +67,7 @@ int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
 	if (!array)
 		clear_all_exit(data, list, COMASFAIL);
 	print_array(array);
-	check_value_limits(data, list, &array);
+	check_value_limits(data, list, array);
 	free_array(array);
 	return (hexa_color);
 }
