@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:50:55 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 20:06:11 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:04:17 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ void	clear_data(t_data **data)
 	free((*data)->south_texture);
 	free((*data)->west_texture);
 	free((*data)->east_texture);
-	free((*data));
+	free(*data);
 }
 
 void	clear_all_exit(t_data **data, t_list **list, char *msg)
 {
 	clear_data(data);
-	ft_lst_clear(list);
+	if (*list)
+		ft_lst_clear(list);
 	exit_error(msg);
 }

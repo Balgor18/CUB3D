@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 15:22:36 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:32:23 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	check_list_syntax(&list);
 	check_list_duplicates(&list);
-	print_list(list);
 	check_close(fd, list);
 	fill_data(data, &list);
+	print_list(list);
 	print_data(*data);
 	ft_lst_clear(&list);
 }

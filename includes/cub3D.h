@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 20:41:20 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:23:10 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char	*ft_strchr(char *str, char c);
 char	*sub_trim_str(char *str, char *set);
 
 // ft_split.c
-char	**ft_split(char *str, char c);
+char	**ft_split(t_data **data, t_list **list, char *str, char c);
 
 // atoi_base.c
 int		ft_atoi_base(char *str, int str_base);

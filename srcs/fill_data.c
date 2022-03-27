@@ -6,12 +6,17 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 15:54:18 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:26:43 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+/*
+void	check_value_limits(t_data **data, t_list **list, char ***array)
+{
 
+}
+*/
 int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
 {
 	char	**array;
@@ -20,10 +25,12 @@ int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
 
 	bzero_int_tab(rgb, 3, 0);
 	hexa_color = 0;
-	array = ft_split(str, ',');
+	array = ft_split(data, list, str, ',');
 	if (!array)
 		clear_all_exit(data, list, COMASFAIL);
 	print_array(array);
+	// check_value_limits(data, list, &array);
+	free_array(array);
 	return (hexa_color);
 }
 

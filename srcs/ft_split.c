@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 20:23:53 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 20:27:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:36:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static int	count_words(char *str, char c)
 	return (wcount);
 }
 
-/*
-** This function count the length of a word. Here a word means a bag of
-** consecutive characters that are not c
-*/
 static int	ft_wordlen(char *str, char c)
 {
 	int		wlen;
@@ -40,11 +36,6 @@ static int	ft_wordlen(char *str, char c)
 	return (wlen);
 }
 
-/*
-** This function free() the array of words backwardly in the case the malloc()
-** of a word in the array failed, it recursively free() each previous word then
-** it free() the array
-*/
 static void	*ft_free(char **words, int wcount)
 {
 	while (wcount--)
@@ -53,11 +44,6 @@ static void	*ft_free(char **words, int wcount)
 	return (NULL);
 }
 
-/*
-** This function fills the word count words in the array. If a word malloc()
-** failed, all previous words and the array are freed. The array, as each word
-** string, is null-terminated
-*/
 static char	**fill(char *str, int wcount, char c, char **words)
 {
 	int		i;
@@ -83,12 +69,7 @@ static char	**fill(char *str, int wcount, char c, char **words)
 	return (words);
 }
 
-/*
-** This function count the separated by c character words in string s. It
-** allocates an array of word count size + 1 (for terminating '\0'). Then it
-** fills the array with each word and return the array of splitted words.
-*/
-char	**ft_split(char *str, char c)
+char	**ft_split(t_data **data, t_list **list, char *str, char c)
 {
 	char	**words;
 	int		wcount;
@@ -96,6 +77,13 @@ char	**ft_split(char *str, char c)
 	if (!str)
 		return (NULL);
 	wcount = count_words(str, c);
+	if (wcount != 3)
+	{
+		if (wcount < 3)
+			clear_all_exit(data, list, MISSRGB);
+		if (wcount > 3)
+			clear_all_exit(data, list, TMRGB);
+	}
 	words = (char **)malloc(sizeof(char *) * (wcount + 1));
 	if (!words)
 		return (NULL);
