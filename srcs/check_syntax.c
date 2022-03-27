@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/25 19:24:43 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 15:50:19 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,16 @@ static int	check_cardinal_syntax(char *str)
 
 static int	check_floor_ceiling_syntax(char *str)
 {
-	if ((ft_strncmp(str, "F ", 2) == 0) || (ft_strncmp(str, "C ", 2) == 0))
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+	if ((ft_strncmp(str, "F ", 2) != 0) && (ft_strncmp(str, "C ", 2) != 0))
+		return (EXIT_FAILURE);
+	str++;
+	while (*str)
+	{
+		if (!is_digit(*str) && *str != ' ' && *str != ',')
+			return (EXIT_FAILURE);
+		str++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 static void	check_last_element(t_list **list)
