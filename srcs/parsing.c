@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 20:55:46 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 22:04:15 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ PARSING TO DO LIST
 verif ouverture des textures
 */
 
+static void	check_textures_extensions(t_data **data)
+{
+	if (check_extension((*data)->north_texture, ".xpm"))
+		clear_data_exit(data, WNOEXT);
+	else if (check_extension((*data)->south_texture, ".xpm"))
+		clear_data_exit(data, WSOEXT);
+	else if (check_extension((*data)->west_texture, ".xpm"))
+		clear_data_exit(data, WWEEXT);
+	else if (check_extension((*data)->east_texture, ".xpm"))
+		clear_data_exit(data, WEAEXT);
+}
+
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
 	values and fill data if correct to send to mlx
@@ -71,6 +83,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_list_duplicates(&list);
 	check_close(fd, list);
 	fill_data(data, &list);
-	print_data(*data);
 	ft_lst_clear(&list);
+	check_textures_extensions(data);
+	print_data(*data);
 }

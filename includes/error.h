@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 19:55:59 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 21:55:24 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,24 @@
 # define BIGRGB "🍀🌸🦊             RGB value too big            🦊🌸🍀\n"
 # define SYNTAXRGB "🍀🌸🦊          RGB value syntax error          🦊🌸🍀\n"
 
-# define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
-# define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"
-# define EMPTYTEX "🍀🌸🦊             Texture is empty             🦊🌸🍀\n"
+# define OPENDIRNOTEX "🍀🌸🦊       North Texture is Directory         🦊🌸🍀\n"
+# define OPENDIRSOTEX "🍀🌸🦊       South Texture is Directory         🦊🌸🍀\n"
+# define OPENDIRWETEX "🍀🌸🦊       West Texture is Directory          🦊🌸🍀\n"
+# define OPENDIREATEX "🍀🌸🦊       East Texture is Directory          🦊🌸🍀\n"
+# define OPENNOTEX "🍀🌸🦊        Can't Open North Texture          🦊🌸🍀\n"
+# define OPENSOTEX "🍀🌸🦊        Can't Open South Texture          🦊🌸🍀\n"
+# define OPENWETEX "🍀🌸🦊        Can't Open West Texture           🦊🌸🍀\n"
+# define OPENEATEX "🍀🌸🦊        Can't Open East Texture           🦊🌸🍀\n"
+
+# define EMPTYNOTEX "🍀🌸🦊         North Texture is empty             🦊🌸🍀\n"
+# define EMPTYSOTEX "🍀🌸🦊         South Texture is empty             🦊🌸🍀\n"
+# define EMPTYWETEX "🍀🌸🦊         West Texture is empty              🦊🌸🍀\n"
+# define EMPTYEATEX "🍀🌸🦊         East Texture is empty              🦊🌸🍀\n"
+# define WNOEXT "🍀🌸🦊      Wrong North Texture Extension       🦊🌸🍀\n"
+# define WSOEXT "🍀🌸🦊      Wrong South Texture Extension       🦊🌸🍀\n"
+# define WWEEXT "🍀🌸🦊      Wrong West Texture Extension        🦊🌸🍀\n"
+# define WEAEXT "🍀🌸🦊      Wrong East Texture Extension        🦊🌸🍀\n"
+
 
 # define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
@@ -84,12 +99,6 @@
 # define MLXWINFAIL "🍀🌸🦊          Mlx new window failed           🦊🌸🍀\n"
 # define MLXIMGFAIL "🍀🌸🦊           Mlx new image failed           🦊🌸🍀\n"
 # define MLXADDRFAIL "🍀🌸🦊         Mlx data address failed          🦊🌸🍀\n"
-# define SCREEN "Max res = 2560 * 1440\n"
-# define SCREENY "Map y = 22 tiles * 64 pixels = 1408"
-# define SCREENX "Map x = 40 tiles * 64 pixels = 2560"
-# define MAPTOOWIDE "🍀🌸🦊     Map's width is too big (1440 max)    🦊🌸🍀\n"
-# define MAPTOOHIGH "🍀🌸🦊     Map's height is too big (2560 max)   🦊🌸🍀\n"
-# define MAPTOOBIG "🍀🌸🦊        Map's res max = 2560 * 1440       🦊🌸🍀\n"
 
 # define MAPCHAR "01NSWE"
 

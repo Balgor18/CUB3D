@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/27 21:03:16 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 21:53:01 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	clear_list_free_line_exit(t_list **list, char *line);
 // free2.c
 void	free_array(char **array);
 void	clear_data(t_data **data);
+void	clear_data_exit(t_data **data, char *msg);
 void	clear_all_exit(t_data **data, t_list **list, char *msg);
 
 // print.c
