@@ -6,30 +6,11 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 20:14:49 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 21:05:44 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	nbrlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*str == ' ')
-		str++;
-	while (is_digit(*str))
-	{
-		i++;
-		str++;
-	}
-	while (*str == ' ')
-		str++;
-	if (is_digit(*str))
-		return (-1);
-	return (i);
-}
 
 void	check_value_limits(t_data **data, t_list **list, char **array)
 {
@@ -66,8 +47,11 @@ int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
 	array = ft_split(data, list, str, ',');
 	if (!array)
 		clear_all_exit(data, list, COMASFAIL);
-	print_array(array);
 	check_value_limits(data, list, array);
+	rgb[RED_RGB] = ft_atoi(array[RED_RGB]);
+	rgb[GREEN_RGB] = ft_atoi(array[GREEN_RGB]);
+	rgb[BLUE_RGB] = ft_atoi(array[BLUE_RGB]);
+	hexa_color = create_trgb(0, rgb[RED_RGB], rgb[GREEN_RGB], rgb[BLUE_RGB]);
 	free_array(array);
 	return (hexa_color);
 }

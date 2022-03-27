@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/26 19:31:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 20:23:50 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strlen(char *str)
 
 int	is_digit(char c)
 {
-	return ( c >= '0' && c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
 int	is_cardinal_char(char c)

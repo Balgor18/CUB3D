@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 19:58:19 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 20:55:46 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ static void	check_argc(int argc, char **argv)
 
 /*
 PARSING TO DO LIST
-pas plus de 2 colors lines et une de chaque OK
-que les couleurs soient entre 0 et 255 inclus
-
-
--> split sur virgule puis trim whitespaces
-verif si 0 <= split[i] <= 255
-malloc string de len == 10
-prefix 0x00 (hexa + transparence T de TRGB a 0)
 verif ouverture des textures
 */
 

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/27 19:36:48 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 21:03:16 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ enum	e_TEXTURE
 
 enum	e_RGB
 {
-	RED_COLOR = 0,
-	GREEN_COOR,
-	BLUE_COLOR
+	RED_RGB = 0,
+	GREEN_RGB,
+	BLUE_RGB
 };
 
 /*
@@ -90,8 +90,8 @@ struct s_data
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	int		floor_rgb; // Un seul INT style 16 millions etc qui en %x = 0xFF...
-	int		ceiling_rgb;// pareil
+	int		floor_rgb;
+	int		ceiling_rgb;
 };
 
 struct s_list
@@ -155,12 +155,13 @@ t_list	*ft_lstlast(t_list *list);
 t_list	*ft_lst_addback(t_list **list, t_list *elem);
 
 // tab_utils.c
+int		nbrlen(char *str);
 void	bzero_int_tab(int *tab, int tab_size, int value);
+int		create_trgb(int t, int r, int g, int b);
 
 // file_utils.c
 void	check_open(char *filename, int *fd);
 int		check_close(int fd, t_list *list);
-
 
 // free.c
 void	clear_list_exit(t_list **list, char *msg);
@@ -171,7 +172,6 @@ void	clear_list_free_line_exit(t_list **list, char *line);
 void	free_array(char **array);
 void	clear_data(t_data **data);
 void	clear_all_exit(t_data **data, t_list **list, char *msg);
-
 
 // print.c
 void	exit_error(char *msg);

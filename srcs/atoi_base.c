@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 01:50:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 20:14:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 20:22:50 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_atoi_base(char *str, int str_base)
 
 	result = 0;
 	sign = 1;
-	while(*str == ' ')
+	while (*str == ' ')
 		str++;
 	if (*str == '-')
 	{

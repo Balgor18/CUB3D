@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:46:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/24 20:46:18 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 21:17:24 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_open(char *filename, int *fd)
 	if (*fd != -1)
 	{
 		close(*fd);
-		exit_error (OPENDIRERR);
+		exit_error(OPENDIRERR);
 	}
 	*fd = open(filename, O_RDONLY);
 	if (*fd == -1)
@@ -34,3 +34,10 @@ int	check_close(int fd, t_list *list)
 		clear_list_exit(&list, CLOSEERR);
 	return (EXIT_SUCCESS);
 }
+
+/*
+void	check_open_texture(t_data **data, t_list **list)
+{
+
+}
+*/
