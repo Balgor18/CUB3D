@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 22:04:15 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 23:50:48 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ static void	check_argc(int argc, char **argv)
 		exit_error(TMARG);
 }
 
-/*
-PARSING TO DO LIST
-verif ouverture des textures
-*/
-
 static void	check_textures_extensions(t_data **data)
 {
 	if (check_extension((*data)->north_texture, ".xpm"))
@@ -57,6 +52,30 @@ static void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WWEEXT);
 	else if (check_extension((*data)->east_texture, ".xpm"))
 		clear_data_exit(data, WEAEXT);
+}
+
+// Use mlx to image to fill width and height et elles doivent etre de 64x64
+// init mlx et return in ptr mlx
+// call mlx_xp_file_to_image to fill width and height
+static void	check_open_textures(t_data **data)
+{
+	void	*mlx;
+	void	*image;
+	int		width;
+	int		height;
+	int		fd;
+
+	mlx = NULL;
+	image = NULL;
+	width = 0;
+	height = 0;
+	fd = 0;
+	fd = open((*data)->north_texture, O_RDONLY);
+	if (fd = -1)
+	{
+		close(fd);
+		clear_data_exit(data, OPENNOTEX);
+	}
 }
 
 /**
