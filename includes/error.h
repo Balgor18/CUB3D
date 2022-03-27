@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 16:25:44 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/27 16:48:23 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # define COMASFAIL "🍀🌸🦊     Split RGB on comas Malloc fail       🦊🌸🍀\n"
 # define MISSRGB "🍀🌸🦊     Missing RGV value, three needed      🦊🌸🍀\n"
 # define TMRGB "🍀🌸🦊     Too much RGB values, three needed    🦊🌸🍀\n"
+# define BIGRGB "🍀🌸🦊             RGB value too big            🦊🌸🍀\n"
 
 # define OPENDIRTEX "🍀🌸🦊    Texture is  Directory not a File      🦊🌸🍀\n"
 # define OPENTEX "🍀🌸🦊         Can't Open Texture File          🦊🌸🍀\n"
