@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 20:36:04 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/28 00:31:46 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,13 @@ static void	print_min_map(t_mlx *mlx)
 
 	int		j;
 	j = 0;
+	end_point[0] = mlx->player[X_POS] * 64;
+	end_point[1] = mlx->player[Y_POS] * 64;
 	// printf("Player :\n\rX = %f\n\rY = %f\n", i[0], i[1]);
 	// printf("Delta : \n\rX = %f\n\rY = %f\n", mlx->delta[0], mlx->delta[1]);
-	while (j < 400)
+	// printf("map[%d][%d] = %c\n",(int) end_point[1] / 64, (int)end_point[0] / 64, mlx->map[(int)end_point[1] /64][(int)end_point[0] / 64]);
+
+	while (mlx->map[(int)(end_point[1] / 64)][(int)(end_point[0] / 64)] == '0')
 	{
 		end_point[0] = 0.1 * mlx->delta[0];
 		end_point[1] = 0.1 * mlx->delta[1];
@@ -152,72 +156,12 @@ static void	print_min_map(t_mlx *mlx)
 
 		end_point[0] += i[0];
 		end_point[1] += i[1];
+		// printf("end_point[0] = %f\n end_point[1] = %f\n", end_point[0], end_point[1]);
+		// printf("end_point[0] = %f\n end_point[1] = %f\n", end_point[0] / 64, end_point[1] / 64);
+		// printf("map[%d][%d] = %c\n",(int) end_point[1] / 64, (int)end_point[0] / 64, mlx->map[(int)end_point[1] /64][(int)end_point[0] / 64]);
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
 		j++;
 	}
-
-	int		mapX;
-	int		mapY;
-
-	// mapX = 64 * 16;
-	// mapY = 6 * 64;
-
-	mapX = 16;
-	mapY = 6;
-
-	int	int_array[MAX_RAY];
-	float	f[MAX_FLOAT];
-
-	f[RA] = mlx->player[ANGLE];
-	int_array[RAYON] = 0;
-	while (int_array[RAYON] < 1)
-	{
-		//check horizontal
-		int_array[DOF] = 0;
-		float aTan = -1/tan(f[RA]);
-		if (f[RA] < M_PI)//looking up
-		{
-			printf(CYAN"Je regarde vers le haut\n"RESET);
-			f[RY] = (((int)M_PI >> 6) << 6) - 0.0001;
-			f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
-			f[YO] = -64;
-			f[XO] = -f[YO] * aTan;
-		}
-		if (f[RA] > M_PI)//looking down
-		{
-			printf(CYAN"Je regarde vers le bas\n"RESET);
-			f[RY] = (((int)M_PI >> 6) << 6) + 64;
-			f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
-			f[YO] = 64;
-			f[XO] = -f[YO] * aTan;
-		}
-		if (f[RA] == 0 || f[RA] == M_PI)// left and right // Right and left dosent work
-		{
-			printf(CYAN"Je regarde vers la droite ou la gauche\n"RESET);
-			f[RX] = mlx->player[X_POS];
-			f[RY] = mlx->player[Y_POS];
-			int_array[DOF] = 8;
-		}
-		while (int_array[DOF] < 8)
-		{
-			int_array[MX] = (int)(f[RX])>>6;
-			int_array[MY] = (int)(f[RY])>>6;
-			int_array[MP] = int_array[MY] * mapX + int_array[MX];
-			if (int_array[MP] < mapX * mapY)// && mlx->map[int_array[MP]] == 1)// wall hit
-			{
-				int_array[DOF] = 8;
-			}
-			else
-			{
-				f[RX] += f[XO];
-				f[RY] += f[YO];
-				int_array[DOF] += 1;
-			}
-		}
-		int_array[RAYON]++;
-	}
-	printf("int_array : \n\rRayon = %d\n\rMX = %d\n\rMY = %d\n\rMP = %d\n\rDOF = %d\n", int_array[RAYON], int_array[MX], int_array[MY], int_array[MP], int_array[DOF]);
-	printf("float : \n\rRX = %f\n\rRY = %f\n\rRA = %f\n\rXO = %f\n\rYO = %f\n", f[RX], f[RY], f[RA], f[XO], f[YO]);
 }
 
 /**

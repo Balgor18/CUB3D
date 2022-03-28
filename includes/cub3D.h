@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 19:30:57 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/27 15:20:48 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define WHITE "\033[0;37m"
 # define YELLOW "\033[0;33m"
 # define RESET "\e[0m"
+
+# ifndef M_PI
+#  define M_PI 3.1415926535
+# endif
 
 /*
 **---------------Enum---------------
