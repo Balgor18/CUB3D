@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 23:50:48 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/28 15:42:29 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,41 @@ static void	check_open_textures(t_data **data)
 	void	*image;
 	int		width;
 	int		height;
-	int		fd;
+	int		fd[4];
 
 	mlx = NULL;
 	image = NULL;
 	width = 0;
 	height = 0;
-	fd = 0;
-	fd = open((*data)->north_texture, O_RDONLY);
-	if (fd = -1)
+	bzero_int_tab(fd, 4, 0);
+	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
+	if (fd[NORTH] == -1)
 	{
-		close(fd);
+		close(fd[NORTH]);
 		clear_data_exit(data, OPENNOTEX);
 	}
+	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
+	if (fd[SOUTH] == -1)
+	{
+		close(fd[SOUTH]);
+		clear_data_exit(data, OPENSOTEX);
+	}
+	fd[WEST] = open((*data)->west_texture, O_RDONLY);
+	if (fd[WEST] == -1)
+	{
+		close(fd[WEST]);
+		clear_data_exit(data, OPENWETEX);
+	}
+	fd[EAST] = open((*data)->east_texture, O_RDONLY);
+	if (fd[EAST] == -1)
+	{
+		close(fd[EAST]);
+		clear_data_exit(data, OPENEATEX);
+	}
+	close(fd[NORTH]);
+	close(fd[SOUTH]);
+	close(fd[WEST]);
+	close(fd[EAST]);
 }
 
 /**
@@ -104,5 +126,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_data(data, &list);
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
+	check_open_textures(data);
 	print_data(*data);
 }
