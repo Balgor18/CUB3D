@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture.xpm
-SO ./path_to_the_south_texture.xpm
-WE ./path_to_the_west_texture.xpm
-EA ./path_to_the_east_texture.xpm
+NO ./textures_solong/Kybie42.xpm
+SO textures_solong/Sakura42.xpm
+WE textures_solong/Tori42.xpm
+EA textures_solong/Tree42.xpm
 
 F 220  ,100  , 0
 C 225 ,  30  , 0
