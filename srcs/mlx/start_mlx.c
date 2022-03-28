@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/28 00:31:46 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:59:09 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,37 +131,56 @@ static void	print_min_map(t_mlx *mlx)
 	i[1] += 8;
 
 	int		j;
-	j = 0;
-	end_point[0] = mlx->player[X_POS] * 64;
-	end_point[1] = mlx->player[Y_POS] * 64;
-	// printf("Player :\n\rX = %f\n\rY = %f\n", i[0], i[1]);
-	// printf("Delta : \n\rX = %f\n\rY = %f\n", mlx->delta[0], mlx->delta[1]);
-	// printf("map[%d][%d] = %c\n",(int) end_point[1] / 64, (int)end_point[0] / 64, mlx->map[(int)end_point[1] /64][(int)end_point[0] / 64]);
 
-	while (mlx->map[(int)(end_point[1] / 64)][(int)(end_point[0] / 64)] == '0')
+
+	float	delta_bis[2] = {0};
+	float	angle_bis;
+
+	float		lenght_line[60] = {0};
+	int			test = 0;
+
+	angle_bis = mlx->player[ANGLE] - (30 * M_PI / 180);
+	while (angle_bis < mlx->player[ANGLE] + (30 * M_PI / 180))// while for all the line
 	{
-		end_point[0] = 0.1 * mlx->delta[0];
-		end_point[1] = 0.1 * mlx->delta[1];
-		// ----- X -----
-		if (mlx->delta[0] > 0)
-			end_point[0] *= -j;
-		else
-			end_point[0] *= -j;
+		delta_bis[0] = cos(angle_bis);
+		delta_bis[1] = sin(angle_bis);
+		end_point[0] = mlx->player[X_POS] * 64;
+		end_point[1] = mlx->player[Y_POS] * 64;
+		j = 0;
+		while (mlx->map[(int)(end_point[1] / 64)][(int)((end_point[0] / 64))] == '0')
+		{
+			end_point[0] = 0.1 * delta_bis[0];
+			end_point[1] = 0.1 * delta_bis[1];
+			// ----- X -----
+			if (mlx->delta[0] > 0)
+				end_point[0] *= -j;
+			else
+				end_point[0] *= -j;
 
-		// ----- Y -----
-		if (mlx->delta[1] > 0)
-			end_point[1] *= -j;
-		else
-			end_point[1] *= -j;
+			// ----- Y -----
+			if (mlx->delta[1] > 0)
+				end_point[1] *= -j;
+			else
+				end_point[1] *= -j;
 
-		end_point[0] += i[0];
-		end_point[1] += i[1];
-		// printf("end_point[0] = %f\n end_point[1] = %f\n", end_point[0], end_point[1]);
-		// printf("end_point[0] = %f\n end_point[1] = %f\n", end_point[0] / 64, end_point[1] / 64);
-		// printf("map[%d][%d] = %c\n",(int) end_point[1] / 64, (int)end_point[0] / 64, mlx->map[(int)end_point[1] /64][(int)end_point[0] / 64]);
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
-		j++;
+			end_point[0] += i[0];
+			end_point[1] += i[1];
+			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+			j++;
+		}
+		// end_point[0] -= mlx->player[X_POS];
+		// end_point[1] -= mlx->player[Y_POS];
+		// int	calcul_len(int *start)
+		float	bro[2];
+
+		bro[0] = fabs((end_point[0] - mlx->player[X_POS] * 64) * 2);
+		bro[1] = fabs((end_point[1] - mlx->player[Y_POS] * 64) * 2);
+		printf("bro : \n\t0 = %f\n\t1 = %f\n", bro[0], bro[1]);
+		lenght_line[test] = sqrtf( bro[0] + bro[1]);
+		test++;
+		angle_bis += (1 * M_PI / 180);
 	}
+	// printf(GREEN"Done \n"RESET);
 }
 
 /**
@@ -230,10 +249,10 @@ static void	player_move(t_mlx *mlx, char move, float t[2])
 		mlx->delta[0] = cos(mlx->player[ANGLE]);
 		mlx->delta[1] = sin(mlx->player[ANGLE]);
 	}
-	player[0][0] = t[0] * mlx->delta[0];
-	player[0][1] = t[0] * mlx->delta[1];
-	player[1][0] = t[1] * mlx->delta[0];
-	player[1][1] = t[1] * mlx->delta[1];
+	player[0][0] = 0.1f * mlx->delta[0];
+	player[0][1] = 0.1f * mlx->delta[1];
+	player[1][0] = -0.1f * mlx->delta[0];
+	player[1][1] = -0.1f * mlx->delta[1];
 	if (move == 'U' || move == 'D')
 	{
 		mlx->player[Y_POS] += *(float *)ft_ternary(move == 'U', &player[1][1],
@@ -252,13 +271,13 @@ static int	key_hook(int key, t_mlx *mlx)
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'R', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'L', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'D', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'U', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	print_min_map(mlx);
 	return (0);
@@ -287,8 +306,6 @@ void	start_mlx(char **file)
 	mlx.map = file;
 	find_player_pos(mlx.map, &mlx);
 	create_texture(&mlx);
-
-	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[WALL].img, 0, 0);
 
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
 
