@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/29 10:14:29 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:52:58 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ static void	print_min_map(t_mlx *mlx)
 	i[1] = (mlx->player[Y_POS] * 64) - 40;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
 
-	// Juste a direction line
 
+	// Juste a direction line
 	float	end_point[2];
 	i[0] += 8;
 	i[1] += 8;
@@ -165,19 +165,14 @@ static void	print_min_map(t_mlx *mlx)
 
 			end_point[0] += i[0];
 			end_point[1] += i[1];
-			// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
 			j++;
 		}
-		// end_point[0] -= mlx->player[X_POS];
-		// end_point[1] -= mlx->player[Y_POS];
-		// int	calcul_len(int *start)
 		float	bro[2];
 
 		bro[0] = fabs((end_point[0] - mlx->player[X_POS] * 64) * 2);
 		bro[1] = fabs((end_point[1] - mlx->player[Y_POS] * 64) * 2);
-		// printf("bro : \n\t0 = %f\n\t1 = %f\n", bro[0], bro[1]);
 		lenght_line[test] = sqrtf(bro[0] + bro[1]);
-		// printf("[%d] = %f \n", test, lenght_line[test]);
 		test++;
 		angle_bis += (1 * M_PI / 180);
 	}
@@ -187,7 +182,15 @@ static void	print_min_map(t_mlx *mlx)
 
 	// size_screen[X] / 60 = size_of_1 array
 
-	// 
+	// FOR THE WALL (3d)
+
+	// count the median on Y of the window
+
+	// on the top of the window display the color of ceiling
+
+	// on the bottom display the floor
+
+	// after this display the wall start a point to the median.
 
 	// printf(GREEN"Done \n"RESET);
 }
@@ -303,7 +306,7 @@ static int	ft_close(t_mlx *mlx)
 /**
 	@brief	Function start to create the mlx for the graphics
 
-	@param	t_tmp	Take in param all the info from the parsing
+	@param	char** Take in param all the info from the parsing
 
 	@return	Return void
  **/
