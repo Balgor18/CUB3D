@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/28 18:59:09 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/29 10:14:29 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ static void	print_min_map(t_mlx *mlx)
 
 			end_point[0] += i[0];
 			end_point[1] += i[1];
-			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+			// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
 			j++;
 		}
 		// end_point[0] -= mlx->player[X_POS];
@@ -175,11 +175,20 @@ static void	print_min_map(t_mlx *mlx)
 
 		bro[0] = fabs((end_point[0] - mlx->player[X_POS] * 64) * 2);
 		bro[1] = fabs((end_point[1] - mlx->player[Y_POS] * 64) * 2);
-		printf("bro : \n\t0 = %f\n\t1 = %f\n", bro[0], bro[1]);
-		lenght_line[test] = sqrtf( bro[0] + bro[1]);
+		// printf("bro : \n\t0 = %f\n\t1 = %f\n", bro[0], bro[1]);
+		lenght_line[test] = sqrtf(bro[0] + bro[1]);
+		// printf("[%d] = %f \n", test, lenght_line[test]);
 		test++;
 		angle_bis += (1 * M_PI / 180);
 	}
+
+
+	// all the lien lenght is up
+
+	// size_screen[X] / 60 = size_of_1 array
+
+	// 
+
 	// printf(GREEN"Done \n"RESET);
 }
 
