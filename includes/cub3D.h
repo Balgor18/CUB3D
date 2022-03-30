@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/27 21:53:01 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 12:24:58 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,23 @@ struct s_mlx
 // parsing.c
 void	parsing(int argc, char **arg, t_data **data);
 
+// fill_list.c
+void	fill_list(int fd, t_list **list);
+
 // check_syntax.c
 void	check_list_syntax(t_list **list);
 
 // check_duplicates.c
 void	check_list_duplicates(t_list **list);
 
-// fill_list.c
-void	fill_list(int fd, t_list **list);
-
 // fill_data.c
 void	fill_data(t_data **data, t_list **list);
 
 // data_utils.c
 void	init_data(t_data **data, t_list **list);
+
+// check_textures.c
+void	check_open_textures(t_data **data);
 
 // string_utils.c
 int		ft_strlen(char *str);

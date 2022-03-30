@@ -1,8 +1,8 @@
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO /mnt/nfs/homes/grannou/Cub3DMinusCortex/textures_solong/Kyubie42.xpm
+SO /mnt/nfs/homes/grannou/Cub3DMinusCortex/textures_solong/Sakura42.xpm
+WE /mnt/nfs/homes/grannou/Cub3DMinusCortex/textures_solong/Tori42.xpm
+EA /mnt/nfs/homes/grannou/Cub3DMinusCortex/textures_solong/Tree42.xpm
 
 F 0 , 0 , 255
 C 255  ,  255  , 255
