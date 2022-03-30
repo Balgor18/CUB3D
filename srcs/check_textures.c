@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 17:07:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:32:18 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ static void	close_error_exit(t_data **data, int *fd)
 	}
 }
 
-static void	close_all_textures(int *fd)
+void	close_all_textures(int *fd)
 {
-	close(fd[NORTH]);
+	if (fd[NORTH] != -1)
+		close(fd[NORTH]);
 	close(fd[SOUTH]);
 	close(fd[WEST]);
 	close(fd[EAST]);
@@ -69,7 +70,12 @@ static int	check_texture_size(char *path, void *mlx)
 	fd = 0;
 	image = mlx_xpm_file_to_image(mlx, path, &width, &height);
 	if (!image || width != 64 || height != 64)
+	{
+		mlx_destroy_image(mlx, image);
 		return (EXIT_FAILURE);
+	}
+	mlx_destroy_image(mlx, image);
+	mlx_destroy_display(mlx);
 	free(image);
 	return (EXIT_SUCCESS);
 }
@@ -88,15 +94,19 @@ void	check_open_textures(t_data **data)
 		clear_data_exit(data, MLXFAIL);
 	open_all_textures(data, fd);
 	if (fd[NORTH] == -1 || fd[SOUTH] == -1 || fd[WEST] == -1 || fd [EAST] == -1)
+	{
+		mlx_destroy_display(mlx);
+		free(mlx);
 		close_error_exit(data, fd);
+	}
 	if (check_texture_size((*data)->north_texture, mlx))
-		clear_data_exit(data, SIZENOTEX);
+		clear_mlx_fd_data_exit(data, mlx, fd, SIZENOTEX);
 	if (check_texture_size((*data)->south_texture, mlx))
-		clear_data_exit(data, SIZESOTEX);
+		clear_mlx_fd_data_exit(data, mlx, fd, SIZESOTEX);
 	if (check_texture_size((*data)->west_texture, mlx))
-		clear_data_exit(data, SIZEWETEX);
+		clear_mlx_fd_data_exit(data, mlx, fd, SIZEWETEX);
 	if (check_texture_size((*data)->east_texture, mlx))
-		clear_data_exit(data, SIZEEATEX);
+		clear_mlx_fd_data_exit(data, mlx, fd, SIZEEATEX);
 	close_all_textures(fd);
 	free(mlx);
 }

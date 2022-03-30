@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/30 16:11:39 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:27:01 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	fill_data(t_data **data, t_list **list);
 void	init_data(t_data **data, t_list **list);
 
 // check_textures.c
+void	close_all_textures(int *fd);
 void	check_open_textures(t_data **data);
 
 // string_utils.c
@@ -176,6 +177,7 @@ void	free_array(char **array);
 void	clear_data(t_data **data);
 void	clear_data_exit(t_data **data, char *msg);
 void	clear_all_exit(t_data **data, t_list **list, char *msg);
+void	clear_mlx_fd_data_exit(t_data **data, void *mlx, int *fd, char *msg);
 
 // print.c
 void	exit_error(char *msg);
