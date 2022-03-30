@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 17:04:14 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:29:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@
 # define SIZEEATEX "🍀🌸🦊      East Texture sie is not 64 x 64     🦊🌸🍀\n"
 
 # define MLXFAIL "🍀🌸🦊      Mlx init fail (nice try env -i)     🦊🌸🍀\n"
+# define MAPFAIL "🍀🌸🦊           Map Malloc fail error          🦊🌸🍀\n"
 
 # define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
 # define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
-# define ARRAYFAIL "🍀🌸🦊          Array Malloc fail error         🦊🌸🍀\n"
 # define SCREENFAIL "🍀🌸🦊           Screen Malloc fail error        🦊🌸🍀\n"
 # define IMGFAIL "🍀🌸🦊           Image Malloc fail error        🦊🌸🍀\n"
 # define TEXFAIL "🍀🌸🦊          Texture Malloc fail error        🦊🌸🍀\n"
