@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 12:24:32 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:50:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,13 @@ static void	check_textures_extensions(t_data **data)
 	else if (check_extension((*data)->east_texture, ".xpm"))
 		clear_data_exit(data, WEAEXT);
 }
-
+/*
+void	fill_map(t_data **data)
+{
+	printf("FIll map\n");
+	print_data(*data);
+}
+*/
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
 	values and fill data if correct to send to mlx
@@ -81,5 +87,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);
+	// fill_map(data);
 	print_data(*data);
 }
