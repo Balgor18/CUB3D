@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/27 15:20:48 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:21:54 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	pict[MAX_IMG];
-	float	player[MAX_POS];
-	float	delta[2];// 0 = X | 1 = Y check if needed
+	double	player[MAX_POS];
+	double	delta[2];// 0 = X | 1 = Y check if needed
 	char	**map;
 };
 

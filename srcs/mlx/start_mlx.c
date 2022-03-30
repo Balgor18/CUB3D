@@ -6,13 +6,13 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/29 12:52:58 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:18:14 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static bool	is_player(char c, float *angle)
+static bool	is_player(char c, double *angle)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
@@ -117,71 +117,86 @@ static void	print_min_map(t_mlx *mlx)
 		str++;
 	}
 
-	//player
-	float	i[2];
+	// --------------- player
+	double	i[2];
 
 	i[0] = (mlx->player[X_POS] * 64) - 40;
 	i[1] = (mlx->player[Y_POS] * 64) - 40;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
-
+	// ---------------
 
 	// Juste a direction line
-	float	end_point[2];
-	i[0] += 8;
-	i[1] += 8;
+	// double	end_point[2];
+	// i[0] += 8;
+	// i[1] += 8;
 
-	int		j;
+	// int		j;
 
 
-	float	delta_bis[2] = {0};
-	float	angle_bis;
+	// double	delta_bis[2] = {0};
+	// double	angle_bis;
 
-	float		lenght_line[60] = {0};
-	int			test = 0;
+	// double		lenght_line[60] = {0};
+	// int			test = 0;
 
-	angle_bis = mlx->player[ANGLE] - (30 * M_PI / 180);
-	while (angle_bis < mlx->player[ANGLE] + (30 * M_PI / 180))// while for all the line
-	{
-		delta_bis[0] = cos(angle_bis);
-		delta_bis[1] = sin(angle_bis);
-		end_point[0] = mlx->player[X_POS] * 64;
-		end_point[1] = mlx->player[Y_POS] * 64;
-		j = 0;
-		while (mlx->map[(int)(end_point[1] / 64)][(int)((end_point[0] / 64))] == '0')
-		{
-			end_point[0] = 0.1 * delta_bis[0];
-			end_point[1] = 0.1 * delta_bis[1];
-			// ----- X -----
-			if (mlx->delta[0] > 0)
-				end_point[0] *= -j;
-			else
-				end_point[0] *= -j;
+	// angle_bis = mlx->player[ANGLE] - (30 * M_PI / 180);
+	// while (angle_bis < mlx->player[ANGLE] + (30 * M_PI / 180))// while for all the line
+	// {
+	// 	delta_bis[0] = cos(angle_bis);
+	// 	delta_bis[1] = sin(angle_bis);
+	// 	end_point[0] = mlx->player[X_POS] * 64;
+	// 	end_point[1] = mlx->player[Y_POS] * 64;
+	// 	j = 0;
+	// 	printf("[%d][%d] = %c\n\tX = %f\n\tY = %f\n", (int)end_point[1] / 64, (int)end_point[0] / 64, mlx->map[(int)(end_point[1] / 64)][(int)((end_point[0]/ 64))], end_point[0], end_point[1]);
+	// 	while (mlx->map[(int)(end_point[1] / 64)][(int)((end_point[0]/ 64))] == '0')
+	// 	{
+	// 		end_point[0] = 0.1 * delta_bis[0];
+	// 		end_point[1] = 0.1 * delta_bis[1];
+	// 		// ----- X -----
+	// 		if (mlx->delta[0] > 0)
+	// 			end_point[0] *= -j;
+	// 		else
+	// 			end_point[0] *= -j;
 
-			// ----- Y -----
-			if (mlx->delta[1] > 0)
-				end_point[1] *= -j;
-			else
-				end_point[1] *= -j;
+	// 		// ----- Y -----
+	// 		if (mlx->delta[1] > 0)
+	// 			end_point[1] *= -j;
+	// 		else
+	// 			end_point[1] *= -j;
 
-			end_point[0] += i[0];
-			end_point[1] += i[1];
-			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
-			j++;
-		}
-		float	bro[2];
+	// 		end_point[0] += i[0];
+	// 		end_point[1] += i[1];
+	// 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+	// 		j++;
+	// 	}
+	// 	double	bro[2];
 
-		bro[0] = fabs((end_point[0] - mlx->player[X_POS] * 64) * 2);
-		bro[1] = fabs((end_point[1] - mlx->player[Y_POS] * 64) * 2);
-		lenght_line[test] = sqrtf(bro[0] + bro[1]);
-		test++;
-		angle_bis += (1 * M_PI / 180);
-	}
+	// 	bro[0] = fabs((end_point[0] - mlx->player[X_POS] * 64) * 2);
+	// 	bro[1] = fabs((end_point[1] - mlx->player[Y_POS] * 64) * 2);
+	// 	lenght_line[test] = sqrtf(bro[0] + bro[1]);
+	// 	test++;
+	// 	angle_bis += (1 * M_PI / 180);
+	// }
 
 
 	// all the lien lenght is up
 
-	// size_screen[X] / 60 = size_of_1 array
+	// size_screen[Y] / 60 = size_of_1 array
 
+	// int		height = 6 * 64;
+	// float	add;
+	// add = height / 60;
+
+	// height /= 2;
+
+	// int	fo = 0;
+
+	// while(fo < 60)
+	// {
+	// 	print_col();// need to have the middle
+	// 	height += add;
+	// 	fo++;
+	// }
 	// FOR THE WALL (3d)
 
 	// count the median on Y of the window
@@ -247,13 +262,13 @@ void	*ft_ternary(int const cond, void *valid_1, void *valid_2)
  *
  * @return void
  */
-static void	player_move(t_mlx *mlx, char move, float t[2])
+static void	player_move(t_mlx *mlx, char move, double t[2])
 {
-	float	player[2][2];
+	double	player[2][2];
 
 	if (move == 'R' || move == 'L')
 	{
-		mlx->player[ANGLE] += *(float *)ft_ternary(move == 'R', &t[0], &t[1]);
+		mlx->player[ANGLE] += *(double *)ft_ternary(move == 'R', &t[0], &t[1]);
 		if (mlx->player[ANGLE] < 0)
 			mlx->player[ANGLE] += 2 * M_PI;
 		else if (mlx->player[ANGLE] > 2 * M_PI)
@@ -267,9 +282,9 @@ static void	player_move(t_mlx *mlx, char move, float t[2])
 	player[1][1] = -0.1f * mlx->delta[1];
 	if (move == 'U' || move == 'D')
 	{
-		mlx->player[Y_POS] += *(float *)ft_ternary(move == 'U', &player[1][1],
+		mlx->player[Y_POS] += *(double *)ft_ternary(move == 'U', &player[1][1],
 				&player[0][1]);
-		mlx->player[X_POS] += *(float *)ft_ternary(move == 'U', &player[1][0],
+		mlx->player[X_POS] += *(double *)ft_ternary(move == 'U', &player[1][0],
 				&player[0][0]);
 	}
 }
@@ -283,13 +298,13 @@ static int	key_hook(int key, t_mlx *mlx)
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
+		player_move(mlx, 'R', (double [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
+		player_move(mlx, 'L', (double [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
+		player_move(mlx, 'D', (double [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U', (float [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
+		player_move(mlx, 'U', (double [2]){(2 * M_PI / 180), -(2 * M_PI / 180)});
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	print_min_map(mlx);
 	return (0);
