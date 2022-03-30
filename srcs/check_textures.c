@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 17:32:18 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:47:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ void	close_all_textures(int *fd)
 {
 	if (fd[NORTH] != -1)
 		close(fd[NORTH]);
-	close(fd[SOUTH]);
-	close(fd[WEST]);
-	close(fd[EAST]);
+	else if (fd[SOUTH] != -1)
+		close(fd[SOUTH]);
+	else if (fd[WEST] != -1)
+		close(fd[WEST]);
+	else if (fd[EAST] != -1)
+		close(fd[EAST]);
 }
 
 // printf("In check texture size, width = %d, height = %d\n\n", width, height);
@@ -76,7 +79,7 @@ static int	check_texture_size(char *path, void *mlx)
 	}
 	mlx_destroy_image(mlx, image);
 	mlx_destroy_display(mlx);
-	free(image);
+	free(mlx);
 	return (EXIT_SUCCESS);
 }
 
