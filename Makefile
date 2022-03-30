@@ -32,8 +32,9 @@ endif
 .PHONY: all
 ifeq ($(DEBUG), 1)
 all : librairie/minilibx-linux/libmlx.a $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
-	norminette srcs | grep Error
+	./cub3D
+# valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
+# norminette srcs | grep Error
 else
 all : librairie/minilibx-linux/libmlx.a $(NAME)
 endif

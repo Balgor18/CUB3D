@@ -6,13 +6,13 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/26 20:36:04 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/30 21:42:51 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static bool	is_player(char c, float *angle)
+static bool	is_player(char c, double *angle)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
@@ -47,8 +47,8 @@ static void	find_player_pos(char **tmp, t_mlx *mlx)
 			{
 				mlx->player[X_POS] = ((*s = '0', pos[0]));
 				mlx->player[Y_POS] = pos[1];
-				mlx->delta[0] = cos(mlx->player[ANGLE]);
-				mlx->delta[1] = sin(mlx->player[ANGLE]);
+				mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
+				mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 				return ;
 			}
 			pos[0] += ((s++, 1));
@@ -56,6 +56,25 @@ static void	find_player_pos(char **tmp, t_mlx *mlx)
 		pos[1] += ((tmp++, 1));
 	}
 	tmp = str;
+}
+
+/**
+ *
+ *
+**/
+static void	mlx_print_line(t_mlx *mlx, float start[2], float stop[2], int color)//, float delta)
+{
+	double add[2];
+
+	add[0] = (stop[0] - start[0]);
+	add[1] = (stop[1] - start[1]);
+
+	while (start[0] < stop[0] && start[1] < stop[1])
+	{
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, start[0], start[1], color);
+		start[0] += add[0] / add[1];
+		start[1]++;
+	}
 }
 
 static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
@@ -126,98 +145,140 @@ static void	print_min_map(t_mlx *mlx)
 
 	// Juste a direction line
 
-	float	end_point[2];
-	i[0] += 8;
-	i[1] += 8;
+	// float	end_point[2];
+	// i[0] += 8;
+	// i[1] += 8;
 
-	int		j;
-	j = 0;
-	// printf("Player :\n\rX = %f\n\rY = %f\n", i[0], i[1]);
-	// printf("Delta : \n\rX = %f\n\rY = %f\n", mlx->delta[0], mlx->delta[1]);
-	while (j < 400)
-	{
-		end_point[0] = 0.1 * mlx->delta[0];
-		end_point[1] = 0.1 * mlx->delta[1];
-		// ----- X -----
-		if (mlx->delta[0] > 0)
-			end_point[0] *= -j;
-		else
-			end_point[0] *= -j;
+	// int		j;
+	// j = 0;
+	// // printf("Player :\n\rX = %f\n\rY = %f\n", i[0], i[1]);
+	// // printf("Delta : \n\rX = %f\n\rY = %f\n", mlx->delta[0], mlx->delta[1]);
+	// while (j < 400)
+	// {
+	// 	end_point[0] = 0.1 * mlx->delta[0];
+	// 	end_point[1] = 0.1 * mlx->delta[1];
+	// 	// ----- X -----
+	// 	if (mlx->delta[0] > 0)
+	// 		end_point[0] *= -j;
+	// 	else
+	// 		end_point[0] *= -j;
 
-		// ----- Y -----
-		if (mlx->delta[1] > 0)
-			end_point[1] *= -j;
-		else
-			end_point[1] *= -j;
+	// 	// ----- Y -----
+	// 	if (mlx->delta[1] > 0)
+	// 		end_point[1] *= -j;
+	// 	else
+	// 		end_point[1] *= -j;
 
-		end_point[0] += i[0];
-		end_point[1] += i[1];
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
-		j++;
-	}
+	// 	end_point[0] += i[0];
+	// 	end_point[1] += i[1];
+	// 	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+	// 	j++;
+	// }
 
-	int		mapX;
-	int		mapY;
 
-	// mapX = 64 * 16;
-	// mapY = 6 * 64;
+	// mlx_print_line(mlx, (float [2]){0, 0}, (float [2]){3 * 64, 2 * 64}, 0x00FF0000);
 
-	mapX = 16;
-	mapY = 6;
 
-	int	int_array[MAX_RAY];
-	float	f[MAX_FLOAT];
+	// float	end_point[2];
 
-	f[RA] = mlx->player[ANGLE];
-	int_array[RAYON] = 0;
-	while (int_array[RAYON] < 1)
-	{
-		//check horizontal
-		int_array[DOF] = 0;
-		float aTan = -1/tan(f[RA]);
-		if (f[RA] < M_PI)//looking up
-		{
-			printf(CYAN"Je regarde vers le haut\n"RESET);
-			f[RY] = (((int)M_PI >> 6) << 6) - 0.0001;
-			f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
-			f[YO] = -64;
-			f[XO] = -f[YO] * aTan;
-		}
-		if (f[RA] > M_PI)//looking down
-		{
-			printf(CYAN"Je regarde vers le bas\n"RESET);
-			f[RY] = (((int)M_PI >> 6) << 6) + 64;
-			f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
-			f[YO] = 64;
-			f[XO] = -f[YO] * aTan;
-		}
-		if (f[RA] == 0 || f[RA] == M_PI)// left and right // Right and left dosent work
-		{
-			printf(CYAN"Je regarde vers la droite ou la gauche\n"RESET);
-			f[RX] = mlx->player[X_POS];
-			f[RY] = mlx->player[Y_POS];
-			int_array[DOF] = 8;
-		}
-		while (int_array[DOF] < 8)
-		{
-			int_array[MX] = (int)(f[RX])>>6;
-			int_array[MY] = (int)(f[RY])>>6;
-			int_array[MP] = int_array[MY] * mapX + int_array[MX];
-			if (int_array[MP] < mapX * mapY)// && mlx->map[int_array[MP]] == 1)// wall hit
-			{
-				int_array[DOF] = 8;
-			}
-			else
-			{
-				f[RX] += f[XO];
-				f[RY] += f[YO];
-				int_array[DOF] += 1;
-			}
-		}
-		int_array[RAYON]++;
-	}
-	printf("int_array : \n\rRayon = %d\n\rMX = %d\n\rMY = %d\n\rMP = %d\n\rDOF = %d\n", int_array[RAYON], int_array[MX], int_array[MY], int_array[MP], int_array[DOF]);
-	printf("float : \n\rRX = %f\n\rRY = %f\n\rRA = %f\n\rXO = %f\n\rYO = %f\n", f[RX], f[RY], f[RA], f[XO], f[YO]);
+	int	 distance = 100;
+	float	adja;
+	float	oppo;
+
+	oppo = sin(mlx->player[ANGLE]) * distance;
+	adja = cos(mlx->player[ANGLE]) * distance;
+
+	mlx->player[X_POS] *= 64;
+	mlx->player[Y_POS] *= 64;
+
+	if (mlx->player[ANGLE] < M_PI && mlx->player[ANGLE] > (M_PI / 2))
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] + adja , mlx->player[Y_POS] - oppo}, 0x00FF00000);
+
+	else if (mlx->player[ANGLE] > 0 && mlx->player[ANGLE] < (M_PI / 2))
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] + adja , mlx->player[Y_POS] + oppo}, 0x00FF00000);
+
+	else if (mlx->player[ANGLE] > (3 * M_PI / 2) && mlx->player[ANGLE] < (2 * M_PI))
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja , mlx->player[Y_POS] + oppo}, 0x00FF00000);
+
+	else if (mlx->player[ANGLE] > M_PI && mlx->player[ANGLE] < ((3 * M_PI) / 2))
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja , mlx->player[Y_POS] - oppo}, 0x00FF00000);
+
+	mlx->player[X_POS] /= 64;
+	mlx->player[Y_POS] /= 64;
+	// int		mapX;
+	// int		mapY;
+
+	// mapX = 16;
+	// mapY = 6;
+
+	// int	int_array[MAX_RAY];
+	// double	f[MAX_FLOAT];
+
+	// f[RA] = mlx->player[ANGLE];
+	// int_array[RAYON] = 0;
+	// while (int_array[RAYON] < 1)
+	// {
+	// 	//check horizontal
+	// 	int_array[DOF] = 0;
+
+	// 	double aTan = 1/tan(f[RA]);
+
+	// 	if (f[RA] < M_PI)//looking up
+	// 	{
+	// 		printf(RED"Je regarde vers le haut\n"RESET);
+	// 		f[RY] = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
+	// 		f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
+	// 		f[YO] = -64;
+	// 		f[XO] = -f[YO] * aTan;
+	// 	}
+	// 	if (f[RA] > M_PI)//looking down
+	// 	{
+	// 		printf(GREEN"Je regarde vers le bas\n"RESET);
+	// 		f[RY] = (((int)mlx->player[Y_POS] >> 6) << 6) + 64;
+	// 		f[RX] = (mlx->player[Y_POS] - f[RY]) * aTan + mlx->player[X_POS];
+	// 		f[YO] = 64;
+	// 		f[XO] = -f[YO] * aTan;
+	// 	}
+	// 	if (f[RA] == 0 || f[RA] == M_PI)// left and right // Right and left dosent work
+	// 	{
+	// 		printf(CYAN"Je regarde vers la droite ou la gauche\n"RESET);
+	// 		f[RX] = mlx->player[X_POS];
+	// 		f[RY] = mlx->player[Y_POS];
+	// 		int_array[DOF] = 8;
+	// 	}
+	// 	while (int_array[DOF] < 8)
+	// 	{
+	// 		printf("RX = %f\nRY = %f\n", f[RX], f[RY]);
+	// 		int_array[MX] = (int)(f[RX])>>6;
+	// 		int_array[MY] = (int)(f[RY])>>6;
+	// 		printf("Y = %d\nX = %d\n", int_array[MX], int_array[MY]);
+	// 		if (mlx->map[int_array[MY]][int_array[MX]] == '1')// wall hit
+	// 		{
+	// 			int_array[DOF] = 8;
+	// 		}
+	// 		else
+	// 		{
+	// 			f[RX] += f[XO];
+	// 			f[RY] += f[YO];
+	// 			int_array[DOF] += 1;
+	// 		}
+	// 	}
+	// // 	//print HERE
+
+	// 	int_array[RAYON]++;
+	// }
+	// printf("Start = \n\tX = %f\n\rY = %f\n", mlx->player[X_POS], mlx->player[Y_POS]);
+	// printf("End = \n\tX = %f\n\tY = %d\n", f[RX], (int)f[RY]);
+	// int	start[2] = {mlx->player[X_POS], mlx->player[Y_POS]};
+
+	// while (start[0] < f[RX] && start[1] < f[RY])
+	// {
+	// 	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, start[0] * 64, start[1] * 64, 0x00FFFF00);
+	// 	start[0]++;
+	// 	start[1]++;
+	// }
+	// printf("int_array : \n\rRayon = %d\n\rMX = %d\n\rMY = %d\n\rMP = %d\n\rDOF = %d\n", int_array[RAYON], int_array[MX], int_array[MY], int_array[MP], int_array[DOF]);
+	// printf("float : \n\rRX = %f\n\rRY = %f\n\rRA = %f\n\rXO = %f\n\rYO = %f\n", f[RX], f[RY], f[RA], f[XO], f[YO]);
 }
 
 /**
@@ -254,6 +315,7 @@ static void	create_texture(t_mlx *mlx)
  * @param cond for the conditions
  * @param valid_1 if cond is true return valid_1
  * @param valid_2 if cond is false return valid_2
+ *
  * @return void* the value of valid_1 or valid_2
  */
 void	*ft_ternary(int const cond, void *valid_1, void *valid_2)
@@ -283,13 +345,13 @@ static void	player_move(t_mlx *mlx, char move, float t[2])
 			mlx->player[ANGLE] += 2 * M_PI;
 		else if (mlx->player[ANGLE] > 2 * M_PI)
 			mlx->player[ANGLE] -= 2 * M_PI;
-		mlx->delta[0] = cos(mlx->player[ANGLE]);
-		mlx->delta[1] = sin(mlx->player[ANGLE]);
+		mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
+		mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 	}
-	player[0][0] = t[0] * mlx->delta[0];
-	player[0][1] = t[0] * mlx->delta[1];
-	player[1][0] = t[1] * mlx->delta[0];
-	player[1][1] = t[1] * mlx->delta[1];
+	player[0][0] = 0.1f * mlx->delta[0];
+	player[0][1] = 0.1f * mlx->delta[1];
+	player[1][0] = -0.1f * mlx->delta[0];
+	player[1][1] = -0.1f * mlx->delta[1];
 	if (move == 'U' || move == 'D')
 	{
 		mlx->player[Y_POS] += *(float *)ft_ternary(move == 'U', &player[1][1],
@@ -308,13 +370,13 @@ static int	key_hook(int key, t_mlx *mlx)
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'R', (float [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'L', (float [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'D', (float [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U', (float [2]){0.1f, -0.1f});
+		player_move(mlx, 'U', (float [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	print_min_map(mlx);
 	return (0);
