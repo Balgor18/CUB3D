@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 21:05:44 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:17:00 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,31 @@ static void	fill_texture(t_data **data, t_list **list, char **dest, char *src)
 	}
 }
 
+
+void	fill_map(t_data **data, t_list **list)
+{
+	t_list	*tmp;
+	int		height;
+	int		width;
+
+	tmp = *list;
+	height = 0;
+	width = 0;
+	while (tmp && tmp->type != MAP_LINE)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		height++;
+		if (width < ft_strlen(tmp->line))
+			width = ft_strlen(tmp->line);
+		tmp = tmp->next;
+	}
+	(*data)->map_height = height;
+	(*data)->map_width = width;
+	printf("In fill map: map height = %d, width = %d\n", height, width);
+}
+
+
 void	fill_data(t_data **data, t_list **list)
 {
 	init_data(data, list);
@@ -111,4 +136,5 @@ void	fill_data(t_data **data, t_list **list)
 	fill_texture(data, list, &(*data)->east_texture, "EA ");
 	fill_rgb(data, list, &(*data)->floor_rgb, "F ");
 	fill_rgb(data, list, &(*data)->ceiling_rgb, "C ");
+	fill_map(data, list);
 }
