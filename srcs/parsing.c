@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 11:16:12 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 11:32:53 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,16 @@ static void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WEAEXT);
 }
 
-static void	open_texture(t_data **data, int cardinal, int *fd)
+static void	open_all_textures(t_data **data, int *fd)
 {
-	if (cardinal == NORTH)
-		fd[NORTH] = open((*data)->north_texture, O_RDONLY);
-	else if (cardinal == SOUTH)
-		fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
-	else if (cardinal == WEST)
-		fd[WEST] = open((*data)->west_texture, O_RDONLY);
-	else if (cardinal == EAST)
-		fd[EAST] = open((*data)->east_texture, O_RDONLY);
+	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
+	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
+	fd[WEST] = open((*data)->west_texture, O_RDONLY);
+	fd[EAST] = open((*data)->east_texture, O_RDONLY);
 }
 
-
-
-// Use mlx to image to fill width and height et elles doivent etre de 64x64
-// init mlx et return in ptr mlx
-// call mlx_xp_file_to_image to fill width and height
-static void	check_open_textures(t_data **data)
+static void	close_error_exit(t_data **data, int *fd)
 {
-	void	*mlx;
-	void	*image;
-	int		width;
-	int		height;
-	int		fd[4];
-
-	mlx = NULL;
-	image = NULL;
-	width = 0;
-	height = 0;
-	bzero_int_tab(fd, 4, 0);
-	open_texture(data, NORTH, fd);
-	open_texture(data, SOUTH, fd);
-	open_texture(data, WEST, fd);
-	open_texture(data, EAST, fd);
 	if (fd[NORTH] == -1)
 	{
 		close(fd[NORTH]);
@@ -111,10 +87,40 @@ static void	check_open_textures(t_data **data)
 		close(fd[EAST]);
 		clear_data_exit(data, OPENEATEX);
 	}
+}
+
+static void	close_all_textures(int *fd)
+{
 	close(fd[NORTH]);
 	close(fd[SOUTH]);
 	close(fd[WEST]);
 	close(fd[EAST]);
+}
+
+// Use mlx to image to fill width and height et elles doivent etre de 64x64
+// init mlx et return in ptr mlx
+// call mlx_xp_file_to_image to fill width and height
+static void	check_open_textures(t_data **data)
+{
+	void	*mlx;
+	void	*image;
+	int		width;
+	int		height;
+	int		fd[4];
+
+	mlx = NULL;
+	image = NULL;
+	width = 0;
+	height = 0;
+	printf("In check open texture, before mlx call, width = %d, height = %d\n", width, height);
+	bzero_int_tab(fd, 4, 0);
+	open_all_textures(data, fd);
+	if (fd[NORTH] == -1 || fd[SOUTH] == -1 || fd[WEST] == -1 || fd [EAST] == -1)
+		close_error_exit(data, fd);
+	mlx_xpm_file_to_image(mlx, (*data)->north_texture, &width, &height);
+	printf("In check open texture, mlx = %p, width = %d, height = %d\n\n", mlx, width, height);
+
+	close_all_textures(fd);
 }
 
 /**
