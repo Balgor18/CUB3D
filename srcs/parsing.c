@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/28 18:20:32 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 11:16:12 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ static void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WEAEXT);
 }
 
-static void	open_texture(t_data **data, char *path)
+static void	open_texture(t_data **data, int cardinal, int *fd)
 {
-	int	fd;
-
-	fd = open(path, O_RDONLY);
+	if (cardinal == NORTH)
+		fd[NORTH] = open((*data)->north_texture, O_RDONLY);
+	else if (cardinal == SOUTH)
+		fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
+	else if (cardinal == WEST)
+		fd[WEST] = open((*data)->west_texture, O_RDONLY);
+	else if (cardinal == EAST)
+		fd[EAST] = open((*data)->east_texture, O_RDONLY);
 }
 
 
@@ -79,7 +84,10 @@ static void	check_open_textures(t_data **data)
 	width = 0;
 	height = 0;
 	bzero_int_tab(fd, 4, 0);
-	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
+	open_texture(data, NORTH, fd);
+	open_texture(data, SOUTH, fd);
+	open_texture(data, WEST, fd);
+	open_texture(data, EAST, fd);
 	if (fd[NORTH] == -1)
 	{
 		close(fd[NORTH]);
