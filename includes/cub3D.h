@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/30 17:27:01 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:03:41 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct s_mlx	t_mlx;
 struct s_data
 {
 	char	**map;
+	int		map_height;
+	int		map_width;
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;

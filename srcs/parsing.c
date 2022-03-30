@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 17:50:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 18:01:22 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	fill_map(t_data **data)
 	print_data(*data);
 }
 */
+
+// LEAKS WITH SOME MAP
+
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
 	values and fill data if correct to send to mlx
