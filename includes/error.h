@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 12:11:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:04:14 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@
 # define WSOEXT "🍀🌸🦊      Wrong South Texture Extension       🦊🌸🍀\n"
 # define WWEEXT "🍀🌸🦊      Wrong West Texture Extension        🦊🌸🍀\n"
 # define WEAEXT "🍀🌸🦊      Wrong East Texture Extension        🦊🌸🍀\n"
-# define SIZENOTEX "🍀🌸🦊      North Texture sie is not 64 x 64      🦊🌸🍀\n"
-# define SIZESOTEX "🍀🌸🦊      South Texture sie is not 64 x 64       🦊🌸🍀\n"
-# define SIZEWETEX "🍀🌸🦊       West Texture sie is not 64 x 64       🦊🌸🍀\n"
-# define SIZEEATEX "🍀🌸🦊       East Texture sie is not 64 x 64       🦊🌸🍀\n"
+# define SIZENOTEX "🍀🌸🦊     North Texture sie is not 64 x 64     🦊🌸🍀\n"
+# define SIZESOTEX "🍀🌸🦊     South Texture sie is not 64 x 64     🦊🌸🍀\n"
+# define SIZEWETEX "🍀🌸🦊      West Texture sie is not 64 x 64     🦊🌸🍀\n"
+# define SIZEEATEX "🍀🌸🦊      East Texture sie is not 64 x 64     🦊🌸🍀\n"
 
 # define MLXFAIL "🍀🌸🦊      Mlx init fail (nice try env -i)     🦊🌸🍀\n"
 

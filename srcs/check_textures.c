@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 12:24:34 by grannou          ###   ########.fr       */
+/*   Updated: 2022/03/30 17:06:14 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	close_all_textures(int *fd)
 	close(fd[EAST]);
 }
 
+	// printf("In check texture size, width = %d, height = %d\n\n", width, height);
 static int	check_texture_size(char *path, void *mlx)
 {
 	void	*image;
@@ -67,7 +68,6 @@ static int	check_texture_size(char *path, void *mlx)
 	height = 0;
 	fd = 0;
 	image = mlx_xpm_file_to_image(mlx, path, &width, &height);
-	printf("In check texture size, width = %d, height = %d\n\n", width, height);
 	if (!image || width != 64 || height != 64)
 		return (EXIT_FAILURE);
 	free(image);
