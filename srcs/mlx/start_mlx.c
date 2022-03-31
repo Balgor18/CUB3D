@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/30 21:42:51 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:24:40 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	mlx_print_line(t_mlx *mlx, float start[2], float stop[2], int color)
 	add[0] = (stop[0] - start[0]);
 	add[1] = (stop[1] - start[1]);
 
-	while (start[0] < stop[0] && start[1] < stop[1])
+	while (start[0] < stop[0] || start[1] < stop[1])
 	{
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, start[0], start[1], color);
 		start[0] += add[0] / add[1];
@@ -191,18 +191,27 @@ static void	print_min_map(t_mlx *mlx)
 	mlx->player[X_POS] *= 64;
 	mlx->player[Y_POS] *= 64;
 
-	if (mlx->player[ANGLE] < M_PI && mlx->player[ANGLE] > (M_PI / 2))
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] + adja , mlx->player[Y_POS] - oppo}, 0x00FF00000);
-
-	else if (mlx->player[ANGLE] > 0 && mlx->player[ANGLE] < (M_PI / 2))
+	printf("Angle = %f\n", mlx->player[ANGLE]);
+	printf(PURPLE"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32);
+	if (mlx->player[ANGLE] == M_PI / 2)
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo}, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
+	
+	if (mlx->player[ANGLE] < M_PI && mlx->player[ANGLE] > (M_PI / 2)){
+		printf(GREEN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32);
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo}, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
+	}
+	else if (mlx->player[ANGLE] > 0 && mlx->player[ANGLE] < (M_PI / 2)){
+		printf(RED"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] + adja , mlx->player[Y_POS] + oppo);
 		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] + adja , mlx->player[Y_POS] + oppo}, 0x00FF00000);
-
-	else if (mlx->player[ANGLE] > (3 * M_PI / 2) && mlx->player[ANGLE] < (2 * M_PI))
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja , mlx->player[Y_POS] + oppo}, 0x00FF00000);
-
-	else if (mlx->player[ANGLE] > M_PI && mlx->player[ANGLE] < ((3 * M_PI) / 2))
+	}
+	else if (mlx->player[ANGLE] > (3 * M_PI / 2) && mlx->player[ANGLE] < (2 * M_PI)){
+		printf(CYAN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - adja, mlx->player[Y_POS] + oppo, mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32);
+		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] + oppo}, (float [2]){mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32}, 0x00FF00000);
+	}
+	else if (mlx->player[ANGLE] > M_PI && mlx->player[ANGLE] < ((3 * M_PI) / 2)){
+		printf(YELLOW"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - adja , mlx->player[Y_POS] - oppo);
 		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja , mlx->player[Y_POS] - oppo}, 0x00FF00000);
-
+	}
 	mlx->player[X_POS] /= 64;
 	mlx->player[Y_POS] /= 64;
 	// int		mapX;
@@ -304,6 +313,8 @@ static void	create_texture(t_mlx *mlx)
 	xpm_file_and_addr_player(mlx->mlx_ptr, &mlx->pict[PLAYER], 0x0000FF00);
 	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
 	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
+	printf("angle = %f\n", mlx->player[ANGLE]);
+	printf("PI / 2 = %f\n", M_PI / 2);
 	print_min_map(mlx);
 	// add a function for hook
 	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
