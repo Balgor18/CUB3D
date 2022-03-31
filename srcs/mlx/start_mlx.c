@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/31 18:33:24 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:16:03 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,64 @@ static void	find_player_pos(char **tmp, t_mlx *mlx)
 	tmp = str;
 }
 
+static void	mlx_print_liner(t_mlx *mlx, double pos[2], double alpha, int dist,int color)//, float delta)
+{
+
+	#define xx 0
+	#define yy 1
+
+	double b = pos[yy] - (alpha * pos[xx]);
+	double dx = (cos(atan(alpha)) * dist);
+	const int signe = ((0 < mlx->player[ANGLE] && mlx->player[ANGLE] < (M_PI / 2))||((3 * M_PI / 2) <  mlx->player[ANGLE] && mlx->player[ANGLE] < (2 * M_PI))) ? -1: 1;
+
+	while (dx > 0)
+	{
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, pos[xx], pos[xx] * alpha + b  , color);
+		dx--;
+		pos[xx] += signe;
+	}
+
+
+}
 /**
  *
  *
 **/
-static void	mlx_print_line(t_mlx *mlx, float start[2], float stop[2], int color)//, float delta)
+static void	mlx_print_line(t_mlx *mlx, double start[2], double stop[2], int color)//, float delta)
 {
 	double add[2];
 
 	add[0] = (stop[0] - start[0]);
 	add[1] = (stop[1] - start[1]);
+	#define xx 0
+	#define yy 1
+	double dx = (stop[xx] - start[xx]);
+	double dy = (stop[yy] - start[yy]);
+
+	printf(" dist %f \n", (sqrt((dx * dx) + (dy * dy))));
+	const int signe = (add[0] >= 0.0) ? 1: -1;
+	if(add[1] == 0.0)
+	{
+		add[0] = fabs(add[0]);
+		while (add[0] > 0)
+		{
+			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, start[0], start[1], color);
+			start[0] += signe;
+			add[0]--;
+		}
+		return;
+	}
 
 	while (start[0] < stop[0] || start[1] < stop[1])
 	{
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, start[0], start[1], color);
 		start[0] += add[0] / add[1];
 		start[1]++;
+		if(start[0] < 0)
+			break;
+		if(start[1] < 0)
+			break;
+
 	}
 }
 
@@ -185,8 +227,8 @@ static void	print_min_map(t_mlx *mlx)
 	float	adja;
 	float	oppo;
 
-	oppo = sin(mlx->player[ANGLE]) * distance;
-	adja = cos(mlx->player[ANGLE]) * distance;
+	oppo = fabs(sin(mlx->player[ANGLE]) * (double)distance);
+	adja = fabs(cos(mlx->player[ANGLE]) * (double)distance);
 
 	mlx->player[X_POS] *= 64;
 	mlx->player[Y_POS] *= 64;
@@ -194,6 +236,8 @@ static void	print_min_map(t_mlx *mlx)
 	printf(" adja %f \n", adja);
 	printf("oppo %f \n", oppo);
 	printf("Angle = %f\n", mlx->player[ANGLE]);
+	printf(" dist %f \n", (sqrt((adja * adja) + (oppo * oppo))));
+
 	// printf("M_PI = %f\n", M_PI);
 	// printf("3 * M_PI / 2 = %f\n", 3 * M_PI / 2);
 	// printf("2 * M_PI = %f\n", 2 * M_PI);
@@ -201,44 +245,56 @@ static void	print_min_map(t_mlx *mlx)
 	if (mlx->player[ANGLE] == M_PI / 2)
 	{
 		// printf("M_PI / 2\n");
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo}, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
+		mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo}, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
 	}
 	if (mlx->player[ANGLE] == M_PI)
 	{
 		printf("M_PI\n");
-		// printf("start : \n\tX = %f\n\tY = %f\nstop : \n\tX= %f\n\tY = %f\n", mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32}, 0x00FF00000);
+		printf("start : \n\tX = %f\n\tY = %f\nstop : \n\tX= %f\n\tY = %f\n", mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32);
+		mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32}, 0x00FF00000);
 	}
 	if (mlx->player[ANGLE] == 3 * M_PI / 2)
 	{
-		printf("3 * M_PI / 2\n");
-		printf("start : \n\tX = %f\n\tY = %f\nstop : \n\tX= %f\n\tY = %f\n", mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - 32,  mlx->player[Y_POS] - oppo}, 0x00FF00000);
+		// printf("3 * M_PI / 2\n");
+		// printf("start : \n\tX = %f\n\tY = %f\nstop : \n\tX= %f\n\tY = %f\n", mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo);
+		mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] - 32,  mlx->player[Y_POS] - oppo}, 0x00FF00000);
 	}
 	if (mlx->player[ANGLE] == 0 || mlx->player[ANGLE] == 2 * M_PI)
 	{
 		printf("2 * M_PI\n");
 		printf("start : \n\tX = %f\n\tY = %f\nstop : \n\tX= %f\n\tY = %f\n", mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
+		// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - 32}, 0x00FF00000);
 	}
+	// const int signe = ((0 < mlx->player[ANGLE] && mlx->player[ANGLE] < (M_PI / 2))||((3 * M_PI / 2) <  mlx->player[ANGLE] && mlx->player[ANGLE] < (2 * M_PI))) ? 1: -1;
+	mlx_print_liner(mlx,(double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, tan(mlx->player[ANGLE])  ,100,0x00FF00000);
 
+	// if ( 0 < mlx->player[ANGLE] && mlx->player[ANGLE] < (M_PI / 2)){
+	// 	printf("  1 \n");
+	// 	// printf(GREEN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo);
+	// 	// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo}, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
+	// 	// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - oppo}, 0x00FF00000);
+	// 	mlx_print_liner(mlx,(double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, tan(mlx->player[ANGLE]) ,100,0x00FF00000);
+	// }
+	// else if ((M_PI / 2) < mlx->player[ANGLE]  && mlx->player[ANGLE] < M_PI ){
+	// 	printf("  2 \n");
+	// 	mlx_print_liner(mlx,(double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, tan(mlx->player[ANGLE]) ,100,0x00FF00000);
 
-	if (mlx->player[ANGLE] < M_PI && mlx->player[ANGLE] > (M_PI / 2)){
-		// printf(GREEN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo);
-		// mlx_print_line(mlx, (float [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo}, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, 0x00FF00000);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - oppo}, (float [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - 32}, 0x00FF00000);
-	}
-	else if (mlx->player[ANGLE] > 0 && mlx->player[ANGLE] < (M_PI / 2)){
-		printf(RED"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET,mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32,mlx->player[X_POS] - adja, mlx->player[Y_POS] - oppo);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - adja, mlx->player[Y_POS] - oppo}, 0x00FF00000);// invert
-	}
-	else if (mlx->player[ANGLE] > (3 * M_PI / 2) && mlx->player[ANGLE] < (2 * M_PI)){
-		printf(CYAN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo, mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32);
-		mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo}, 0x00FF00000);
-	}
-	// else if (mlx->player[ANGLE] > M_PI && mlx->player[ANGLE] < ((3 * M_PI) / 2)){
-	// 	printf(YELLOW"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - 32 + adja , mlx->player[Y_POS] - 32 - oppo);
-	// 	mlx_print_line(mlx, (float [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (float [2]){mlx->player[X_POS] - 32 + adja , mlx->player[Y_POS] -32 - oppo}, 0x00FF00000);
+	// 	// printf(RED"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET,mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32,mlx->player[X_POS] - adja, mlx->player[Y_POS] - oppo);
+	// 	// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo}, 0x00FF00000);// invert
+	// }
+	// else if ( M_PI < mlx->player[ANGLE] && mlx->player[ANGLE] < ((3 * M_PI) / 2)){
+	// 	printf("  3 \n");
+	// 	mlx_print_liner(mlx,(double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, tan(mlx->player[ANGLE]) ,100,0x00FF00000);
+
+	// 	// printf(CYAN"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] + adja, mlx->player[Y_POS] - oppo, mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32);
+	// 	// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32 , mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS] + adja, mlx->player[Y_POS] + oppo}, 0x00FF00000);
+	// }
+	// else if ((3 * M_PI / 2) < mlx->player[ANGLE]  && mlx->player[ANGLE] < (2 * M_PI)){
+	// 	printf("  4 \n");
+	// 	mlx_print_liner(mlx,(double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, tan(mlx->player[ANGLE]) ,100,0x00FF00000);
+
+	// 	printf(YELLOW"start :\n\t X = %f\n\t Y = %f\nEnd :\n\tX= %f\n\tY = %f\n"RESET, mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32, mlx->player[X_POS] - adja , mlx->player[Y_POS]  + oppo);
+	// 	// mlx_print_line(mlx, (double [2]){mlx->player[X_POS] - 32, mlx->player[Y_POS] - 32}, (double [2]){mlx->player[X_POS]  - adja , mlx->player[Y_POS] + oppo}, 0x00FF00000);
 	// }
 	mlx->player[X_POS] /= 64;
 	mlx->player[Y_POS] /= 64;
