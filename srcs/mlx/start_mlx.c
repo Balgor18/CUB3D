@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/31 19:35:17 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/03/31 23:45:32 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,11 @@ static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
 	}
 }
 
+static double dist(double ax, double ay, double bx, double by)
+{
+	return (sqrt(bx - ax) * (bx - ax) + (by - ay) * (by -ay));
+}
+
 //	in[0] == Y
 //	in[1] == X
 static void	print_min_map(t_mlx *mlx)
@@ -229,7 +234,7 @@ static void	print_min_map(t_mlx *mlx)
 	{
 		//check horizontal
 		int_array[DOF] = 0;
-
+		double distH = 1000000, hx = mlx->player[X_POS], hy = mlx->player[Y_POS];
 		double aTan = -1/tan(mlx->player[ANGLE]);
 
 		if (mlx->player[ANGLE] < M_PI)//looking up
@@ -269,6 +274,9 @@ static void	print_min_map(t_mlx *mlx)
 			// printf("f[RX] = %f\nf[RY] = %f\n", f[RX] / 64, f[RY] / 64);
 			if (int_array[MX] > 0 && int_array[MX] < 16 && int_array[MY] < 6 && mlx->map[int_array[MY]][int_array[MX]] == '1')// wall hit
 			{
+				hx = f[RX];
+				hy = f[RY];
+				distH = dist(mlx->player[X_POS], mlx->player[Y_POS], hx, hy);
 				int_array[DOF] = 8;
 			}
 			else
@@ -283,26 +291,28 @@ static void	print_min_map(t_mlx *mlx)
 
 		// ----- vertical ------
 		int_array[DOF] = 0;
-		aTan = -1/tan(mlx->player[ANGLE]);
-		if (mlx->player[ANGLE] > M_PI / 2 && mlx->player[ANGLE] < 3 * M_PI / 2)//looking left
+		double distV = 1000000, vx = mlx->player[X_POS], vy = mlx->player[Y_POS];
+
+		double nTan = -tan(mlx->player[ANGLE]);
+		if ( M_PI / 2 < mlx->player[ANGLE] && mlx->player[ANGLE] < 3 * M_PI / 2)//looking left
 		{
-			printf(RED"Je regarde vers le haut\n"RESET);
+			printf(YELLOW"Je regarde vers le gauche\n"RESET);
 			f[RX] = (((int)mlx->player[X_POS] >> 6) << 6) - 0.0001;
-			f[RY] = (mlx->player[X_POS] - f[RX]) * aTan + mlx->player[Y_POS];
+			f[RY] = (mlx->player[X_POS] - f[RX]) * nTan + mlx->player[Y_POS];
 			f[XO] = -64;
-			f[YO] = -f[XO] * aTan;
+			f[YO] = -f[XO] * nTan;
 		}
-		if (mlx->player[ANGLE] < M_PI / 2 || mlx->player[ANGLE] > 3 * M_PI / 2)//looking right
+		if (3 * M_PI / 2 <  mlx->player[ANGLE] || mlx->player[ANGLE] < M_PI / 2 )//looking right
 		{
-			printf(GREEN"Je regarde vers le bas\n"RESET);
+			printf(BLUE"Je regarde vers la droite\n"RESET);
 			f[RX] = (((int)mlx->player[X_POS] >> 6) << 6) + 64;
-			f[RY] = (mlx->player[X_POS] - f[RX]) * aTan + mlx->player[Y_POS];
+			f[RY] = (mlx->player[X_POS] - f[RX]) * nTan + mlx->player[Y_POS];
 			f[XO] = 64;
-			f[YO] = -f[XO] * aTan;
+			f[YO] = -f[XO] * nTan;
 		}
 		if (mlx->player[ANGLE] == 0 || mlx->player[ANGLE] == M_PI)// up or down
 		{
-			printf(CYAN"Je regarde vers la droite ou la gauche\n"RESET);
+			printf(CYAN"Je regarde vers la haut ou le bas\n"RESET);
 			f[RX] = mlx->player[X_POS];
 			f[RY] = mlx->player[Y_POS];
 			int_array[DOF] = 8;
@@ -313,6 +323,9 @@ static void	print_min_map(t_mlx *mlx)
 			int_array[MY] = (int)(f[RY])>>6;
 			if (int_array[MX] > 0 && int_array[MX] < 16 && int_array[MY] < 6 && mlx->map[int_array[MY]][int_array[MX]] == '1')// wall hit
 			{
+				vx = f[RX];
+				vy = f[RY];
+				distV = dist(mlx->player[X_POS], mlx->player[Y_POS], vx, vy);
 				int_array[DOF] = 8;
 			}
 			else
@@ -322,12 +335,24 @@ static void	print_min_map(t_mlx *mlx)
 				int_array[DOF] += 1;
 			}
 		}
+		if (distV < distH)
+		{
+			f[RX] = vx;
+			f[RY] = vy;
+		}
+		if (distH < distV)
+		{
+			f[RX] = hx;
+			f[RY] = hy;
+		}
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, f[RX], f[RY], 0x00FF0000);
 		int_array[RAYON]++;
 	}
 
 
 
-	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, f[RX], f[RY], 0x00FF0000);
+	// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, f[RX], f[RY], 0x00FF0000);
+
 	// mlx->player[X_POS] /=64;
 	// mlx->player[Y_POS] /=64;
 	// printf("player : \n\tX = %f\n\tY = %f\n", mlx->player[X_POS], mlx->player[Y_POS]);
