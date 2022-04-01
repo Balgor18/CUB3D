@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 18:23:59 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 04:53:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_data(t_data *data)
 	printf("East texture path  : %s\n", data->east_texture);
 	printf("Floor RGB color    : %d\n", data->floor_rgb);
 	printf("Ceiling RGB color  : %d\n", data->ceiling_rgb);
-	print_map(data->map);
+	// print_map(data->map);
 }
 
 void	print_map(char **map)

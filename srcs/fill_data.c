@@ -6,13 +6,13 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 18:43:30 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 05:27:09 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	check_value_limits(t_data **data, t_list **list, char **array)
+void	check_value_limits(t_data **data, t_list **list, char **array, char **str)
 {
 	int	i;
 	int	len;
@@ -26,17 +26,29 @@ void	check_value_limits(t_data **data, t_list **list, char **array)
 		len = 0;
 		len = nbrlen(array[i]);
 		if (len == -1)
+		{
+			free(str);
+			free_array(array);
 			clear_all_exit(data, list, SYNTAXRGB);
+		}
 		if (len > 3)
+		{
+			free(str);
+			free_array(array);
 			clear_all_exit(data, list, BIGRGB);
+		}
 		nbr = ft_atoi(array[i]);
 		if (nbr > 255)
+		{
+			free(str);
+			free_array(array);
 			clear_all_exit(data, list, BIGRGB);
+		}
 		i++;
 	}
 }
 
-int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
+int	get_hexa_rgb_value(t_data **data, t_list **list, char **str)
 {
 	char	**array;
 	int		rgb[3];
@@ -44,10 +56,13 @@ int	get_hexa_rgb_value(t_data **data, t_list **list, char *str)
 
 	bzero_int_tab(rgb, 3, 0);
 	hexa_color = 0;
-	array = ft_split(data, list, str, ',');
+	array = ft_split(data, list, *str, ',');
 	if (!array)
+	{
+		free(str);
 		clear_all_exit(data, list, COMASFAIL);
-	check_value_limits(data, list, array);
+	}
+	check_value_limits(data, list, array, str);
 	rgb[RED_RGB] = ft_atoi(array[RED_RGB]);
 	rgb[GREEN_RGB] = ft_atoi(array[GREEN_RGB]);
 	rgb[BLUE_RGB] = ft_atoi(array[BLUE_RGB]);
@@ -68,11 +83,14 @@ static void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 		if (ft_strncmp(tmp->line, src, 2) == 0)
 		{
 			to_split = sub_trim_str(tmp->line, src);
-			if (!to_split && (ft_strcmp(src, "F ") == 0))
-				clear_all_exit(data, list, FLOORFAIL);
-			if (!to_split && (ft_strcmp(src, "C ") == 0))
-				clear_all_exit(data, list, CEILINGFAIL);
-			*dest = get_hexa_rgb_value(data, list, to_split);
+			if (!to_split)
+			{
+				if (ft_strcmp(src, "F ") == 0)
+					clear_all_exit(data, list, FLOORFAIL);
+				else if (ft_strcmp(src, "C ") == 0)
+					clear_all_exit(data, list, CEILINGFAIL);
+			}
+			*dest = get_hexa_rgb_value(data, list, &to_split);
 			free(to_split);
 		}
 		tmp = tmp->next;
