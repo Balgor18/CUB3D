@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/01 05:44:37 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:55:47 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ void	fill_data(t_data **data, t_list **list);
 // data_utils.c
 void	init_data(t_data **data, t_list **list);
 void	*ft_memset(void *b, int c, int len);
+
+// fill_textures.c
+void		fill_rgb(t_data **data, t_list **list, int *dest, char *str);
+void		fill_texture(t_data **data, t_list **list, char **dest, char *src);
 
 // check_textures.c
 void	close_all_textures(int *fd);

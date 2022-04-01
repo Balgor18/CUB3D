@@ -16,6 +16,7 @@ SRCS =	main.c                      	\
 		fill_list.c						\
 		fill_data.c						\
 		data_utils.c					\
+		fill_textures.c					\
 		check_textures.c				\
 		lst_utils.c 					\
 		tab_utils.c 					\
