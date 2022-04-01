@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 05:27:09 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 05:53:11 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	get_map_size(t_data **data, t_list **list)
 	printf("In get map size: map height = %d, width = %d\n", height, width);
 }
 
-void	fill_map(t_data **data, t_list **list)
+void	init_map(t_data **data, t_list **list)
 {
 	t_list	*tmp;
 	int		i;
@@ -155,16 +155,19 @@ void	fill_map(t_data **data, t_list **list)
 		clear_all_exit(data, list, MAPFAIL);
 	while (i < (*data)->map_height)
 	{
-		(*data)->map[i] = (char *)malloc(sizeof(char) * ((*data)->map_width) + 1);
+		(*data)->map[i] = (char *)malloc(sizeof(char) * ((*data)->map_width + 1));
 		if (!(*data)->map[i])
 		{
 			free_array((*data)->map);
 			clear_all_exit(data, list, MAPFAIL);
 		}
+		(*data)->map[i] = ft_memset((*data)->map[i], ' ', (*data)->map_width);
+		(*data)->map[i][(*data)->map_width] = '\0';
 		// ft_memset la ligne de map avec ' '
 		// parcourir tmp et strcopy dans map[i] au fur et a mesure
 		i++;
 	}
+	(*data)->map[i] = NULL;
 }
 
 void	fill_data(t_data **data, t_list **list)
@@ -177,5 +180,5 @@ void	fill_data(t_data **data, t_list **list)
 	fill_rgb(data, list, &(*data)->floor_rgb, "F ");
 	fill_rgb(data, list, &(*data)->ceiling_rgb, "C ");
 	get_map_size(data, list);
-	fill_map(data, list);
+	init_map(data, list);
 }

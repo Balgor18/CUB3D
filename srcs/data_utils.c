@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:13:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 18:04:54 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 05:46:45 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,11 @@ void	init_data(t_data **data, t_list **list)
 	(*data)->east_texture = NULL;
 	(*data)->floor_rgb = 0;
 	(*data)->ceiling_rgb = 0;
+}
+
+void	*ft_memset(void *b, int c, int len)
+{
+	while (len--)
+		((unsigned char *)b)[len] = (unsigned char)c;
+	return (b);
 }
