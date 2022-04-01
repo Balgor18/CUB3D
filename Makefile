@@ -3,7 +3,7 @@ NAME = cub3D
 OBJ_DIR		=	objs
 INC_DIR		=	includes
 SRC_DIR		=	$(shell find srcs -type d)
-LIB_DIR		=	-Llibrairie/minilibx-linux -lmlx -lXext -lX11
+LIB_DIR		=	-Llibrairie/minilibx-linux -lm -lmlx -lXext -lX11
 
 vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 
@@ -32,8 +32,9 @@ endif
 .PHONY: all
 ifeq ($(DEBUG), 1)
 all : librairie/minilibx-linux/libmlx.a $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
-	norminette srcs | grep Error
+	./cub3D
+# valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
+# norminette srcs | grep Error
 else
 all : librairie/minilibx-linux/libmlx.a $(NAME)
 endif

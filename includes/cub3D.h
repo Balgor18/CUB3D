@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 23:18:29 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/01 03:24:47 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "get_next_line.h"
 # include <stdio.h>
 # include "mlx.h"
@@ -30,6 +31,7 @@ enum	e_player
 {
 	X_POS,
 	Y_POS,
+	ANGLE,
 	MAX_POS,
 };
 
@@ -69,8 +71,9 @@ struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	pict[MAX_IMG];
-	float	player[MAX_POS];
-	t_tmp	*file;
+	double	player[MAX_POS];
+	double	delta[2];
+	char	**map;
 };
 
 /*
@@ -79,6 +82,6 @@ struct s_mlx
 **----------------------------------
 */
 
-void	start_mlx(t_tmp *file);
+void	start_mlx(char **map);
 void	free_mlx(t_mlx *mlx);
 #endif

@@ -6,36 +6,46 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 23:43:10 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/01 05:15:25 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static bool	is_player(char c)
+static bool	is_player(char c, double *angle)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return true;
-	return false;
+	{
+		if (c == 'N')
+			*angle = M_PI / 2;
+		else if (c == 'S')
+			*angle = 1.5 * M_PI;
+		else if (c == 'E')
+			*angle = 0;
+		else if (c == 'W')
+			*angle = M_PI;
+		return (true);
+	}
+	return (false);
 }
 
 // pos[0] = X;
 // pos[1] = Y;
-static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
+static void	find_player_pos(char **tmp, t_mlx *mlx)
 {
 	int	pos[2];
-	t_tmp	*tmpb;
 	char	*s;
+	char **tmpb;
 
 	tmpb = tmp;
-	pos[1] = 1;// see if need to start 1
+	pos[1] = 0;
 	while (tmp)
 	{
-		pos[0] = 1;// see if need to start 1
-		s = tmp->line;
+		pos[0] = 0;
+		s = *tmp;
 		while (*s)
 		{
-			if (is_player(*s))
+			if (is_player(*s, &mlx->player[ANGLE]))
 			{
 				*s = '0';
 				mlx->player[X_POS] = pos[0];
@@ -46,7 +56,7 @@ static void	find_player_pos(t_tmp *tmp, t_mlx *mlx)
 			s++;
 		}
 		pos[1]++;
-		tmp = tmp->next;
+		tmp++;
 	}
 	tmp = tmpb;
 }
@@ -123,76 +133,257 @@ static void	create_texture(t_mlx *mlx)
 	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
 }
 
-static void	player_move(t_mlx *mlx, char move)
+static double dist(double ax, double ay, double bx, double by)
 {
-	if (move == 'R')// move this for ptr fct
-		mlx->player[X_POS] += 0.1;
-	else if (move == 'L')// move this for ptr fct
-		mlx->player[X_POS] -= 0.1;
-	else if (move == 'U')// move this for ptr fct
-		mlx->player[Y_POS] -= 0.1;
-	else if (move == 'D')// move this for ptr fct
-		mlx->player[Y_POS] += 0.1;
+	return (sqrt(bx - ax) * (bx - ax) + (by - ay) * (by - ay));
 }
 
 //	i[0] == Y
 //	i[1] == X
 static void	print_min_map(t_mlx *mlx)
 {
-	t_tmp *tmp;
+	char **tmpb;
 	char	*s;
 	int		in[2];
 
 	in[0] = 0;
-	tmp = mlx->file;
-	while (mlx->file)
+	tmpb = mlx->map;
+	while (*tmpb)
 	{
-		s = mlx->file->line;
+		s = *tmpb;
 		in[1] = 0;
-		printf("s = %s\n", s);
 		while (*s)
 		{
-			printf("%c Y = %d x = %d\n", *s,  in[0], in[1]);
 			if (*s == '1')
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[WALL].img, in[1], in[0]);
-			else if (*s == '0')
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
+			// else if (*s == '0')
+			// 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
 			s++;
 			in[1] += 64;
 		}
 		in[0] += 64;
-		mlx->file = mlx->file->next;
+		tmpb++;
 	}
-	mlx->file = tmp;
+
 	//player
 	int	i[2];
 
-	i[0] = (mlx->player[X_POS] * 64) - 40;
-	i[1] = (mlx->player[Y_POS] * 64) - 40;
+	i[0] = (mlx->player[X_POS] * 64) + 32;
+	i[1] = (mlx->player[Y_POS] * 64) + 32;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
+
+	// int	j;
+
+	// j = 0;
+	// double end_point[2];
+	// //draw direction
+	// while (j < 400)
+	// {
+	// 	end_point[0] = 0.1 * mlx->delta[0];
+	// 	end_point[1] = 0.1 * mlx->delta[1];
+	// 	// ----- X -----
+	// 	if (mlx->delta[0] > 0)
+	// 		end_point[0] *= -j;
+	// 	else
+	// 		end_point[0] *= -j;
+
+	// 	// ----- Y -----
+	// 	if (mlx->delta[1] > 0)
+	// 		end_point[1] *= -j;
+	// 	else
+	// 		end_point[1] *= -j;
+
+	// 	end_point[0] += i[0];
+	// 	end_point[1] += i[1];
+	// 	mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, end_point[0], end_point[1], 0x00FFFF00);
+	// 	j++;
+	// }
+
+	int	r,mx,my,dof; float rx, ry, ra, xo,yo;
+	r = 0;
+	ra = mlx->player[ANGLE];
+	mlx->player[Y_POS] *= 64;
+	mlx->player[X_POS] *= 64;
+	while (r < 1)
+	{
+		// check horizontal
+		// dof = 0;
+		// float distH = 1000000,hx = mlx->player[X_POS],hy = mlx->player[Y_POS];
+		// float aTan = -1 / tan(ra);
+		// if (ra < M_PI)
+		// {
+		// 	ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
+		// 	rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+		// 	yo = -64;
+		// 	xo = -yo * aTan;
+		// }
+		// if (ra > M_PI)
+		// {
+		// 	ry = (((int)mlx->player[Y_POS] >> 6) << 6) + 64;
+		// 	rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+		// 	yo = 64;
+		// 	xo = -yo * aTan;
+		// }
+		// if (ra == 0 || ra == M_PI)
+		// {
+		// 	rx = mlx->player[X_POS];
+		// 	ry = mlx->player[Y_POS];
+		// 	dof = 8;
+		// }
+		// while (dof < 8)
+		// {
+		// 	mx = (int) (rx) >> 6;
+		// 	my = (int) (ry) >> 6;
+		// 	// printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
+		// 	// printf("rx : %f\nry : %f\n", rx, ry);
+		// 	if (0 < rx && rx < 16 * 64 && 0 < ry && ry < 6 * 64 && mlx->map[(int)ry / 64][(int)rx / 64] == '1')
+		// 	{
+		// 		hx = rx;
+		// 		hy = ry;
+		// 		dof = 8;
+		// 		distH = dist(mlx->player[X_POS], mlx->player[Y_POS], hx, hy);
+		// 	}
+		// 	else
+		// 	{
+		// 		rx += xo;
+		// 		ry += yo;
+		// 		dof += 1;
+		// 	}
+		// }
+		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
+
+		// check vertical
+		dof = 0;
+		float distV = 1000000,vx = mlx->player[X_POS],vy = mlx->player[Y_POS];
+		float nTan = -tan(ra);
+		if (M_PI / 2 < ra && ra < 3 * M_PI / 2)// left
+		{
+			printf("y player = %f\n", mlx->player[Y_POS]);
+			rx = (((int)mlx->player[X_POS] >> 6) << 6) - 0.0001;
+			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+			xo = -64;
+			yo = -xo * nTan;
+		}
+		if (ra < (M_PI / 2) || (3 * M_PI / 2) < ra)// right
+		{
+			rx = (((int)mlx->player[X_POS] >> 6) << 6) + 64;
+			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+			xo = 64;
+			yo = -xo * nTan;
+		}
+		if (ra == 0 || ra == M_PI)// up or own
+		{
+			rx = mlx->player[X_POS];
+			ry = mlx->player[Y_POS];
+			dof = 8;
+		}
+		while (dof < 8)
+		{
+			mx = (int) (rx) >> 6;
+			my = (int) (ry) >> 6;
+			// printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
+			// printf("rx : %f\nry : %f\n", rx, ry);
+			if (0 < ry && ry < 6 && 0 < rx && rx < 16 && mlx->map[my][mx] == '1')
+			{
+				vx = rx;
+				vy = ry;
+				dof = 8;
+				distV = dist(mlx->player[X_POS], mlx->player[Y_POS],vx, vy);
+			}
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof += 1;
+			}
+		}
+		// if (distV < distH)
+		// {
+		// 	rx = vx;
+		// 	ry = vy;
+		// }
+		// if (distH < distV)
+		// {
+		// 	rx = hx;
+		// 	ry = hy;
+		// }
+		printf("Je print %f / %f\n", rx, ry);
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
+		r++;
+	}
+	// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
+	mlx->player[Y_POS] /= 64;
+	mlx->player[X_POS] /= 64;
+}
+
+/**
+ * @brief Function for a ternaire
+ *
+ * @param cond for the conditions
+ * @param valid_1 if cond is true return valid_1
+ * @param valid_2 if cond is false return valid_2
+ *
+ * @return void* the value of valid_1 or valid_2
+ */
+void	*ft_ternary(int const cond, void *valid_1, void *valid_2)
+{
+	if (cond)
+		return (valid_1);
+	return (valid_2);
+}
+
+/**
+ * @brief modif value of the player when he press a touch
+ *
+ * @param mlx struct mlx
+ * @param move value of the player move
+ * @param t a Array of 2 with the value of t[0] = 0.1f & t[1] = -0.1f
+ *
+ * @return void
+ */
+static void	player_move(t_mlx *mlx, char move, double t[2])
+{
+	double	player[2][2];
+
+	if (move == 'R' || move == 'L')
+	{
+		mlx->player[ANGLE] += *(double *)ft_ternary(move == 'R', &t[0], &t[1]);
+		if (mlx->player[ANGLE] < 0)
+			mlx->player[ANGLE] += 2 * M_PI;
+		else if (mlx->player[ANGLE] > 2 * M_PI)
+			mlx->player[ANGLE] -= 2 * M_PI;
+		mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
+		mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
+	}
+	player[0][0] = 0.1f * mlx->delta[0];
+	player[0][1] = 0.1f * mlx->delta[1];
+	player[1][0] = -0.1f * mlx->delta[0];
+	player[1][1] = -0.1f * mlx->delta[1];
+	if (move == 'U' || move == 'D')
+	{
+		mlx->player[Y_POS] += *(double *)ft_ternary(move == 'U', &player[1][1],
+				&player[0][1]);
+		mlx->player[X_POS] += *(double *)ft_ternary(move == 'U', &player[1][0],
+				&player[0][0]);
+	}
 }
 
 static int	key_hook(int key, t_mlx *mlx)
 {
 	if (key == ESCAPE)
 	{
-		// if (mlx->map.player.move != 0)
-		// 	ft_putchar_fd('\n', 1);
 		mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 		free_mlx(mlx);
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R');
+		player_move(mlx, 'R', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L');
-		// press_move(all, &all->map, 'L');
+		player_move(mlx, 'L', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D');
-		// press_move(all, &all->map, 'D');
+		player_move(mlx, 'D', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U');
-		// press_move(all, &all->map, 'U');
+		player_move(mlx, 'U', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	print_min_map(mlx);
 	return (0);
@@ -214,18 +405,18 @@ static int	ft_close(t_mlx *mlx)
 
 	@return	Return void
  **/
-void	start_mlx(t_tmp *file)
+void	start_mlx(char **map)
 {
 	t_mlx	mlx;
 
 	mlx = (t_mlx){0};
-	mlx.file = file;
-	find_player_pos(file, &mlx);
+	mlx.map = map;
+	find_player_pos(map, &mlx);
 	create_texture(&mlx);
 
 	print_min_map(&mlx);
 	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[WALL].img, 0, 0);
-	
+
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
 
 	// mlx_hook(mlx.mlx_win, 15, 1L << 16, reset_window, all);

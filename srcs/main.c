@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 12:20:53 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/01 02:37:38 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,36 @@ static void	free_tmp(t_tmp *file)
 	}
 }
 
+static char	**list_to_char(t_tmp *file)
+{
+	char	**map;
+	int		len;
+	t_tmp	*tmp;
+
+	len = 0;
+	tmp = file;
+	while (file)
+	{
+		file = file->next;
+		len++;
+	}
+	map = malloc(sizeof(char *) * (len + 1));
+	if (!map)
+		return (NULL);
+	map[len] = NULL;
+	len = 0;
+	file = tmp;
+	while (file)
+	{
+		map[len] = file->line;
+		len++;
+		tmp = file;
+		file = file->next;
+		free(tmp);
+	}
+	return (map);
+}
+
 int	main(void)
 {
 	char	file_name[] = "map.cub";
@@ -80,7 +110,7 @@ int	main(void)
 	free(line);
 	close(fd);
 	print_struct(file);
-	start_mlx(file);
+	start_mlx(list_to_char(file));
 	free_tmp(file);
 	return (EXIT_SUCCESS);
 }
