@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 17:47:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:30:34 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	open_all_textures(t_data **data, int *fd)
 {
+	printf("In open all textures\n");
 	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
 	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
 	fd[WEST] = open((*data)->west_texture, O_RDONLY);
@@ -22,6 +23,7 @@ static void	open_all_textures(t_data **data, int *fd)
 
 static void	close_error_exit(t_data **data, int *fd)
 {
+	printf("In close error exit\n");
 	if (fd[NORTH] == -1)
 	{
 		close(fd[NORTH]);
@@ -49,6 +51,7 @@ static void	close_error_exit(t_data **data, int *fd)
 
 void	close_all_textures(int *fd)
 {
+	printf("In close all textures\n");
 	if (fd[NORTH] != -1)
 		close(fd[NORTH]);
 	else if (fd[SOUTH] != -1)
@@ -67,6 +70,7 @@ static int	check_texture_size(char *path, void *mlx)
 	int		height;
 	int		fd;
 
+	printf("In check texture size\n");
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -91,6 +95,7 @@ void	check_open_textures(t_data **data)
 	void	*mlx;
 	int		fd[4];
 
+	printf("In check open textures\n");
 	bzero_int_tab(fd, 4, 0);
 	mlx = mlx_init();
 	if (!mlx)

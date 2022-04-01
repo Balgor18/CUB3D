@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 13:53:01 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:23:45 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_map(t_data **data, t_list **list)
 
 	tmp = *list;
 	i = 0;
+	printf("In init map\n");
 	(*data)->map = (char **)malloc(sizeof(char *) * ((*data)->map_height + 1));
 	if (!(*data)->map)
 		clear_all_exit(data, list, MAPFAIL);
@@ -62,8 +63,40 @@ void	init_map(t_data **data, t_list **list)
 	(*data)->map[i] = NULL;
 }
 
+char	*copy_str(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	return (dest);
+}
+
+void	fill_map(t_data **data, t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	printf("In fill map\n");
+	while (tmp && tmp->type != MAP_LINE)
+		tmp = tmp->next;
+	while (i < (*data)->map_height && tmp)
+	{
+		(*data)->map[i] = copy_str((*data)->map[i], tmp->line);
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 void	fill_data(t_data **data, t_list **list)
 {
+	printf("In fill data\n");
 	init_data(data, list);
 	fill_texture(data, list, &(*data)->north_texture, "NO ");
 	fill_texture(data, list, &(*data)->south_texture, "SO ");
@@ -73,4 +106,5 @@ void	fill_data(t_data **data, t_list **list)
 	fill_rgb(data, list, &(*data)->ceiling_rgb, "C ");
 	get_map_size(data, list);
 	init_map(data, list);
+	fill_map(data, list);
 }

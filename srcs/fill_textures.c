@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 13:54:44 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:27:00 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 
 	tmp = *list;
 	to_split = NULL;
+	printf("In fill rgb\n");
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->line, src, 2) == 0)
@@ -102,6 +103,7 @@ void	fill_texture(t_data **data, t_list **list, char **dest, char *src)
 	t_list	*tmp;
 
 	tmp = *list;
+	printf("In fill texture\n");
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->line, src, 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 05:30:54 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/01 14:26:05 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	check_argc(int argc, char **argv)
 
 static void	check_textures_extensions(t_data **data)
 {
+	printf("In check textures extensiions\n");
 	if (check_extension((*data)->north_texture, ".xpm"))
 		clear_data_exit(data, WNOEXT);
 	else if (check_extension((*data)->south_texture, ".xpm"))
@@ -75,6 +76,7 @@ void	parsing(int argc, char **argv, t_data **data)
 
 	fd = 0;
 	list = NULL;
+	printf("In parsing\n");
 	check_argc(argc, argv);
 	check_open(argv[1], &fd);
 	fill_list(fd, &list);
@@ -82,9 +84,9 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_list_duplicates(&list);
 	check_close(fd, list);
 	fill_data(data, &list);
+	print_list(list);
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);
-	print_list(list);
 	print_data(*data);
 }
