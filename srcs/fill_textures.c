@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 14:27:00 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/02 15:49:46 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ static void	check_value_limits(t_data **data, t_list **list, char **array, char 
 		len = nbrlen(array[i]);
 		if (len == -1)
 		{
-			free(str);
+			free(*str);
 			free_array(array);
 			clear_all_exit(data, list, SYNTAXRGB);
 		}
 		if (len > 3)
 		{
-			free(str);
+			free(*str);
 			free_array(array);
 			clear_all_exit(data, list, BIGRGB);
 		}
 		nbr = ft_atoi(array[i]);
 		if (nbr > 255)
 		{
-			free(str);
+			free(*str);
 			free_array(array);
 			clear_all_exit(data, list, BIGRGB);
 		}

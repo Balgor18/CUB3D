@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/02 15:41:17 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/02 15:54:08 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	check_open_textures(t_data **data)
 	if (fd[NORTH] == -1 || fd[SOUTH] == -1 || fd[WEST] == -1 || fd [EAST] == -1)
 	{
 		mlx_destroy_display(mlx);
-		free(mlx);
 		close_error_exit(data, fd);
 	}
 	if (check_texture_size((*data)->north_texture, mlx))
