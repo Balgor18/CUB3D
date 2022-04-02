@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 14:30:34 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/02 15:41:17 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ static int	check_texture_size(char *path, void *mlx)
 	width = 0;
 	height = 0;
 	fd = 0;
+	printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 	image = mlx_xpm_file_to_image(mlx, path, &width, &height);
+	printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 	if (!image || width != 64 || height != 64)
 	{
 		mlx_destroy_image(mlx, image);
 		return (EXIT_FAILURE);
 	}
 	mlx_destroy_image(mlx, image);
-	mlx_destroy_display(mlx);
-	free(mlx);
 	return (EXIT_SUCCESS);
 }
 
@@ -116,5 +116,5 @@ void	check_open_textures(t_data **data)
 	if (check_texture_size((*data)->east_texture, mlx))
 		clear_mlx_fd_data_exit(data, mlx, fd, SIZEEATEX);
 	close_all_textures(fd);
-	free(mlx);
+	mlx_destroy_display(mlx);
 }
