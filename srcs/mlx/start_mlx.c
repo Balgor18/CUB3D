@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/01 05:15:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:21:37 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,37 @@ static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
 		i++;
 	}
 }
+
+void	mlx_print_line(t_xptr const *const xptr, int const a[2], int const b[2],
+	uint32_t const color)
+{
+	int dist[2], \
+ori[2], c[2], err[2];
+	__init0(dist, ori, a, b);
+	__init1(err, dist, c, a);
+	while (42)
+	{
+		mlx_pixel_put(xptr->mlx, xptr->win, c[X], c[Y], color);
+		if (c[X] == b[X] && c[Y] == b[Y])
+			break ;
+		err[1] = 2 * err[0];
+		if (err[1] >= dist[Y])
+		{
+			if (c[X] == b[X])
+				break ;
+			err[0] = err[0] + dist[Y];
+			c[X] = c[X] + ori[X];
+		}
+		if (err[1] <= dist[X])
+		{
+			if (c[Y] == b[Y])
+				break ;
+			err[0] = err[0] + dist[X];
+			c[Y] = c[Y] + ori[Y];
+		}
+	}
+}
+
 
 /**
  * @brief	Function create all the texture
@@ -207,71 +238,24 @@ static void	print_min_map(t_mlx *mlx)
 	while (r < 1)
 	{
 		// check horizontal
-		// dof = 0;
-		// float distH = 1000000,hx = mlx->player[X_POS],hy = mlx->player[Y_POS];
-		// float aTan = -1 / tan(ra);
-		// if (ra < M_PI)
-		// {
-		// 	ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
-		// 	rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
-		// 	yo = -64;
-		// 	xo = -yo * aTan;
-		// }
-		// if (ra > M_PI)
-		// {
-		// 	ry = (((int)mlx->player[Y_POS] >> 6) << 6) + 64;
-		// 	rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
-		// 	yo = 64;
-		// 	xo = -yo * aTan;
-		// }
-		// if (ra == 0 || ra == M_PI)
-		// {
-		// 	rx = mlx->player[X_POS];
-		// 	ry = mlx->player[Y_POS];
-		// 	dof = 8;
-		// }
-		// while (dof < 8)
-		// {
-		// 	mx = (int) (rx) >> 6;
-		// 	my = (int) (ry) >> 6;
-		// 	// printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
-		// 	// printf("rx : %f\nry : %f\n", rx, ry);
-		// 	if (0 < rx && rx < 16 * 64 && 0 < ry && ry < 6 * 64 && mlx->map[(int)ry / 64][(int)rx / 64] == '1')
-		// 	{
-		// 		hx = rx;
-		// 		hy = ry;
-		// 		dof = 8;
-		// 		distH = dist(mlx->player[X_POS], mlx->player[Y_POS], hx, hy);
-		// 	}
-		// 	else
-		// 	{
-		// 		rx += xo;
-		// 		ry += yo;
-		// 		dof += 1;
-		// 	}
-		// }
-		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
-
-		// check vertical
 		dof = 0;
-		float distV = 1000000,vx = mlx->player[X_POS],vy = mlx->player[Y_POS];
-		float nTan = -tan(ra);
-		if (M_PI / 2 < ra && ra < 3 * M_PI / 2)// left
+		float distH = 1000000,hx = mlx->player[X_POS],hy = mlx->player[Y_POS];
+		float aTan = -1 / tan(ra);
+		if (ra < M_PI)
 		{
-			printf("y player = %f\n", mlx->player[Y_POS]);
-			rx = (((int)mlx->player[X_POS] >> 6) << 6) - 0.0001;
-			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
-			xo = -64;
-			yo = -xo * nTan;
+			ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
+			rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+			yo = -64;
+			xo = -yo * aTan;
 		}
-		if (ra < (M_PI / 2) || (3 * M_PI / 2) < ra)// right
+		if (ra > M_PI)
 		{
-			rx = (((int)mlx->player[X_POS] >> 6) << 6) + 64;
-			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
-			xo = 64;
-			yo = -xo * nTan;
+			ry = (((int)mlx->player[Y_POS] >> 6) << 6) + 64;
+			rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+			yo = 64;
+			xo = -yo * aTan;
 		}
-		if (ra == 0 || ra == M_PI)// up or own
+		if (ra == 0 || ra == M_PI)
 		{
 			rx = mlx->player[X_POS];
 			ry = mlx->player[Y_POS];
@@ -281,14 +265,14 @@ static void	print_min_map(t_mlx *mlx)
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
-			// printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
-			// printf("rx : %f\nry : %f\n", rx, ry);
-			if (0 < ry && ry < 6 && 0 < rx && rx < 16 && mlx->map[my][mx] == '1')
+			printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
+			printf("rx : %f\nry : %f\n", rx, ry);
+			if (0 < rx && rx < 16 * 64 && 0 < ry && ry < 6 * 64 && mlx->map[(int)ry / 64][(int)rx / 64] == '1')
 			{
-				vx = rx;
-				vy = ry;
+				hx = rx;
+				hy = ry;
 				dof = 8;
-				distV = dist(mlx->player[X_POS], mlx->player[Y_POS],vx, vy);
+				distH = dist(mlx->player[X_POS], mlx->player[Y_POS], hx, hy);
 			}
 			else
 			{
@@ -297,6 +281,53 @@ static void	print_min_map(t_mlx *mlx)
 				dof += 1;
 			}
 		}
+		// mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
+
+		// check vertical
+		// dof = 0;
+		// float distV = 1000000,vx = mlx->player[X_POS],vy = mlx->player[Y_POS];
+		// float nTan = -tan(ra);
+		// if (M_PI / 2 < ra && ra < 3 * M_PI / 2 )// left
+		// {
+		// 	printf("y player = %f\n", mlx->player[Y_POS]);
+		// 	rx = (((int)mlx->player[X_POS] >> 6) << 6) - 0.0001;
+		// 	ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+		// 	xo = -64;
+		// 	yo = -xo * nTan;
+		// }
+		// if (ra < (M_PI / 2) || (3 * M_PI / 2) < ra)// right
+		// {
+		// 	rx = (((int)mlx->player[X_POS] >> 6) << 6) + 64;
+		// 	ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+		// 	xo = 64;
+		// 	yo = -xo * nTan;
+		// }
+		// if (ra == 0 || ra == M_PI)// up or own
+		// {
+		// 	rx = mlx->player[X_POS];
+		// 	ry = mlx->player[Y_POS];
+		// 	dof = 8;
+		// } 
+		// while (dof < 8)
+		// {
+		// 	mx = (int) (rx) >> 6;
+		// 	my = (int) (ry) >> 6;
+		// 	// printf("---------------------\nmx : %d\nmy : %d\n", mx, my);
+		// 	// printf("rx : %f\nry : %f\n", rx, ry);
+		// 	if (mlx->map[my][mx] == '1')
+		// 	{
+		// 		vx = rx;
+		// 		vy = ry;
+		// 		dof = 8;
+		// 		distV = dist(mlx->player[X_POS], mlx->player[Y_POS],vx, vy);
+		// 	}
+		// 	else
+		// 	{
+		// 		rx += xo;
+		// 		ry += yo;
+		// 		dof += 1;
+		// 	}
+		// }
 		// if (distV < distH)
 		// {
 		// 	rx = vx;
@@ -307,7 +338,7 @@ static void	print_min_map(t_mlx *mlx)
 		// 	rx = hx;
 		// 	ry = hy;
 		// }
-		printf("Je print %f / %f\n", rx, ry);
+		// printf("Je print %f / %f\n", rx, ry);
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, rx, ry, 0x00FF0000);
 		r++;
 	}
