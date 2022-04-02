@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 14:26:05 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 00:40:54 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void	check_argc(int argc, char **argv)
 		exit_error(TMARG);
 }
 
+	// printf("In check textures extensiions\n");
 static void	check_textures_extensions(t_data **data)
 {
-	printf("In check textures extensiions\n");
 	if (check_extension((*data)->north_texture, ".xpm"))
 		clear_data_exit(data, WNOEXT);
 	else if (check_extension((*data)->south_texture, ".xpm"))
@@ -69,6 +69,7 @@ static void	check_textures_extensions(t_data **data)
 	@param data structure with all infos parsed in map file
 	@return nothing
 **/
+	// printf("In parsing\n");
 void	parsing(int argc, char **argv, t_data **data)
 {
 	int		fd;
@@ -76,7 +77,6 @@ void	parsing(int argc, char **argv, t_data **data)
 
 	fd = 0;
 	list = NULL;
-	printf("In parsing\n");
 	check_argc(argc, argv);
 	check_open(argv[1], &fd);
 	fill_list(fd, &list);

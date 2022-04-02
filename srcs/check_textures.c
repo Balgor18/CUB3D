@@ -6,24 +6,24 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/02 15:54:08 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 00:40:43 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+	// printf("In open all textures\n");
 static void	open_all_textures(t_data **data, int *fd)
 {
-	printf("In open all textures\n");
 	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
 	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
 	fd[WEST] = open((*data)->west_texture, O_RDONLY);
 	fd[EAST] = open((*data)->east_texture, O_RDONLY);
 }
 
+	// printf("In close error exit\n");
 static void	close_error_exit(t_data **data, int *fd)
 {
-	printf("In close error exit\n");
 	if (fd[NORTH] == -1)
 	{
 		close(fd[NORTH]);
@@ -49,9 +49,9 @@ static void	close_error_exit(t_data **data, int *fd)
 	}
 }
 
+	// printf("In close all textures\n");
 void	close_all_textures(int *fd)
 {
-	printf("In close all textures\n");
 	if (fd[NORTH] != -1)
 		close(fd[NORTH]);
 	else if (fd[SOUTH] != -1)
@@ -62,7 +62,10 @@ void	close_all_textures(int *fd)
 		close(fd[EAST]);
 }
 
+	// printf("In check texture size\n");
 // printf("In check texture size, width = %d, height = %d\n\n", width, height);
+	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
+	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 static int	check_texture_size(char *path, void *mlx)
 {
 	void	*image;
@@ -70,14 +73,11 @@ static int	check_texture_size(char *path, void *mlx)
 	int		height;
 	int		fd;
 
-	printf("In check texture size\n");
 	image = NULL;
 	width = 0;
 	height = 0;
 	fd = 0;
-	printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 	image = mlx_xpm_file_to_image(mlx, path, &width, &height);
-	printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 	if (!image || width != 64 || height != 64)
 	{
 		mlx_destroy_image(mlx, image);
@@ -87,15 +87,12 @@ static int	check_texture_size(char *path, void *mlx)
 	return (EXIT_SUCCESS);
 }
 
-// Use mlx to image to fill width and height et elles doivent etre de 64x64
-// init mlx et return in ptr mlx
-// call mlx_xp_file_to_image to fill width and height
+	// printf("In check open textures\n");
 void	check_open_textures(t_data **data)
 {
 	void	*mlx;
 	int		fd[4];
 
-	printf("In check open textures\n");
 	bzero_int_tab(fd, 4, 0);
 	mlx = mlx_init();
 	if (!mlx)

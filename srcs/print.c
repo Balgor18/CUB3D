@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/02 21:40:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 00:40:58 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	print_data(t_data *data)
 	print_map(data->map);
 }
 
+	// printf("In print map\n");
 void	print_map(char **map)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	printf("In print map\n");
 	if (!map)
 		return ;
 	while (map[y])

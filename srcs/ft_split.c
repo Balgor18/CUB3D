@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 20:23:53 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 16:36:47 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 01:05:42 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,15 @@ char	**ft_split(t_data **data, t_list **list, char *str, char c)
 	if (wcount != 3)
 	{
 		if (wcount < 3)
+		{
+			free(str);
 			clear_all_exit(data, list, MISSRGB);
+		}
 		if (wcount > 3)
+		{
+			free(str);
 			clear_all_exit(data, list, TMRGB);
+		}
 	}
 	words = (char **)malloc(sizeof(char *) * (wcount + 1));
 	if (!words)

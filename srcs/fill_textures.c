@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/02 15:49:46 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 01:03:41 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	get_hexa_rgb_value(t_data **data, t_list **list, char **str)
 	return (hexa_color);
 }
 
+	// printf("In fill rgb\n");
 void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 {
 	t_list	*tmp;
@@ -78,11 +79,11 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 
 	tmp = *list;
 	to_split = NULL;
-	printf("In fill rgb\n");
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->line, src, 2) == 0)
 		{
+			printf("In fill rgb: to split = [%s]\n", to_split);
 			to_split = sub_trim_str(tmp->line, src);
 			if (!to_split)
 			{
@@ -91,6 +92,7 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 				else if (ft_strcmp(src, "C ") == 0)
 					clear_all_exit(data, list, CEILINGFAIL);
 			}
+			printf("In fill rgb: to split = [%s]\n", to_split);
 			*dest = get_hexa_rgb_value(data, list, &to_split);
 			free(to_split);
 		}
@@ -98,12 +100,12 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 	}
 }
 
+	// printf("In fill texture\n");
 void	fill_texture(t_data **data, t_list **list, char **dest, char *src)
 {
 	t_list	*tmp;
 
 	tmp = *list;
-	printf("In fill texture\n");
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->line, src, 3) == 0)

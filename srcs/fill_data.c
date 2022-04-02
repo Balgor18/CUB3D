@@ -6,12 +6,13 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 14:23:45 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 00:41:41 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+	// printf("In get map size: map height = %d, width = %d\n", height, width);
 void	get_map_size(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -32,9 +33,9 @@ void	get_map_size(t_data **data, t_list **list)
 	}
 	(*data)->map_height = height;
 	(*data)->map_width = width;
-	printf("In get map size: map height = %d, width = %d\n", height, width);
 }
 
+	// printf("In init map\n");
 void	init_map(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -42,7 +43,6 @@ void	init_map(t_data **data, t_list **list)
 
 	tmp = *list;
 	i = 0;
-	printf("In init map\n");
 	(*data)->map = (char **)malloc(sizeof(char *) * ((*data)->map_height + 1));
 	if (!(*data)->map)
 		clear_all_exit(data, list, MAPFAIL);
@@ -56,8 +56,6 @@ void	init_map(t_data **data, t_list **list)
 		}
 		(*data)->map[i] = ft_memset((*data)->map[i], ' ', (*data)->map_width);
 		(*data)->map[i][(*data)->map_width] = '\0';
-		// ft_memset la ligne de map avec ' '
-		// parcourir tmp et strcopy dans map[i] au fur et a mesure
 		i++;
 	}
 	(*data)->map[i] = NULL;
@@ -76,6 +74,7 @@ char	*copy_str(char *dest, char *src)
 	return (dest);
 }
 
+	// printf("In fill map\n");
 void	fill_map(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -83,7 +82,6 @@ void	fill_map(t_data **data, t_list **list)
 
 	tmp = *list;
 	i = 0;
-	printf("In fill map\n");
 	while (tmp && tmp->type != MAP_LINE)
 		tmp = tmp->next;
 	while (i < (*data)->map_height && tmp)
@@ -94,9 +92,9 @@ void	fill_map(t_data **data, t_list **list)
 	}
 }
 
+	// printf("In fill data\n");
 void	fill_data(t_data **data, t_list **list)
 {
-	printf("In fill data\n");
 	init_data(data, list);
 	fill_texture(data, list, &(*data)->north_texture, "NO ");
 	fill_texture(data, list, &(*data)->south_texture, "SO ");
