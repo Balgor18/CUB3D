@@ -32,8 +32,8 @@ SRCS =	main.c                      	\
 
 # --   Compilation flags  -- #
 CC			=	clang
-# CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
+CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 
 
 # -- Nominette -- #
