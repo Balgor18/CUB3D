@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/01 14:24:45 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/02 21:40:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ void	print_map(char **map)
 	while (map[y])
 	{
 		x = 0;
-		while (map[x])
+		while (map[y][x])
 		{
 			if (map[y][x] == '1')
 				printf(RED "%c" RESET, map[y][x]);
-			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'W' \
+			else if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'W' \
 				|| map[y][x] == 'E')
 				printf(YELLOW "%c" RESET, map[y][x]);
 			else
+				printf("%c", map[y][x]);
 			x++;
 		}
 		y++;
