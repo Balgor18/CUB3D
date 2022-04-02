@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 18:29:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 00:34:29 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define CEILINGFAIL "🍀🌸🦊       Data Ceiling RGB Malloc fail       🦊🌸🍀\n"
 # define SUBTRIMFAIL "🍀🌸🦊           Sub trim Malloc fail           🦊🌸🍀\n"
 # define COMASFAIL "🍀🌸🦊     Split RGB on comas Malloc fail       🦊🌸🍀\n"
-# define MISSRGB "🍀🌸🦊     Missing RGV value, three needed      🦊🌸🍀\n"
+# define MISSRGB "🍀🌸🦊     Missing RGB value, three needed      🦊🌸🍀\n"
 # define TMRGB "🍀🌸🦊     Too much RGB values, three needed    🦊🌸🍀\n"
 # define BIGRGB "🍀🌸🦊             RGB value too big            🦊🌸🍀\n"
 # define SYNTAXRGB "🍀🌸🦊          RGB value syntax error          🦊🌸🍀\n"
