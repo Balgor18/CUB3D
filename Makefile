@@ -22,6 +22,7 @@ SRCS =	main.c                      	\
 		tab_utils.c 					\
 		string_utils.c 					\
 		string_utils2.c					\
+		string_utils3.c					\
 		ft_split.c						\
 		file_utils.c					\
 		atoi_base.c						\

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 17:45:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:05:17 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	fill_list(int fd, t_list **list);
 
 // check_syntax.c
 void	check_list_syntax(t_list **list);
+void	check_splitted_map(t_list **list);
 
 // check_duplicates.c
 void	check_list_duplicates(t_list **list);
@@ -152,7 +153,10 @@ int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
 int		set_line_type(char *str);
 char	*ft_strchr(char *str, char c);
+
+// string_utils2.c
 char	*sub_trim_str(char *str, char *set);
+
 
 // ft_split.c
 char	**ft_split(t_data **data, t_list **list, char *str, char c);

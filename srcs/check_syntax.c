@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 17:47:29 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:01:11 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,22 @@ void	check_list_syntax(t_list **list)
 		tmp = tmp->next;
 	}
 	check_last_element(list);
+}
+
+void	check_splitted_map(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp && tmp->type != MAP_LINE)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->type == EMPTY_LINE)
+			clear_list_syntax_exit(list, i, tmp->line, SPLITMAP);
+		i++;
+		tmp = tmp->next;
+	}
 }
