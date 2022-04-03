@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 16:15:22 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:33:33 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,14 @@ void	check_list_syntax(t_list **list)
 	{
 		if (tmp->type == ERROR_LINE)
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == TEXTURE_LINE && check_cardinal_syntax(tmp->line))
+		else if (tmp->type == TEXTURE_LINE && check_cardinal_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == COLOR_LINE && check_floor_ceiling_syntax(tmp->line))
+		else if (tmp->type == COLOR_LINE && check_floor_ceiling_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == MAP_LINE && is_map_str(tmp->line))
+		else if (tmp->type == MAP_LINE && is_map_str(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, WCHARMAP);
 		i++;
 		tmp = tmp->next;
 	}
 	check_last_element(list);
-	// check_map(list)
-	// check_player(list);
 }

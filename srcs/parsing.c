@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 16:15:02 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:38:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,24 @@ static void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WEAEXT);
 }
 
+void	check_map(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp && tmp->type != MAP_LINE)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->type == EMPTY_LINE)
+			clear_list_syntax_exit(list, i, tmp->line, SPLITMAP);
+		i++;
+		tmp = tmp->next;
+	}
+}
+
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
 	values and fill data if correct to send to mlx
@@ -77,6 +95,10 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	check_list_syntax(&list);
 	check_list_duplicates(&list);
+
+	check_map(&list);
+	// check_player(list);
+
 	check_close(fd, list);
 	fill_data(data, &list);
 	print_list(list);

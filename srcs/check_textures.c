@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 02:58:53 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 16:50:55 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	check_open_textures(t_data **data)
 	bzero_int_tab(fd, 4, 0);
 	mlx = mlx_init();
 	if (!mlx)
-		clear_data_exit(data, MLXFAIL);
+		clear_data_exit(data, MLXINITFAIL);
 	open_all_dir_textures(data, fd, mlx);
 	bzero_int_tab(fd, 4, 0);
 	open_all_textures(data, fd, mlx);

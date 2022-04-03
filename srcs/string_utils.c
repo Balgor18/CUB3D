@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 15:33:06 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:37:45 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,28 @@ int	is_map_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '1' && str[i] != '0' && str[i] != ' ' && str[i] != '\0')
+		if (str[i] != '1' && str[i] != '0' && str[i] != ' ' && str[i] != '\0' \
+			&& !is_cardinal_char(str[i]))
 			return (EXIT_FAILURE);
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
+/*
+int	is_only_space_str(char *str)
+{
+	int	i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+*/
 char	*ft_strndup(char *str, int n)
 {
 	char	*new_str;
