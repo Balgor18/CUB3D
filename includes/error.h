@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 00:34:29 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 16:14:41 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@
 # define MLXFAIL "🍀🌸🦊      Mlx init fail (nice try env -i)     🦊🌸🍀\n"
 # define MAPFAIL "🍀🌸🦊           Map Malloc fail error          🦊🌸🍀\n"
 
-# define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
+# define WCHARMAP "🍀🌸🦊     Map is not only ' 01NSWE' chars      🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
 # define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"

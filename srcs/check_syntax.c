@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 14:31:49 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 16:15:22 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ static int	check_floor_ceiling_syntax(char *str)
 	return (EXIT_SUCCESS);
 }
 
-static int	is_map_str(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '1' && str[i] != '0' && str[i] != ' ' && str[i] != '\0')
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 static void	check_last_element(t_list **list)
 {
 	t_list	*tmp;
@@ -64,6 +50,37 @@ static void	check_last_element(t_list **list)
 		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
+/*
+void	check_player(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+	int		player;
+
+	tmp = *list;
+	i = 0;
+	player = 0;
+	while (tmp)
+	{
+		if (tmp->type == MAP_LINE)
+		{
+			while (tmp->line && tmp->line[i])
+			{
+				if (is_cardinal_char(tmp->line[i]))
+					player++;
+				i++;
+			}
+		}
+		tmp = tmp->next;
+	}
+	printf("player nbr = %d\n", player);
+	if (player == 0)
+		clear_list_exit(list, ZEROPMAP);
+	if (player > 1)
+		clear_list_exit(list, MULTIPMAP);
+}
+*/
+
 void	check_list_syntax(t_list **list)
 {
 	t_list	*tmp;
@@ -75,14 +92,18 @@ void	check_list_syntax(t_list **list)
 		clear_list_exit(list, EMPTYMAP);
 	while (tmp)
 	{
-		if (tmp->type == 5)
+		if (tmp->type == ERROR_LINE)
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 2 && check_cardinal_syntax(tmp->line))
+		if (tmp->type == TEXTURE_LINE && check_cardinal_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 3 && check_floor_ceiling_syntax(tmp->line))
+		if (tmp->type == COLOR_LINE && check_floor_ceiling_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
+		if (tmp->type == MAP_LINE && is_map_str(tmp->line))
+			clear_list_syntax_exit(list, i, tmp->line, WCHARMAP);
 		i++;
 		tmp = tmp->next;
 	}
 	check_last_element(list);
+	// check_map(list)
+	// check_player(list);
 }
