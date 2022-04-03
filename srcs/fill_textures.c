@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 01:03:41 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 01:17:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 	{
 		if (ft_strncmp(tmp->line, src, 2) == 0)
 		{
-			printf("In fill rgb: to split = [%s]\n", to_split);
 			to_split = sub_trim_str(tmp->line, src);
 			if (!to_split)
 			{
@@ -92,7 +91,6 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 				else if (ft_strcmp(src, "C ") == 0)
 					clear_all_exit(data, list, CEILINGFAIL);
 			}
-			printf("In fill rgb: to split = [%s]\n", to_split);
 			*dest = get_hexa_rgb_value(data, list, &to_split);
 			free(to_split);
 		}

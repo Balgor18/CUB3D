@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 00:40:54 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:03:24 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ static void	check_textures_extensions(t_data **data)
 	else if (check_extension((*data)->east_texture, ".xpm"))
 		clear_data_exit(data, WEAEXT);
 }
-
-// LEAKS WITH SOME MAP
-// LEAKS with rgb value too big, cf the split
-// LEAKS when missing rgb value cf sub_trim_str
-// LEAKS in mall sub_trim_str for fill rgb
 
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,

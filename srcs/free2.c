@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:50:55 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 01:06:53 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:03:28 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	clear_data(t_data **data)
 	free((*data)->west_texture);
 	free((*data)->east_texture);
 	free(*data);
-	exit(120);
 }
 
 void	clear_data_exit(t_data **data, char *msg)
