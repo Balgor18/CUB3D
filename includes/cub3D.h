@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/01 03:24:47 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/03 17:20:46 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ enum	e_player
 {
 	X_POS,
 	Y_POS,
+	X_PIXEL,
+	Y_PIXEL,
 	ANGLE,
 	MAX_POS,
 };

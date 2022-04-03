@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 12:15:10 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:25:12 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ static void	find_player_pos(char **tmp, t_mlx *mlx)
 				*s = '0';
 				mlx->player[X_POS] = pos[0];
 				mlx->player[Y_POS] = pos[1];
+				mlx->player[X_PIXEL] = pos[0] * 64;
+				mlx->player[Y_PIXEL] = pos[1] * 64;
+				mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
+				mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 				return ;
 			}
 			pos[0]++;
@@ -182,65 +186,61 @@ static double dist(double ax, double ay, double bx, double by)
 //	i[1] == X
 static void	print_min_map(t_mlx *mlx)
 {
-	char **tmpb;
-	char	*s;
-	int		in[2];
+	// char **tmpb;
+	// char	*s;
+	// int		in[2];
 
-	in[0] = 0;
-	tmpb = mlx->map;
-	while (*tmpb)
-	{
-		s = *tmpb;
-		in[1] = 0;
-		while (*s)
-		{
-			if (*s == '1')
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[WALL].img, in[1], in[0]);
-			// else if (*s == '0')
-			// 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
-			s++;
-			in[1] += 64;
-		}
-		in[0] += 64;
-		tmpb++;
-	}
+	// in[0] = 0;
+	// tmpb = mlx->map;
+	// while (*tmpb)
+	// {
+	// 	s = *tmpb;
+	// 	in[1] = 0;
+	// 	while (*s)
+	// 	{
+	// 		if (*s == '1')
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[WALL].img, in[1], in[0]);
+	// 		// else if (*s == '0')
+	// 		// 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
+	// 		s++;
+	// 		in[1] += 64;
+	// 	}
+	// 	in[0] += 64;
+	// 	tmpb++;
+	// }
 
 	//player
-	int	i[2];
+	// int	i[2];
 
-	i[0] = (mlx->player[X_POS] * 64) + 32;
-	i[1] = (mlx->player[Y_POS] * 64) + 32;
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
+	// i[0] = (mlx->player[X_POS] * 64) + 32;
+	// i[1] = (mlx->player[Y_POS] * 64) + 32;
+	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
 
 	int	r,mx,my,dof; float rx, ry, ra, xo,yo;
+
+	int	rayon[60];
+
 	r = 0;
 	// ra = mlx->player[ANGLE];
 	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
 	if (ra < 0)
-		ra += 2 * M_PI;
+		ra += (2 * M_PI);
 	else if (ra > 2 * M_PI)
-		ra -= 0;
+		ra -= (2 * M_PI);
 	mlx->player[Y_POS] *= 64;
 	mlx->player[X_POS] *= 64;
 	mlx->player[Y_POS] += 40;
 	mlx->player[X_POS] += 40;
 	while (r < 60)
 	{
+		if (ra < 0)
+			ra += (2 * M_PI);
+		else if (ra > 2 * M_PI)
+			ra -= (2 * M_PI);
 		// check horizontal
 		dof = 0;
 		float distH = 1000000,hx = mlx->player[X_POS],hy = mlx->player[Y_POS];
 		float aTan = -1 / tan(ra);// good
-		if (r == 59)
-		{
-			printf("something\n");
-			printf("something\n");
-			printf("something\n");
-			printf("something\n");
-			printf("something\n");
-			printf("something\n");
-			printf("something\n");
-		}
-		printf("angle %f\n", mlx->player[ANGLE]);
 		if (ra < M_PI)
 		{
 			ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
@@ -265,10 +265,8 @@ static void	print_min_map(t_mlx *mlx)
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
-			printf("mx = %d, my = %d\n", mx, my);
 			if (0 <= my && my < 6 && 0 <= mx && mx < (int)ft_strlen(mlx->map[my]) && mlx->map[my][mx] == '1')
 			{
-				printf("mx = %d, my = %d\n", mx, my);
 				hx = rx;
 				hy = ry;
 				dof = 8;
@@ -324,28 +322,31 @@ static void	print_min_map(t_mlx *mlx)
 				dof += 1;
 			}
 		}
-		printf("avant if vx %f\nhx %f\n", vx, hx);
-		printf("distv = %f\ndisth = %f\n", distV, distH);
 		if (distV < distH)
 		{
+			rayon[r] = distV;
 			rx = vx;
 			ry = vy;
 		}
 		if (distH < distV)
 		{
+			rayon[r] = distH;
 			rx = hx;
 			ry = hy;
 		}
-		printf("apres if rx %f\n", rx);
-		printf("----- %d -----\nrx = %f\nry = %f\n", r, rx, ry);
-		mlx_print_line(mlx, (int [2]){mlx->player[X_POS] , mlx->player[Y_POS]}, (int [2]){rx, ry}, 0x00FF0000);
+		// mlx_print_line(mlx, (int [2]){mlx->player[X_POS] , mlx->player[Y_POS]}, (int [2]){rx, ry}, 0x00FF0000);
 		ra += 1 * M_PI / 180;
 		r++;
 	}
+	float lineH =;
+
+
+
 	mlx->player[Y_POS] -= 40;
 	mlx->player[X_POS] -= 40;
 	mlx->player[Y_POS] /= 64;
 	mlx->player[X_POS] /= 64;
+
 }
 
 /**
@@ -387,10 +388,10 @@ static void	player_move(t_mlx *mlx, char move, double t[2])
 		mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
 		mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 	}
-	player[0][0] = 0.1f * mlx->delta[0];
-	player[0][1] = 0.1f * mlx->delta[1];
-	player[1][0] = -0.1f * mlx->delta[0];
-	player[1][1] = -0.1f * mlx->delta[1];
+	player[0][0] = 0.015f * mlx->delta[0];
+	player[0][1] = 0.015f * mlx->delta[1];
+	player[1][0] = -0.015f * mlx->delta[0];
+	player[1][1] = -0.015f * mlx->delta[1];
 	if (move == 'U' || move == 'D')
 	{
 		mlx->player[Y_POS] += *(double *)ft_ternary(move == 'U', &player[1][1],
@@ -409,13 +410,13 @@ static int	key_hook(int key, t_mlx *mlx)
 		exit(0);
 	}
 	else if (key == D || key == RIGHT)
-		player_move(mlx, 'R', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
+		player_move(mlx, 'R', (double [2]){2 * M_PI / 180, -(2 * M_PI / 180)});
 	else if (key == A || key == Q || key == LEFT)
-		player_move(mlx, 'L', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
+		player_move(mlx, 'L', (double [2]){2 * M_PI / 180, -(2 * M_PI / 180)});
 	else if (key == S || key == DOWN)
-		player_move(mlx, 'D', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
+		player_move(mlx, 'D', (double [2]){2 * M_PI / 180, -(2 * M_PI / 180)});
 	else if (key == W || key == Z || key == UP)
-		player_move(mlx, 'U', (double [2]){2 * M_PI/ 180, -(2 * M_PI/ 180)});
+		player_move(mlx, 'U', (double [2]){2 * M_PI / 180, -(2 * M_PI / 180)});
 	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	print_min_map(mlx);
 	return (0);
