@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 17:38:21 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:57:58 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WEAEXT);
 }
 
-void	check_map(t_list **list)
+void	check_splitted_map(t_list **list)
 {
 	t_list	*tmp;
 	int		i;
@@ -71,6 +71,32 @@ void	check_map(t_list **list)
 		i++;
 		tmp = tmp->next;
 	}
+}
+
+
+void	check_player(t_data **data)
+{
+	int	x;
+	int	y;
+	int	player;
+
+	y = 0;
+	player = 0;
+	while ((*data)->map[y])
+	{
+		x = 0;
+		while ((*data)->map[y][x])
+		{
+			if (is_cardinal_char((*data)->map[y][x]))
+				player++;
+			x++;
+		}
+		y++;
+	}
+	if (player == 0)
+		clear_data_exit(data, ZEROPMAP);
+	if (player > 1)
+		clear_data_exit(data, MULTIPMAP);
 }
 
 /**
@@ -95,15 +121,13 @@ void	parsing(int argc, char **argv, t_data **data)
 	fill_list(fd, &list);
 	check_list_syntax(&list);
 	check_list_duplicates(&list);
-
-	check_map(&list);
-	// check_player(list);
-
+	check_splitted_map(&list);
 	check_close(fd, list);
 	fill_data(data, &list);
 	print_list(list);
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);
+	check_player(data);
 	print_data(*data);
 }

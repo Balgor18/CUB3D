@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 17:26:58 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:57:16 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@
 
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
-# define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"
+# define MULTIPMAP "🍀🌸🦊       Map has more than one player       🦊🌸🍀\n"
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
 # define SCREENFAIL "🍀🌸🦊           Screen Malloc fail error        🦊🌸🍀\n"
 # define IMGFAIL "🍀🌸🦊           Image Malloc fail error        🦊🌸🍀\n"

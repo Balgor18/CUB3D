@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 17:05:52 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:45:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ int		is_digit(char c);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
 int		is_map_str(char *str);
-int		is_only_space_str(char *str);
 char	*ft_strndup(char *str, int n);
 
 // string_utils2.c

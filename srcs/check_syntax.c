@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 17:33:33 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 17:47:29 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_cardinal_syntax(char *str)
 	return (EXIT_FAILURE);
 }
 
-static int	check_floor_ceiling_syntax(char *str)
+static int	check_fc_syntax(char *str)
 {
 	if ((ft_strncmp(str, "F ", 2) != 0) && (ft_strncmp(str, "C ", 2) != 0))
 		return (EXIT_FAILURE);
@@ -50,37 +50,6 @@ static void	check_last_element(t_list **list)
 		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
-/*
-void	check_player(t_list **list)
-{
-	t_list	*tmp;
-	int		i;
-	int		player;
-
-	tmp = *list;
-	i = 0;
-	player = 0;
-	while (tmp)
-	{
-		if (tmp->type == MAP_LINE)
-		{
-			while (tmp->line && tmp->line[i])
-			{
-				if (is_cardinal_char(tmp->line[i]))
-					player++;
-				i++;
-			}
-		}
-		tmp = tmp->next;
-	}
-	printf("player nbr = %d\n", player);
-	if (player == 0)
-		clear_list_exit(list, ZEROPMAP);
-	if (player > 1)
-		clear_list_exit(list, MULTIPMAP);
-}
-*/
-
 void	check_list_syntax(t_list **list)
 {
 	t_list	*tmp;
@@ -96,7 +65,7 @@ void	check_list_syntax(t_list **list)
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
 		else if (tmp->type == TEXTURE_LINE && check_cardinal_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		else if (tmp->type == COLOR_LINE && check_floor_ceiling_syntax(tmp->line))
+		else if (tmp->type == COLOR_LINE && check_fc_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
 		else if (tmp->type == MAP_LINE && is_map_str(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, WCHARMAP);
