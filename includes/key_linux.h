@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Key_linux.h                                        :+:      :+:    :+:   */
+/*   key_linux.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 10:06:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/03/22 10:06:35 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:18:15 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define E 101
 # define R 114
 # define T 116
-# define Y 121
+// # define Y 121
 # define U 117
 # define I 105
 # define O 111
@@ -70,7 +70,7 @@
 //5 Line
 # define SHIFT 65505
 # define Z 122
-# define X 120
+// # define X 120
 # define C 99
 # define V 118
 # define B 98
