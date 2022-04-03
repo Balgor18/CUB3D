@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:13:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:11:02 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:48:16 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,52 @@ void	*ft_memset(void *b, int c, int len)
 	while (len--)
 		((unsigned char *)b)[len] = (unsigned char)c;
 	return (b);
+}
+
+void	check_player(t_data **data)
+{
+	int	x;
+	int	y;
+	int	player;
+
+	y = 0;
+	player = 0;
+	while ((*data)->map[y])
+	{
+		x = 0;
+		while ((*data)->map[y][x])
+		{
+			if (is_cardinal_char((*data)->map[y][x]))
+				player++;
+			x++;
+		}
+		y++;
+	}
+	if (player == 0)
+		clear_data_exit(data, ZEROPMAP);
+	if (player > 1)
+		clear_data_exit(data, MULTIPMAP);
+}
+
+void	get_player_infos(t_data **data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while ((*data)->map[y])
+	{
+		x = 0;
+		while ((*data)->map[y][x])
+		{
+			if (is_cardinal_char((*data)->map[y][x]))
+			{
+				(*data)->player_x = x;
+				(*data)->player_y = y;
+				(*data)->player_dir = (*data)->map[y][x];
+			}
+			x++;
+		}
+		y++;
+	}
 }

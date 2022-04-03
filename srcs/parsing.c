@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:45:05 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:48:11 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,54 +23,6 @@ static void	check_argc(int argc, char **argv)
 		exit_error(MARG);
 	else if (argc > 2)
 		exit_error(TMARG);
-}
-
-void	check_player(t_data **data)
-{
-	int	x;
-	int	y;
-	int	player;
-
-	y = 0;
-	player = 0;
-	while ((*data)->map[y])
-	{
-		x = 0;
-		while ((*data)->map[y][x])
-		{
-			if (is_cardinal_char((*data)->map[y][x]))
-				player++;
-			x++;
-		}
-		y++;
-	}
-	if (player == 0)
-		clear_data_exit(data, ZEROPMAP);
-	if (player > 1)
-		clear_data_exit(data, MULTIPMAP);
-}
-
-void	get_player_infos(t_data **data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while ((*data)->map[y])
-	{
-		x = 0;
-		while ((*data)->map[y][x])
-		{
-			if (is_cardinal_char((*data)->map[y][x]))
-			{
-				(*data)->player_x = x;
-				(*data)->player_y = y;
-				(*data)->player_dir = (*data)->map[y][x];
-			}
-			x++;
-		}
-		y++;
-	}
 }
 
 /**
