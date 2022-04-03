@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 00:40:58 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 14:17:18 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	print_map(char **map)
 		return ;
 	while (map[y])
 	{
+		printf(GREEN "[" RESET);
 		x = 0;
 		while (map[y][x])
 		{
@@ -70,8 +71,8 @@ void	print_map(char **map)
 				printf("%c", map[y][x]);
 			x++;
 		}
+		printf(GREEN "]" RESET "\n");
 		y++;
-		printf("\n");
 	}
 	printf("\n");
 }
