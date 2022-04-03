@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 03:24:26 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:15:10 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ static void	print_min_map(t_mlx *mlx)
 			printf("something\n");
 			printf("something\n");
 		}
+		printf("angle %f\n", mlx->player[ANGLE]);
 		if (ra < M_PI)
 		{
 			ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
