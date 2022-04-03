@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 18:03:25 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:03:41 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:45:08 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,21 @@ char	*sub_trim_str(char *str, char *set)
 	while (len--)
 		substr[len] = str[len];
 	return (substr);
+}
+
+int	check_extension(char *str, char *ext)
+{
+	int	len;
+	int	len_ext;
+
+	len = ft_strlen(str);
+	len_ext = ft_strlen(ext);
+	while ((str[len] == ext[len_ext]) && len > 0)
+	{
+		if (len_ext == 0)
+			return (EXIT_SUCCESS);
+		len--;
+		len_ext--;
+	}
+	return (EXIT_FAILURE);
 }

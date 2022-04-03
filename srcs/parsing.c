@@ -6,28 +6,11 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:14:23 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:45:05 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-static int	check_extension(char *str, char *ext)
-{
-	int	len;
-	int	len_ext;
-
-	len = ft_strlen(str);
-	len_ext = ft_strlen(ext);
-	while ((str[len] == ext[len_ext]) && len > 0)
-	{
-		if (len_ext == 0)
-			return (EXIT_SUCCESS);
-		len--;
-		len_ext--;
-	}
-	return (EXIT_FAILURE);
-}
 
 static void	check_argc(int argc, char **argv)
 {
@@ -40,19 +23,6 @@ static void	check_argc(int argc, char **argv)
 		exit_error(MARG);
 	else if (argc > 2)
 		exit_error(TMARG);
-}
-
-	// printf("In check textures extensiions\n");
-static void	check_textures_extensions(t_data **data)
-{
-	if (check_extension((*data)->north_texture, ".xpm"))
-		clear_data_exit(data, WNOEXT);
-	else if (check_extension((*data)->south_texture, ".xpm"))
-		clear_data_exit(data, WSOEXT);
-	else if (check_extension((*data)->west_texture, ".xpm"))
-		clear_data_exit(data, WWEEXT);
-	else if (check_extension((*data)->east_texture, ".xpm"))
-		clear_data_exit(data, WEAEXT);
 }
 
 void	check_player(t_data **data)

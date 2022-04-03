@@ -6,35 +6,37 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 16:50:55 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:43:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+	// printf("In check textures extensiions\n");
+void	check_textures_extensions(t_data **data)
+{
+	if (check_extension((*data)->north_texture, ".xpm"))
+		clear_data_exit(data, WNOEXT);
+	else if (check_extension((*data)->south_texture, ".xpm"))
+		clear_data_exit(data, WSOEXT);
+	else if (check_extension((*data)->west_texture, ".xpm"))
+		clear_data_exit(data, WWEEXT);
+	else if (check_extension((*data)->east_texture, ".xpm"))
+		clear_data_exit(data, WEAEXT);
+}
+
 	// printf("In close error exit\n");
 void	close_error_exit(t_data **data, int *fd)
 {
+	close_all_textures(fd);
 	if (fd[NORTH] == -1)
-	{
-		close_all_textures(fd);
 		clear_data_exit(data, OPENNOTEX);
-	}
 	if (fd[SOUTH] == -1)
-	{
-		close_all_textures(fd);
 		clear_data_exit(data, OPENSOTEX);
-	}
 	if (fd[WEST] == -1)
-	{
-		close_all_textures(fd);
 		clear_data_exit(data, OPENWETEX);
-	}
 	if (fd[EAST] == -1)
-	{
-		close_all_textures(fd);
 		clear_data_exit(data, OPENEATEX);
-	}
 }
 
 // for directory texture

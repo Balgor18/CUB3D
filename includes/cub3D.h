@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 18:09:11 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:45:36 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *str);
 void	fill_texture(t_data **data, t_list **list, char **dest, char *src);
 
 // check_textures.c
+void	check_textures_extensions(t_data **data);
 void	close_all_textures(int *fd);
 void	close_error_exit(t_data **data, int *fd);
 void	close_dir_error_exit(t_data **data, int *fd);
@@ -157,8 +158,9 @@ int		ft_strncmp(char *str1, char *str2, unsigned int n);
 int		set_line_type(char *str);
 char	*ft_strchr(char *str, char c);
 
-// string_utils2.c
+// string_utils3.c
 char	*sub_trim_str(char *str, char *set);
+int		check_extension(char *str, char *ext);
 
 // ft_split.c
 char	**ft_split(t_data **data, t_list **list, char *str, char c);
