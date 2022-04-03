@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 00:41:41 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:39:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	init_map(t_data **data, t_list **list)
 		clear_all_exit(data, list, MAPFAIL);
 	while (i < (*data)->map_height)
 	{
-		(*data)->map[i] = (char *)malloc(sizeof(char) * ((*data)->map_width + 1));
+		(*data)->map[i] = (char *)malloc(sizeof(char) * \
+			((*data)->map_width + 1));
 		if (!(*data)->map[i])
 		{
 			free_array((*data)->map);

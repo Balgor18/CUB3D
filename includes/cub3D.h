@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 01:33:28 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:59:18 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void	fill_texture(t_data **data, t_list **list, char **dest, char *src);
 
 // check_textures.c
 void	close_all_textures(int *fd);
+void	close_error_exit(t_data **data, int *fd);
+void	close_dir_error_exit(t_data **data, int *fd);
 void	check_open_textures(t_data **data);
 
 // string_utils.c
@@ -172,9 +174,10 @@ int		create_trgb(int t, int r, int g, int b);
 
 // file_utils.c
 void	check_open(char *filename, int *fd);
+void	open_all_textures(t_data **data, int *fd, void *mlx);
+void	open_all_dir_textures(t_data **data, int *fd, void *mlx);
 int		check_close(int fd, t_list *list);
-void	check_open_directory_texture(t_data **data, int cardinal);
-void	chek_open_texture(t_data **data, int cardinal);
+void	close_all_textures(int *fd);
 
 // free.c
 void	clear_list_exit(t_list **list, char *msg);

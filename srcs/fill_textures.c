@@ -6,13 +6,14 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 01:17:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:38:37 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	check_value_limits(t_data **data, t_list **list, char **array, char **str)
+static void
+	check_value_limits(t_data **data, t_list **list, char **array, char **str)
 {
 	int	i;
 	int	len;
@@ -25,24 +26,17 @@ static void	check_value_limits(t_data **data, t_list **list, char **array, char 
 	{
 		len = 0;
 		len = nbrlen(array[i]);
-		if (len == -1)
-		{
-			free(*str);
-			free_array(array);
-			clear_all_exit(data, list, SYNTAXRGB);
-		}
-		if (len > 3)
-		{
-			free(*str);
-			free_array(array);
-			clear_all_exit(data, list, BIGRGB);
-		}
 		nbr = ft_atoi(array[i]);
-		if (nbr > 255)
+		if (len == -1 || len > 3 || nbr > 255)
 		{
 			free(*str);
 			free_array(array);
-			clear_all_exit(data, list, BIGRGB);
+			if (len == -1)
+				clear_all_exit(data, list, SYNTAXRGB);
+			if (len > 3)
+				clear_all_exit(data, list, BIGRGB);
+			if (nbr > 255)
+				clear_all_exit(data, list, BIGRGB);
 		}
 		i++;
 	}
