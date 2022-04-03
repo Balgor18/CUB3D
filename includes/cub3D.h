@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 18:05:17 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:09:11 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ struct s_data
 	char	*east_texture;
 	int		floor_rgb;
 	int		ceiling_rgb;
+	int		player_x;
+	int		player_y;
+	char	player_dir;
 };
 
 struct s_list
@@ -156,7 +159,6 @@ char	*ft_strchr(char *str, char c);
 
 // string_utils2.c
 char	*sub_trim_str(char *str, char *set);
-
 
 // ft_split.c
 char	**ft_split(t_data **data, t_list **list, char *str, char c);

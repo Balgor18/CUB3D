@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:01:08 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:14:23 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,29 @@ void	check_player(t_data **data)
 		clear_data_exit(data, MULTIPMAP);
 }
 
+void	get_player_infos(t_data **data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while ((*data)->map[y])
+	{
+		x = 0;
+		while ((*data)->map[y][x])
+		{
+			if (is_cardinal_char((*data)->map[y][x]))
+			{
+				(*data)->player_x = x;
+				(*data)->player_y = y;
+				(*data)->player_dir = (*data)->map[y][x];
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
 	values and fill data if correct to send to mlx
@@ -110,5 +133,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_textures_extensions(data);
 	check_open_textures(data);
 	check_player(data);
+	get_player_infos(data);
 	print_data(*data);
 }
