@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:48:11 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:53:36 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,50 @@ static void	check_argc(int argc, char **argv)
 		exit_error(MARG);
 	else if (argc > 2)
 		exit_error(TMARG);
+}
+
+// SI tu es un 0 dans la map et si (side est espace) OU (side n'existe pas)
+// clear
+
+
+void	check_closed_map(t_data **data)
+{
+	int	x;
+	int	y;
+	int	side[4];
+
+	y = 0;
+	bzero_int_tab(side, 4, 0);
+	printf("side[MORTH] = %d\nside[SOUTH] = %d\nside[WEST] = %d\nside[EAST] = %d\n", \
+		side[NORTH], side[SOUTH], side[WEST], side[EAST]);
+	while ((*data)->map[y])
+	{
+		x = 0;
+		while ((*data)->map[y][x])
+		{
+			if ((*data)->map[y][x] == '0')
+			{
+				printf(YELLOW "map[y][x] = [%c]" RESET "\n", (*data)->map[y][x]);
+				if (y - 1 > 0)
+					side[NORTH] = (*data)->map[y - 1][x];
+				if (y + 1 < (*data)->map_height)
+					side[SOUTH] = (*data)->map[y + 1][x];
+				if (x - 1 > 0)
+					side[EAST] = (*data)->map[y][x - 1];
+				if (x + 1 < (*data)->map_width)
+					side[WEST] = (*data)->map[y][x + 1];
+				printf("side[MORTH] = %d\nside[SOUTH] = %d\nside[WEST] = %d\nside[EAST] = %d\n", \
+					side[NORTH], side[SOUTH], side[WEST], side[EAST]);
+				if (side[NORTH] == 0 || side[SOUTH] == 0 || side[EAST] == 0 || side[WEST] == 0)
+				{
+					printf("x = %d, y = %d\n", x, y);
+					clear_data_exit(data, NCLOSEDMAP);
+				}
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 /**
@@ -56,5 +100,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_open_textures(data);
 	check_player(data);
 	get_player_infos(data);
+	check_closed_map(data);
 	print_data(*data);
 }
