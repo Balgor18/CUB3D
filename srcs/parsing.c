@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/04 19:52:11 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/04 20:12:24 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,52 +59,64 @@ void	handle_collectibles(t_data **data, char next_tile)
 }
 */
 
-// SI tu es un 0 dans la map et si (side est espace) OU (side n'existe pas)
-// clear data exit 
+int	is_not_only_one_or_space_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '1' && str[i] != ' ')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+// CHECK QUE FIRST LINE EST ONLY 1 OR SPACE
+// CHECK QUE LAST LINE EST ONLY 1 OR SPACE
+// CHECK QUE ALL LINES START WITH 1 OR SPACE
+// CHECK QUE ALL LINES END WITH 1 OR SPACE
+// START CHECK INNER MAP (MAP[1][1] ---> MAP[HEIGHT - 1][WIDTH -1]
+// SI MAP[Y][X] EST UN 0
+	// SI [Y-1][X] OU [Y+1][X] OU [Y][X-1] OU [Y][X+1] NEST PAS 0 OU 1
+	// ALORS MAP EST NON FERMEE
 void	check_closed_map(t_data **data)
 {
 	int	x;
 	int	y;
-	// int	side[4];
+	int	height;
+	int	width;
 
+	x = 0;
 	y = 0;
-	// bzero_int_tab(side, 4, 0);
-	// printf("side[MORTH] = %d\nside[SOUTH] = %d\nside[WEST] = %d\nside[EAST] = %d\n", \
-		// side[NORTH], side[SOUTH], side[WEST], side[EAST]);
-	while (y < (*data)->map_height)
-	{
-		x = 0;
-		while (x < (*data)->map_width)
-		{
-			if ((*data)->map[y][x] == '0')
-			{
-				// printf(YELLOW "map[y][x] = [%c]" RESET "\n", (*data)->map[y][x]);
-				if (y - 1 < 0 || (y - 1 >= 0 && (*data)->map[y - 1][x] == ' '))
-					clear_data_exit(data, NCLOSEDMAP);
-					// side[NORTH] = (*data)->map[y - 1][x];
-				if (y + 1 > (*data)->map_height || (y + 1 <= (*data)->map_height && (*data)->map[y + 1][x] == ' '))
-					clear_data_exit(data, NCLOSEDMAP);
-					// side[SOUTH] = (*data)->map[y + 1][x];
-				if (x - 1 < 0 || (x - 1 >= 0 && (*data)->map[y][x] - 1 == ' '))
-					clear_data_exit(data, NCLOSEDMAP);
-				// if (x - 1 < 0 || )
-					// side[EAST] = (*data)->map[y][x - 1];
-				if (x + 1 > (*data)->map_width || (x + 1 > (*data)->map_width && (*data)->map[y][x + 1] == ' '))
-					clear_data_exit(data, NCLOSEDMAP);
-				// if (x + 1 < (*data)->map_width)
-					// side[WEST] = (*data)->map[y][x + 1];
-				// printf("side[MORTH] = %d\nside[SOUTH] = %d\nside[WEST] = %d\nside[EAST] = %d\n", \
-					// side[NORTH], side[SOUTH], side[WEST], side[EAST]);
-				// if (side[NORTH] == 0 || side[SOUTH] == 0 || side[EAST] == 0 || side[WEST] == 0)
-				// {
-					// printf("x = %d, y = %d\n", x, y);
+	height = (*data)->map_height;
+	width = (*data)->map_width;
+
+	if (is_not_only_one_or_space_str((*data)->map[0]))
+		clear_data_exit(data, NCLOSEDMAP);
+	if (is_not_only_one_or_space_str((*data)->map[height - 1]))
+		clear_data_exit(data, NCLOSEDMAP);
+	// while (y < height - 1)
+	// {
+		// x = 0;
+		// while (x < width - 1)
+		// {
+			// if ((*data)->map[y][x] == '0')
+			// {
+				// if (y - 1 < 0 || (y - 1 >= 0 && (*data)->map[y - 1][x] == ' '))
 					// clear_data_exit(data, NCLOSEDMAP);
-				// }
-			}
-			x++;
-		}
-		y++;
-	}
+				// if (y + 1 > (*data)->map_height || (y + 1 <= (*data)->map_height && (*data)->map[y + 1][x] == ' '))
+					// clear_data_exit(data, NCLOSEDMAP);
+				// if (x - 1 < 0 || (x - 1 >= 0 && (*data)->map[y][x] - 1 == ' '))
+					// clear_data_exit(data, NCLOSEDMAP);
+				// if (x + 1 > (*data)->map_width || (x + 1 > (*data)->map_width && (*data)->map[y][x + 1] == ' '))
+					// clear_data_exit(data, NCLOSEDMAP);
+			// }
+			// x++;
+		// }
+		// y++;
+	// }
 }
 
 /**
