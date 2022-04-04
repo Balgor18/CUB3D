@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 18:25:12 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:52:11 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ static void	find_player_pos(char **tmp, t_mlx *mlx)
 				*s = '0';
 				mlx->player[X_POS] = pos[0];
 				mlx->player[Y_POS] = pos[1];
-				mlx->player[X_PIXEL] = pos[0] * 64;
-				mlx->player[Y_PIXEL] = pos[1] * 64;
+				mlx->player[X_PIXEL] = (pos[0] * 64) + 40;
+				mlx->player[Y_PIXEL] = (pos[1] * 64) + 40;
 				mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
 				mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 				return ;
@@ -209,28 +209,27 @@ static void	print_min_map(t_mlx *mlx)
 	// 	tmpb++;
 	// }
 
-	//player
-	// int	i[2];
+	// player
+	int	i[2];
 
-	// i[0] = (mlx->player[X_POS] * 64) + 32;
-	// i[1] = (mlx->player[Y_POS] * 64) + 32;
-	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
+	i[0] = (mlx->player[X_POS] * 64) + 32;
+	i[1] = (mlx->player[Y_POS] * 64) + 32;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
 
 	int	r,mx,my,dof; float rx, ry, ra, xo,yo;
 
 	int	rayon[60];
 
 	r = 0;
-	// ra = mlx->player[ANGLE];
 	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
 	if (ra < 0)
 		ra += (2 * M_PI);
 	else if (ra > 2 * M_PI)
 		ra -= (2 * M_PI);
-	mlx->player[Y_POS] *= 64;
-	mlx->player[X_POS] *= 64;
-	mlx->player[Y_POS] += 40;
-	mlx->player[X_POS] += 40;
+	// mlx->player[Y_POS] *= 64;
+	// mlx->player[X_POS] *= 64;
+	// mlx->player[Y_POS] += 40;
+	// mlx->player[X_POS] += 40;
 	while (r < 60)
 	{
 		if (ra < 0)
@@ -239,29 +238,29 @@ static void	print_min_map(t_mlx *mlx)
 			ra -= (2 * M_PI);
 		// check horizontal
 		dof = 0;
-		float distH = 1000000,hx = mlx->player[X_POS],hy = mlx->player[Y_POS];
+		float distH = 1000000,hx = mlx->player[X_PIXEL],hy = mlx->player[Y_PIXEL];
 		float aTan = -1 / tan(ra);// good
 		if (ra < M_PI)
 		{
-			ry = (((int)mlx->player[Y_POS] >> 6) << 6) - 0.0001;
-			rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+			ry = (((int)mlx->player[Y_PIXEL] >> 6) << 6) - 0.0001;
+			rx = (mlx->player[Y_PIXEL] - ry) * aTan + mlx->player[X_PIXEL];
 			yo = -64;
 			xo = -yo * aTan;
 		}
 		if (ra > M_PI)
 		{
-			ry = (((int)mlx->player[Y_POS] >> 6) << 6) + 64;
-			rx = (mlx->player[Y_POS] - ry) * aTan + mlx->player[X_POS];
+			ry = (((int)mlx->player[Y_PIXEL] >> 6) << 6) + 64;
+			rx = (mlx->player[Y_PIXEL] - ry) * aTan + mlx->player[X_PIXEL];
 			yo = 64;
 			xo = -yo * aTan;
 		}
 		if (ra == 0 || ra == M_PI)
 		{
-			rx = mlx->player[X_POS];
-			ry = mlx->player[Y_POS];
-			dof = 8;
+			rx = mlx->player[X_PIXEL];
+			ry = mlx->player[Y_PIXEL];
+			dof = 6;
 		}
-		while (dof < 8)
+		while (dof < 6) // modif the value
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
@@ -269,57 +268,59 @@ static void	print_min_map(t_mlx *mlx)
 			{
 				hx = rx;
 				hy = ry;
-				dof = 8;
-				distH = dist(mlx->player[X_POS], mlx->player[Y_POS], hx, hy);
+				distH = dist(mlx->player[X_PIXEL], mlx->player[Y_PIXEL], hx, hy);
+				break ;
 			}
 			else
 			{
 				rx += xo;
 				ry += yo;
-				dof += 1;
+				dof++;
 			}
 		}
-
 		// check vertical
 		dof = 0;
-		float distV = 1000000,vx = mlx->player[X_POS],vy = mlx->player[Y_POS];
+		float distV = 1000000,vx = mlx->player[X_PIXEL],vy = mlx->player[Y_PIXEL];
 		float nTan = -tan(ra);
 		if ((M_PI / 2) < ra && ra < (3 * M_PI / 2))// right
 		{
-			rx = (((int)mlx->player[X_POS] >> 6) << 6) + 64;
-			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+			rx = (((int)mlx->player[X_PIXEL] >> 6) << 6) + 64;
+			ry = (mlx->player[X_PIXEL] - rx) * nTan + mlx->player[Y_PIXEL];
 			xo = 64;
 			yo = -xo * nTan;
 		}
 		if (ra < (M_PI / 2) || (3 * M_PI / 2) < ra)// left
 		{
-			rx = (((int)mlx->player[X_POS] >> 6) << 6) - 0.0001;
-			ry = (mlx->player[X_POS] - rx) * nTan + mlx->player[Y_POS];
+			rx = (((int)mlx->player[X_PIXEL] >> 6) << 6) - 0.0002;
+			ry = (mlx->player[X_PIXEL] - rx) * nTan + mlx->player[Y_PIXEL];
 			xo = -64;
 			yo = -xo * nTan;
 		}
 		if (ra == (M_PI / 2) || ra == (3 * M_PI / 2))// up or own
 		{
-			rx = mlx->player[X_POS];
-			ry = mlx->player[Y_POS];
+			rx = mlx->player[X_PIXEL];
+			ry = mlx->player[Y_PIXEL];
 			dof = 8;
 		}
-		while (dof < 8)
+		my = 0;
+		while (my >= 0 && my < 6 && dof < (int)ft_strlen(mlx->map[my]))//modif value
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
+			if (my < 0 && mx < 0)
+				break ;
 			if (0 <= my && my < 6 && 0 <= mx && mx < (int)ft_strlen(mlx->map[my]) && mlx->map[my][mx] == '1')
 			{
 				vx = rx;
 				vy = ry;
-				dof = 8;
-				distV = dist(mlx->player[X_POS], mlx->player[Y_POS],vx, vy);
+				distV = dist(mlx->player[X_PIXEL], mlx->player[Y_PIXEL],vx, vy);
+				break;
 			}
 			else
 			{
 				rx += xo;
 				ry += yo;
-				dof += 1;
+				dof++;
 			}
 		}
 		if (distV < distH)
@@ -334,18 +335,26 @@ static void	print_min_map(t_mlx *mlx)
 			rx = hx;
 			ry = hy;
 		}
-		// mlx_print_line(mlx, (int [2]){mlx->player[X_POS] , mlx->player[Y_POS]}, (int [2]){rx, ry}, 0x00FF0000);
+		mlx_print_line(mlx, (int [2]){mlx->player[X_PIXEL] , mlx->player[Y_PIXEL]}, (int [2]){rx, ry}, 0x00FF0000);
+		//3d walls
+		// float lineH = (16 * 6) / rayon[r];// height
+		// float lineO = 160 - lineH / 2;// offset
+		// mlx_print_line(mlx->mlx_ptr, (int [2]){mlx->player[X_PIXEL], mlx->player[Y_PIXEL]})
+		// if (lineH > 320)// line Height
+		// {
+		// 	lineH = 320;
+		// }
+		// mlx_print_line();
 		ra += 1 * M_PI / 180;
 		r++;
 	}
-	float lineH =;
 
 
 
-	mlx->player[Y_POS] -= 40;
-	mlx->player[X_POS] -= 40;
-	mlx->player[Y_POS] /= 64;
-	mlx->player[X_POS] /= 64;
+	// mlx->player[Y_POS] -= 40;
+	// mlx->player[X_POS] -= 40;
+	// mlx->player[Y_POS] /= 64;
+	// mlx->player[X_POS] /= 64;
 
 }
 
@@ -398,6 +407,8 @@ static void	player_move(t_mlx *mlx, char move, double t[2])
 				&player[0][1]);
 		mlx->player[X_POS] += *(double *)ft_ternary(move == 'U', &player[1][0],
 				&player[0][0]);
+		mlx->player[X_PIXEL] = (mlx->player[X_POS] * 64) + 40;
+		mlx->player[Y_PIXEL] = (mlx->player[Y_POS] * 64) + 40;
 	}
 }
 
