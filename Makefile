@@ -15,6 +15,7 @@ SRCS =	get_next_line_utils2.c      	\
 		get_next_line.c             	\
 		create_texture.c            	\
 		free_mlx.c                  	\
+		hook_mlx.c                  	\
 		horizontal_check.c          	\
 		init_player.c               	\
 		print_3d.c                  	\

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:00:22 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 04:33:22 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/05 05:12:15 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ double	horizontal_check(t_mlx *mlx, double ra)
 	atan = -1 / tan(ra);
 	if (ra < M_PI)
 	{
-		ray[Y] = (((int)mlx->player[Y_PIXEL] >> 6) << 6) - 0.0001;
+		ray[Y] = (((int)mlx->player[Y_PIXEL] >> 6) << 6) - 0.0002;
 		ray[X] = (mlx->player[Y_PIXEL] - ray[Y]) * atan + mlx->player[X_PIXEL];
 		offset[Y] = -64;
 		offset[X] = -offset[Y] * atan;

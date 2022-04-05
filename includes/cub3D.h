@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 05:01:02 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/05 05:24:19 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,39 @@ struct s_mlx
 */
 
 void	start_mlx(char **map);
+void	find_player_pos(char **tmp, t_mlx *mlx);
 void	create_texture(t_mlx *mlx);
-void	free_mlx(t_mlx *mlx);
+void	print_min_map(t_mlx *mlx);
+/*
+**-------------Check---------------
+*/
+double	vertical_check(t_mlx *mlx, double ra);
+double	horizontal_check(t_mlx *mlx, double ra);
+
+/*
+**--------------Hook---------------
+*/
+int		key_hook(int key, t_mlx *mlx);
+int		ft_close(t_mlx *mlx);
+
+/*
+**-------------Utils---------------
+*/
+double	dist(double ax, double ay, double bx, double by);
 void	print_3d(t_mlx *mlx, int rayon, double ra, int *x);
 void	mlx_print_line(t_mlx *mlx, int const a[2], int const b[2],
 			int const color);
-double	dist(double ax, double ay, double bx, double by);
-double	vertical_check(t_mlx *mlx, double ra);
-double	horizontal_check(t_mlx *mlx, double ra);
-void	find_player_pos(char **tmp, t_mlx *mlx);
+
+/*
+**--------------Free---------------
+*/
+void	free_mlx(t_mlx *mlx);
+
+/*
+**----------------------------------
+**--------------UTILS---------------
+**----------------------------------
+*/
 void	*ft_ternary(int const cond, void *valid_1, void *valid_2);
 size_t	ft_strlen(char *s);
 
