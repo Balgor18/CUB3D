@@ -6,372 +6,38 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/04 16:52:11 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/05 05:04:42 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-size_t	ft_strlen(char *s)
-{
-	char	*t;
-
-	t = s;
-	while (*s)
-		s++;
-	return (s - t);
-}
-
-static bool	is_player(char c, double *angle)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-	{
-		if (c == 'N')
-			*angle = M_PI / 2;
-		else if (c == 'S')
-			*angle = 1.5 * M_PI;
-		else if (c == 'E')
-			*angle = 0;
-		else if (c == 'W')
-			*angle = M_PI;
-		return (true);
-	}
-	return (false);
-}
-
-#define X 0
-#define Y 1
-static void	__init0(int dist[2], int ori[2], int const a[2], int const b[2])
-{
-	dist[X] = abs(b[X] - a[X]);
-	dist[Y] = -abs(b[Y] - a[Y]);
-	ori[X] = -(a[X] > b[X]) | 1;
-	ori[Y] = -(a[Y] > b[Y]) | 1;
-}
-
-static void	__init1(int err[2], int const dist[2], int c[2], int const a[2])
-{
-	err[0] = dist[X] + dist[Y];
-	c[X] = a[X];
-	c[Y] = a[Y];
-}
-
-void	mlx_print_line(t_mlx *mlx, int const a[2], int const b[2],
-	int const color)
-{
-	int dist[2], \
-ori[2], c[2], err[2];
-	__init0(dist, ori, a, b);
-	__init1(err, dist, c, a);
-	while (42)
-	{
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, c[X], c[Y], color);
-		if (c[X] == b[X] && c[Y] == b[Y])
-			break ;
-		err[1] = 2 * err[0];
-		if (err[1] >= dist[Y])
-		{
-			if (c[X] == b[X])
-				break ;
-			err[0] = err[0] + dist[Y];
-			c[X] = c[X] + ori[X];
-		}
-		if (err[1] <= dist[X])
-		{
-			if (c[Y] == b[Y])
-				break ;
-			err[0] = err[0] + dist[X];
-			c[Y] = c[Y] + ori[Y];
-		}
-	}
-}
-
-// pos[0] = X;
-// pos[1] = Y;
-static void	find_player_pos(char **tmp, t_mlx *mlx)
-{
-	int	pos[2];
-	char	*s;
-	char **tmpb;
-
-	tmpb = tmp;
-	pos[1] = 0;
-	while (tmp)
-	{
-		pos[0] = 0;
-		s = *tmp;
-		while (*s)
-		{
-			if (is_player(*s, &mlx->player[ANGLE]))
-			{
-				*s = '0';
-				mlx->player[X_POS] = pos[0];
-				mlx->player[Y_POS] = pos[1];
-				mlx->player[X_PIXEL] = (pos[0] * 64) + 40;
-				mlx->player[Y_PIXEL] = (pos[1] * 64) + 40;
-				mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
-				mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
-				return ;
-			}
-			pos[0]++;
-			s++;
-		}
-		pos[1]++;
-		tmp++;
-	}
-	tmp = tmpb;
-}
-
-static void	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
-{
-	int	i;
-
-	i = 0;
-	img->img = mlx_new_image(mlx_ptr, 64, 64);
-	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
-	while (i < 4096)
-	{
-		img->addr[i] = byte;
-		i++;
-	}
-}
-
-static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
-{
-	int	i;
-
-	i = 0;
-	img->img = mlx_new_image(mlx_ptr, 16, 16);
-	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->bits_per_pixel, &img->endian);
-	while (i < 256)
-	{
-		img->addr[i] = byte;
-		i++;
-	}
-}
-
-/**
- * @brief	Function create all the texture
- *
- * @param	t_mlx	All the informations we need for create the texture
- *
- * @return	return void
-**/
-static void	create_texture(t_mlx *mlx)
-{
-	int		width;
-	int		height;
-
-	width = 64 * 16;
-	height = 6 * 64;
-	mlx->mlx_ptr = mlx_init();
-	if (!mlx->mlx_ptr)
-		return ;
-	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, width, height, "Test win");
-	if (!mlx->win_ptr)
-		return (free_mlx(mlx));
-
-	xpm_file_and_addr_player(mlx->mlx_ptr, &mlx->pict[PLAYER], 0x0000FF00);
-	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[WALL], 0x000000FF);
-	xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR], 0x00FFFFFF);
-	// xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING], 0x00000000);
-}
-
-static double dist(double ax, double ay, double bx, double by)
-{
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
-}
-
-//	i[0] == Y
-//	i[1] == X
 static void	print_min_map(t_mlx *mlx)
 {
-	// char **tmpb;
-	// char	*s;
-	// int		in[2];
+	int		rayon[60];
+	int		x;
+	int		r;
+	float	ra;
+	double	dist[2];
 
-	// in[0] = 0;
-	// tmpb = mlx->map;
-	// while (*tmpb)
-	// {
-	// 	s = *tmpb;
-	// 	in[1] = 0;
-	// 	while (*s)
-	// 	{
-	// 		if (*s == '1')
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[WALL].img, in[1], in[0]);
-	// 		// else if (*s == '0')
-	// 		// 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR].img, in[1], in[0]);
-	// 		s++;
-	// 		in[1] += 64;
-	// 	}
-	// 	in[0] += 64;
-	// 	tmpb++;
-	// }
-
-	// player
-	int	i[2];
-
-	i[0] = (mlx->player[X_POS] * 64) + 32;
-	i[1] = (mlx->player[Y_POS] * 64) + 32;
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[PLAYER].img, i[0], i[1]);
-
-	int	r,mx,my,dof; float rx, ry, ra, xo,yo;
-
-	int	rayon[60];
-
-	r = 0;
+	x = ((r = 0, 0));
 	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
-	if (ra < 0)
-		ra += (2 * M_PI);
-	else if (ra > 2 * M_PI)
-		ra -= (2 * M_PI);
-	// mlx->player[Y_POS] *= 64;
-	// mlx->player[X_POS] *= 64;
-	// mlx->player[Y_POS] += 40;
-	// mlx->player[X_POS] += 40;
 	while (r < 60)
 	{
 		if (ra < 0)
 			ra += (2 * M_PI);
 		else if (ra > 2 * M_PI)
 			ra -= (2 * M_PI);
-		// check horizontal
-		dof = 0;
-		float distH = 1000000,hx = mlx->player[X_PIXEL],hy = mlx->player[Y_PIXEL];
-		float aTan = -1 / tan(ra);// good
-		if (ra < M_PI)
-		{
-			ry = (((int)mlx->player[Y_PIXEL] >> 6) << 6) - 0.0001;
-			rx = (mlx->player[Y_PIXEL] - ry) * aTan + mlx->player[X_PIXEL];
-			yo = -64;
-			xo = -yo * aTan;
-		}
-		if (ra > M_PI)
-		{
-			ry = (((int)mlx->player[Y_PIXEL] >> 6) << 6) + 64;
-			rx = (mlx->player[Y_PIXEL] - ry) * aTan + mlx->player[X_PIXEL];
-			yo = 64;
-			xo = -yo * aTan;
-		}
-		if (ra == 0 || ra == M_PI)
-		{
-			rx = mlx->player[X_PIXEL];
-			ry = mlx->player[Y_PIXEL];
-			dof = 6;
-		}
-		while (dof < 6) // modif the value
-		{
-			mx = (int) (rx) >> 6;
-			my = (int) (ry) >> 6;
-			if (0 <= my && my < 6 && 0 <= mx && mx < (int)ft_strlen(mlx->map[my]) && mlx->map[my][mx] == '1')
-			{
-				hx = rx;
-				hy = ry;
-				distH = dist(mlx->player[X_PIXEL], mlx->player[Y_PIXEL], hx, hy);
-				break ;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		// check vertical
-		dof = 0;
-		float distV = 1000000,vx = mlx->player[X_PIXEL],vy = mlx->player[Y_PIXEL];
-		float nTan = -tan(ra);
-		if ((M_PI / 2) < ra && ra < (3 * M_PI / 2))// right
-		{
-			rx = (((int)mlx->player[X_PIXEL] >> 6) << 6) + 64;
-			ry = (mlx->player[X_PIXEL] - rx) * nTan + mlx->player[Y_PIXEL];
-			xo = 64;
-			yo = -xo * nTan;
-		}
-		if (ra < (M_PI / 2) || (3 * M_PI / 2) < ra)// left
-		{
-			rx = (((int)mlx->player[X_PIXEL] >> 6) << 6) - 0.0002;
-			ry = (mlx->player[X_PIXEL] - rx) * nTan + mlx->player[Y_PIXEL];
-			xo = -64;
-			yo = -xo * nTan;
-		}
-		if (ra == (M_PI / 2) || ra == (3 * M_PI / 2))// up or own
-		{
-			rx = mlx->player[X_PIXEL];
-			ry = mlx->player[Y_PIXEL];
-			dof = 8;
-		}
-		my = 0;
-		while (my >= 0 && my < 6 && dof < (int)ft_strlen(mlx->map[my]))//modif value
-		{
-			mx = (int) (rx) >> 6;
-			my = (int) (ry) >> 6;
-			if (my < 0 && mx < 0)
-				break ;
-			if (0 <= my && my < 6 && 0 <= mx && mx < (int)ft_strlen(mlx->map[my]) && mlx->map[my][mx] == '1')
-			{
-				vx = rx;
-				vy = ry;
-				distV = dist(mlx->player[X_PIXEL], mlx->player[Y_PIXEL],vx, vy);
-				break;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		if (distV < distH)
-		{
-			rayon[r] = distV;
-			rx = vx;
-			ry = vy;
-		}
-		if (distH < distV)
-		{
-			rayon[r] = distH;
-			rx = hx;
-			ry = hy;
-		}
-		mlx_print_line(mlx, (int [2]){mlx->player[X_PIXEL] , mlx->player[Y_PIXEL]}, (int [2]){rx, ry}, 0x00FF0000);
-		//3d walls
-		// float lineH = (16 * 6) / rayon[r];// height
-		// float lineO = 160 - lineH / 2;// offset
-		// mlx_print_line(mlx->mlx_ptr, (int [2]){mlx->player[X_PIXEL], mlx->player[Y_PIXEL]})
-		// if (lineH > 320)// line Height
-		// {
-		// 	lineH = 320;
-		// }
-		// mlx_print_line();
+		dist[0] = horizontal_check(mlx, ra);
+		dist[1] = vertical_check(mlx, ra);
+		if (dist[1] < dist[0])
+			rayon[r] = dist[1];
+		if (dist[0] < dist[1])
+			rayon[r] = dist[0];
+		print_3d(mlx, rayon[r], ra, &x);
 		ra += 1 * M_PI / 180;
 		r++;
 	}
-
-
-
-	// mlx->player[Y_POS] -= 40;
-	// mlx->player[X_POS] -= 40;
-	// mlx->player[Y_POS] /= 64;
-	// mlx->player[X_POS] /= 64;
-
-}
-
-/**
- * @brief Function for a ternaire
- *
- * @param cond for the conditions
- * @param valid_1 if cond is true return valid_1
- * @param valid_2 if cond is false return valid_2
- *
- * @return void* the value of valid_1 or valid_2
- */
-void	*ft_ternary(int const cond, void *valid_1, void *valid_2)
-{
-	if (cond)
-		return (valid_1);
-	return (valid_2);
 }
 
 /**
@@ -435,8 +101,6 @@ static int	key_hook(int key, t_mlx *mlx)
 
 static int	ft_close(t_mlx *mlx)
 {
-	// mlx_do_key_autorepeaton(all->mlx.mlx);
-	// ft_trash(all);
 	(void)mlx;
 	exit(0);
 	return (0);
@@ -457,14 +121,8 @@ void	start_mlx(char **map)
 	mlx.map = map;
 	find_player_pos(map, &mlx);
 	create_texture(&mlx);
-
 	print_min_map(&mlx);
-	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.pict[WALL].img, 0, 0);
-
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
-
-	// mlx_hook(mlx.mlx_win, 15, 1L << 16, reset_window, all);
-
 	mlx_hook(mlx.win_ptr, 33, 1L << 17, ft_close, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

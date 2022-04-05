@@ -10,11 +10,19 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 # --  Redirection in OBJS  -- #
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
-SRCS =	get_next_line.c             	\
+SRCS =	get_next_line_utils2.c      	\
 		get_next_line_utils.c       	\
-		get_next_line_utils2.c      	\
+		get_next_line.c             	\
+		create_texture.c            	\
 		free_mlx.c                  	\
+		horizontal_check.c          	\
+		init_player.c               	\
+		print_3d.c                  	\
 		start_mlx.c                 	\
+		utils_mlx.c                 	\
+		vertical_check.c            	\
+		ft_strlen.c                 	\
+		ft_ternary.c                	\
 		main.c                      	\
 
 
