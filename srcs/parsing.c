@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 22:29:32 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:18:55 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,6 @@ static void	check_argc(int argc, char **argv)
 		exit_error(MARG);
 	else if (argc > 2)
 		exit_error(TMARG);
-}
-
-int	is_not_only_one_or_space_str(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '1' && str[i] != ' ')
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
-// CHECK QUE FIRST LINE EST ONLY 1 OR SPACE
-// CHECK QUE LAST LINE EST ONLY 1 OR SPACE
-// CHECK QUE ALL LINES START WITH 1 OR SPACE
-// CHECK QUE ALL LINES END WITH 1 OR SPACE
-// START CHECK INNER MAP (MAP[1][1] ---> MAP[HEIGHT - 1][WIDTH -1]
-// SI MAP[Y][X] EST UN 0
-	// SI [Y-1][X] OU [Y+1][X] OU [Y][X-1] OU [Y][X+1] NEST PAS 0 OU 1
-	// ALORS MAP EST NON FERMEE
-void	check_closed_map(t_data **data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	if (is_not_only_one_or_space_str((*data)->map[0]))
-		clear_data_syntax_exit(data, 0, (*data)->map[0], NCLOSEDMAP);
-	if (is_not_only_one_or_space_str((*data)->map[(*data)->map_height - 1]))
-		clear_data_syntax_exit(data, ((*data)->map_height - 1), \
-			(*data)->map[(*data)->map_height - 1], NCLOSEDMAP);
-	while (++y < (*data)->map_height - 2)
-	{
-		x = 1;
-		while (x < (*data)->map_width - 2)
-		{
-			check_north_side((*data)->map[y][x]);
-			check_south_side((*data)->map[y][x]);
-			check_west_side((*data)->map[y][x]);
-			check_east_side((*data)->map[y][x]);
-			x++;
-		}
-		y++;
-	}
 }
 
 /**

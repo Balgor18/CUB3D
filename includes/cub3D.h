@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 21:57:02 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:19:56 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ void	init_data(t_data **data, t_list **list);
 void	*ft_memset(void *b, int c, int len);
 void	check_player(t_data **data);
 void	get_player_infos(t_data **data);
+
+// check_closed_map.c
+void	check_closed_map(t_data **data);
 
 // fill_textures.c
 void	fill_rgb(t_data **data, t_list **list, int *dest, char *str);
