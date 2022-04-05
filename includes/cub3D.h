@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/03 18:49:09 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 21:57:02 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void	close_all_textures(int *fd);
 // free.c
 void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
+void	clear_data_syntax_exit(t_data **data, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 
 // free2.c

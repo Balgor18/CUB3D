@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/04 20:12:24 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 22:09:46 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	check_closed_map(t_data **data)
 	width = (*data)->map_width;
 
 	if (is_not_only_one_or_space_str((*data)->map[0]))
-		clear_data_exit(data, NCLOSEDMAP);
+		clear_data_syntax_exit(data, 0, (*data)->map[0], NCLOSEDMAP);
 	if (is_not_only_one_or_space_str((*data)->map[height - 1]))
-		clear_data_exit(data, NCLOSEDMAP);
+		clear_data_syntax_exit(data, (height - 1), (*data)->map[height - 1], NCLOSEDMAP);
 	// while (y < height - 1)
 	// {
 		// x = 0;
