@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 02:39:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:33:06 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,5 @@ void	fill_data(t_data **data, t_list **list)
 	get_map_size(data, list);
 	init_map(data, list);
 	fill_map(data, list);
+	get_player_infos(data);
 }

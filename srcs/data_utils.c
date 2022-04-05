@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:13:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:48:16 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:42:32 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_data(t_data **data, t_list **list)
 	(*data)->player_x = 0;
 	(*data)->player_y = 0;
 	(*data)->player_dir = '\0';
+	(*data)->player_dir_radian = 0.0;
 }
 
 void	*ft_memset(void *b, int c, int len)
@@ -38,7 +39,7 @@ void	*ft_memset(void *b, int c, int len)
 	return (b);
 }
 
-void	check_player(t_data **data)
+void	check_player_count(t_data **data)
 {
 	int	x;
 	int	y;
@@ -63,6 +64,18 @@ void	check_player(t_data **data)
 		clear_data_exit(data, MULTIPMAP);
 }
 
+static void	get_dir_radian(t_data **data, char player_position)
+{
+	if (player_position == 'N')
+		(*data)->player_dir_radian = M_PI / 2;
+	else if (player_position == 'S')
+		(*data)->player_dir_radian = 3 * (M_PI / 2);
+	else if (player_position == 'W')
+		(*data)->player_dir_radian = M_PI;
+	else if (player_position == 'E')
+		(*data)->player_dir_radian = 0.0;
+}
+
 void	get_player_infos(t_data **data)
 {
 	int	x;
@@ -79,6 +92,7 @@ void	get_player_infos(t_data **data)
 				(*data)->player_x = x;
 				(*data)->player_y = y;
 				(*data)->player_dir = (*data)->map[y][x];
+				get_dir_radian(data, (*data)->map[y][x]);
 			}
 			x++;
 		}

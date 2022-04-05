@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 23:19:56 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:41:34 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+
 /*
  FONCTIONS AUTORISEES:
 open, cose, read, write, printf, malloc, free, perror, strerror, exit
@@ -97,6 +98,7 @@ struct s_data
 	int		player_x;
 	int		player_y;
 	char	player_dir;
+	float	player_dir_radian;
 };
 
 struct s_list
@@ -132,7 +134,7 @@ void	fill_data(t_data **data, t_list **list);
 // data_utils.c
 void	init_data(t_data **data, t_list **list);
 void	*ft_memset(void *b, int c, int len);
-void	check_player(t_data **data);
+void	check_player_count(t_data **data);
 void	get_player_infos(t_data **data);
 
 // check_closed_map.c

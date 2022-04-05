@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:18:02 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:40:35 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	print_data(t_data *data)
 	printf("Player x position  : %d\n", data->player_x);
 	printf("Player y position  : %d\n", data->player_y);
 	printf("Player direction   : %c\n", data->player_dir);
+	printf("Player dir radian  : %f\n", data->player_dir_radian);
 	printf("\n");
 	print_map(data->map);
 }

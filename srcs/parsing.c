@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 23:18:55 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 23:33:51 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	parsing(int argc, char **argv, t_data **data)
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);
-	check_player(data);
-	get_player_infos(data);
+	check_player_count(data);
 	check_closed_map(data);
 	print_data(*data);
 }
