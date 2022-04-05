@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:17:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 09:37:28 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/05 21:55:59 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,19 @@ static void	player_move(t_mlx *mlx, char move, double t[2])
 			ra += 2 * M_PI;
 		else if (ra > 2 * M_PI)
 			ra -= 2 * M_PI;
-		pos[0] = cos(mlx->player[ANGLE]);
-		pos[1] = sin(mlx->player[ANGLE]);
-		printf("pos[0] = %d\npos[1] = %d\n", pos[0], pos[1]);
-		mlx->player[X_POS] += pos[0];
-		mlx->player[Y_POS] += pos[1];
+		pos[0] = cos(mlx->player[ANGLE]) * 5;//X
+		pos[1] = sin(mlx->player[ANGLE]) * 5;
+		if (move == 'G')
+		{
+			mlx->player[X_POS] -= 0.01 * pos[1];
+			mlx->player[Y_POS] += 0.01 * pos[0];
+		}
+
+		if (move == 'D')
+		{
+			mlx->player[X_POS] += 0.01 * pos[1];
+			mlx->player[Y_POS] -= 0.01 * pos[0];
+		}
 		mlx->player[X_PIXEL] = (mlx->player[X_POS] * 64) + 40;
 		mlx->player[Y_PIXEL] = (mlx->player[Y_POS] * 64) + 40;
 	}
