@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 22:09:46 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/05 22:29:32 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,6 @@ static void	check_argc(int argc, char **argv)
 	else if (argc > 2)
 		exit_error(TMARG);
 }
-/* SO LONG PART
-char	get_next_tile(t_data *data, int move)
-{
-	int		x;
-	int		y;
-	char	next_tile;
-
-	x = data->game->player_x;
-	y = data->game->player_y;
-	if (move == UP)
-		next_tile = data->array[y - 1][x];
-	if (move == DOWN)
-		next_tile = data->array[y + 1][x];
-	if (move == LEFT)
-		next_tile = data->array[y][x - 1];
-	if (move == RIGHT)
-		next_tile = data->array[y][x + 1];
-	return (next_tile);
-}
-
-void	replace_map_char(t_data **data, char new)
-{
-	(*data)->array[(*data)->game->player_y][(*data)->game->player_x] = new;
-}
-
-void	handle_collectibles(t_data **data, char next_tile)
-{
-	if (next_tile == 'C' && (*data)->game->coll > 0)
-	{
-		(*data)->game->coll--;
-		replace_map_char(data, '0');
-	}
-}
-*/
 
 int	is_not_only_one_or_space_str(char *str)
 {
@@ -85,38 +51,27 @@ void	check_closed_map(t_data **data)
 {
 	int	x;
 	int	y;
-	int	height;
-	int	width;
 
 	x = 0;
 	y = 0;
-	height = (*data)->map_height;
-	width = (*data)->map_width;
-
 	if (is_not_only_one_or_space_str((*data)->map[0]))
 		clear_data_syntax_exit(data, 0, (*data)->map[0], NCLOSEDMAP);
-	if (is_not_only_one_or_space_str((*data)->map[height - 1]))
-		clear_data_syntax_exit(data, (height - 1), (*data)->map[height - 1], NCLOSEDMAP);
-	// while (y < height - 1)
-	// {
-		// x = 0;
-		// while (x < width - 1)
-		// {
-			// if ((*data)->map[y][x] == '0')
-			// {
-				// if (y - 1 < 0 || (y - 1 >= 0 && (*data)->map[y - 1][x] == ' '))
-					// clear_data_exit(data, NCLOSEDMAP);
-				// if (y + 1 > (*data)->map_height || (y + 1 <= (*data)->map_height && (*data)->map[y + 1][x] == ' '))
-					// clear_data_exit(data, NCLOSEDMAP);
-				// if (x - 1 < 0 || (x - 1 >= 0 && (*data)->map[y][x] - 1 == ' '))
-					// clear_data_exit(data, NCLOSEDMAP);
-				// if (x + 1 > (*data)->map_width || (x + 1 > (*data)->map_width && (*data)->map[y][x + 1] == ' '))
-					// clear_data_exit(data, NCLOSEDMAP);
-			// }
-			// x++;
-		// }
-		// y++;
-	// }
+	if (is_not_only_one_or_space_str((*data)->map[(*data)->map_height - 1]))
+		clear_data_syntax_exit(data, ((*data)->map_height - 1), \
+			(*data)->map[(*data)->map_height - 1], NCLOSEDMAP);
+	while (++y < (*data)->map_height - 2)
+	{
+		x = 1;
+		while (x < (*data)->map_width - 2)
+		{
+			check_north_side((*data)->map[y][x]);
+			check_south_side((*data)->map[y][x]);
+			check_west_side((*data)->map[y][x]);
+			check_east_side((*data)->map[y][x]);
+			x++;
+		}
+		y++;
+	}
 }
 
 /**
