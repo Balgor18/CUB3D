@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_ternary.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/17 03:57:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 04:23:46 by fcatinau         ###   ########.fr       */
+/*   Created: 2022/04/05 04:38:16 by fcatinau          #+#    #+#             */
+/*   Updated: 2022/04/05 04:38:26 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(int argc, char **argv)
+/**
+ * @brief Function for a ternaire
+ *
+ * @param cond for the conditions
+ * @param valid_1 if cond is true return valid_1
+ * @param valid_2 if cond is false return valid_2
+ *
+ * @return void* the value of valid_1 or valid_2
+ */
+void	*ft_ternary(int const cond, void *valid_1, void *valid_2)
 {
-	t_data	*data;
-
-	data = NULL;
-	parsing(argc, argv, &data);
-	start_mlx(data);
-	clear_data(&data);
-	return (EXIT_SUCCESS);
+	if (cond)
+		return (valid_1);
+	return (valid_2);
 }

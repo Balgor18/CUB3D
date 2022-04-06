@@ -6,7 +6,11 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:10:22 by fcatinau          #+#    #+#             */
+<<<<<<< HEAD:srcs/mlx/free_mlx.c
 /*   Updated: 2022/03/24 02:33:43 by fcatinau         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/06 03:33:48 by fcatinau         ###   ########.fr       */
+>>>>>>> restart_raycasting:srcs/free/free_mlx.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +27,12 @@ static void	free_texture(t_mlx *mlx)
 {
 	if (mlx->pict[PLAYER].img)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[PLAYER].img);
-	if (mlx->pict[WALL].img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL].img);
-	if (mlx->pict[FLOOR].img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[FLOOR].img);
-	if (mlx->pict[CEILING].img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[CEILING].img);
+	if (mlx->pict[WALL_IMG].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_IMG].img);
+	if (mlx->pict[FLOOR_IMG].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[FLOOR_IMG].img);
+	if (mlx->pict[CEILING_IMG].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[CEILING_IMG].img);
 }
 
 /**
@@ -46,6 +50,10 @@ void	free_mlx(t_mlx *mlx)
 	if (mlx->mlx_ptr)
 	{
 		mlx_destroy_display(mlx->mlx_ptr);
+<<<<<<< HEAD:srcs/mlx/free_mlx.c
 		free(mlx->mlx_ptr);
 	}
+=======
+	clear_data(&mlx->data);
+>>>>>>> restart_raycasting:srcs/free/free_mlx.c
 }

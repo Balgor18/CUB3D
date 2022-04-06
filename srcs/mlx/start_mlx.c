@@ -5,13 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
 /*   Updated: 2022/03/31 22:16:03 by fcatinau         ###   ########.fr       */
+=======
+/*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
+/*   Updated: 2022/04/06 04:05:39 by fcatinau         ###   ########.fr       */
+>>>>>>> restart_raycasting
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+<<<<<<< HEAD
 static bool	is_player(char c, double *angle)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -143,9 +149,36 @@ static void	xpm_file_and_addr_player(void *mlx_ptr, t_img *img, int byte)
 	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->bits_per_pixel, &img->endian);
 	while (i < 256)
+=======
+void	print_min_map(t_mlx *mlx)
+{
+	int		rayon[60];
+	int		x;
+	int		r;
+	float	ra;
+	double	dist[2];
+
+	x = ((r = 0, 0));
+	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
+	while (r < 60)
+>>>>>>> restart_raycasting
 	{
-		img->addr[i] = byte;
-		i++;
+		if (ra < 0)
+			ra += (2 * M_PI);
+		else if (ra > 2 * M_PI)
+			ra -= (2 * M_PI);
+		dist[0] = horizontal_check(mlx, ra);
+		dist[1] = vertical_check(mlx, ra);
+		if (dist[1] < dist[0])
+			rayon[r] = dist[1];
+		if (dist[0] < dist[1])
+			rayon[r] = dist[0];
+		printf("---------------\n");
+		printf("distH = %f\ndistV = %f\n", dist[0], dist[1]);
+		printf("rayon[r] = %d\n", rayon[r]);
+		print_3d(mlx, rayon[r], ra, &x);
+		ra += 1 * M_PI / 180;
+		r++;
 	}
 }
 
@@ -375,10 +408,11 @@ static void	print_min_map(t_mlx *mlx)
 }
 
 /**
- * @brief	Function create all the texture
+ *	@brief	Function start to create the mlx for the graphics
  *
- * @param	t_mlx	All the informations we need for create the texture
+ *	@param	t_data	Take in param all the info from the parsing
  *
+<<<<<<< HEAD
  * @return	return void
 **/
 static void	create_texture(t_mlx *mlx)
@@ -493,10 +527,16 @@ static int	ft_close(t_mlx *mlx)
 	@return	Return void
  **/
 void	start_mlx(char **file)
+=======
+ *	@return	Return void
+ **/
+void	start_mlx(t_data *data)
+>>>>>>> restart_raycasting
 {
 	t_mlx	mlx;
 
 	mlx = (t_mlx){0};
+<<<<<<< HEAD
 	mlx.map = file;
 	find_player_pos(mlx.map, &mlx);
 	create_texture(&mlx);
@@ -508,5 +548,15 @@ void	start_mlx(char **file)
 	// mlx_hook(mlx.mlx_win, 15, 1L << 16, reset_window, all);
 
 	mlx_hook(mlx.win_ptr, 33, 1L << 17, ft_close, &mlx);
+=======
+	mlx.data = data;
+	find_player_pos(data->map, &mlx);
+	create_texture(&mlx);
+	if (!mlx.mlx_ptr)
+		return;
+	print_min_map(&mlx);
+	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, key_hook, &mlx);
+	mlx_hook(mlx.win_ptr, ClientMessage, StructureNotifyMask, ft_close, &mlx);
+>>>>>>> restart_raycasting
 	mlx_loop(mlx.mlx_ptr);
 }
