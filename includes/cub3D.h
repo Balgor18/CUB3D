@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 03:49:23 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:20:11 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdbool.h>
 # include "key_linux.h"
 
+
 /*
  FONCTIONS AUTORISEES:
 open, cose, read, write, printf, malloc, free, perror, strerror, exit
@@ -35,8 +36,8 @@ toutes les fonctions de math.h
 /*
 **--------------Define--------------
 */
-# define WIDTH 1000
-# define HEIGHT 500
+# define WIDTH 1024
+# define HEIGHT 384
 
 /*
 **---------------Enum---------------
@@ -128,6 +129,10 @@ struct s_data
 	char	*east_texture;
 	int		floor_rgb;
 	int		ceiling_rgb;
+	int		player_x;
+	int		player_y;
+	char	player_dir;
+	float	player_dir_radian;
 };
 
 struct s_list
@@ -207,6 +212,7 @@ void	fill_list(int fd, t_list **list);
 
 // check_syntax.c
 void	check_list_syntax(t_list **list);
+void	check_splitted_map(t_list **list);
 
 // check_duplicates.c
 void	check_list_duplicates(t_list **list);
@@ -216,9 +222,22 @@ void	fill_data(t_data **data, t_list **list);
 
 // data_utils.c
 void	init_data(t_data **data, t_list **list);
+void	*ft_memset(void *b, int c, int len);
+void	check_player_count(t_data **data);
+void	get_player_infos(t_data **data);
+
+// check_closed_map.c
+void	check_closed_map(t_data **data);
+
+// fill_textures.c
+void	fill_rgb(t_data **data, t_list **list, int *dest, char *str);
+void	fill_texture(t_data **data, t_list **list, char **dest, char *src);
 
 // check_textures.c
+void	check_textures_extensions(t_data **data);
 void	close_all_textures(int *fd);
+void	close_error_exit(t_data **data, int *fd);
+void	close_dir_error_exit(t_data **data, int *fd);
 void	check_open_textures(t_data **data);
 
 // string_utils.c
@@ -226,6 +245,7 @@ int		ft_strlen(char *str);
 int		is_digit(char c);
 int		is_cardinal_char(char c);
 int		is_color_char(char c);
+int		is_map_str(char *str);
 char	*ft_strndup(char *str, int n);
 
 // string_utils2.c
@@ -233,7 +253,10 @@ int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, unsigned int n);
 int		set_line_type(char *str);
 char	*ft_strchr(char *str, char c);
+
+// string_utils3.c
 char	*sub_trim_str(char *str, char *set);
+int		check_extension(char *str, char *ext);
 
 // ft_split.c
 char	**ft_split(t_data **data, t_list **list, char *str, char c);
@@ -256,11 +279,15 @@ int		create_trgb(int t, int r, int g, int b);
 
 // file_utils.c
 void	check_open(char *filename, int *fd);
+void	open_all_textures(t_data **data, int *fd, void *mlx);
+void	open_all_dir_textures(t_data **data, int *fd, void *mlx);
 int		check_close(int fd, t_list *list);
+void	close_all_textures(int *fd);
 
 // free.c
 void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
+void	clear_data_syntax_exit(t_data **data, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
 void	clear_data(t_data **data);
 

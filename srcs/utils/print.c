@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 03:11:46 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:23:22 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ void	print_data(t_data *data)
 	printf("East texture path  : %s\n", data->east_texture);
 	printf("Floor RGB color    : %d\n", data->floor_rgb);
 	printf("Ceiling RGB color  : %d\n", data->ceiling_rgb);
+	printf("Player x position  : %d\n", data->player_x);
+	printf("Player y position  : %d\n", data->player_y);
+	printf("Player direction   : %c\n", data->player_dir);
+	printf("Player dir radian  : %f\n", data->player_dir_radian);
+	printf("\n");
 	print_map(data->map);
 }
 
+	// printf("In print map\n");
 void	print_map(char **map)
 {
 	int	x;
@@ -57,19 +63,21 @@ void	print_map(char **map)
 		return ;
 	while (map[y])
 	{
+		printf(GREEN "[" RESET);
 		x = 0;
-		while (map[x])
+		while (map[y][x])
 		{
 			if (map[y][x] == '1')
 				printf(RED "%c" RESET, map[y][x]);
-			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'W' \
+			else if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'W' \
 				|| map[y][x] == 'E')
 				printf(YELLOW "%c" RESET, map[y][x]);
 			else
+				printf("%c", map[y][x]);
 			x++;
 		}
+		printf(GREEN "]" RESET "\n");
 		y++;
-		printf("\n");
 	}
 	printf("\n");
 }

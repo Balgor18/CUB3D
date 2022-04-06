@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:12:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 03:11:13 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:22:14 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define CEILINGFAIL "🍀🌸🦊       Data Ceiling RGB Malloc fail       🦊🌸🍀\n"
 # define SUBTRIMFAIL "🍀🌸🦊           Sub trim Malloc fail           🦊🌸🍀\n"
 # define COMASFAIL "🍀🌸🦊     Split RGB on comas Malloc fail       🦊🌸🍀\n"
-# define MISSRGB "🍀🌸🦊     Missing RGV value, three needed      🦊🌸🍀\n"
+# define MISSRGB "🍀🌸🦊     Missing RGB value, three needed      🦊🌸🍀\n"
 # define TMRGB "🍀🌸🦊     Too much RGB values, three needed    🦊🌸🍀\n"
 # define BIGRGB "🍀🌸🦊             RGB value too big            🦊🌸🍀\n"
 # define SYNTAXRGB "🍀🌸🦊          RGB value syntax error          🦊🌸🍀\n"
@@ -87,14 +87,14 @@
 # define SIZESOTEX "🍀🌸🦊     South Texture sie is not 64 x 64     🦊🌸🍀\n"
 # define SIZEWETEX "🍀🌸🦊      West Texture sie is not 64 x 64     🦊🌸🍀\n"
 # define SIZEEATEX "🍀🌸🦊      East Texture sie is not 64 x 64     🦊🌸🍀\n"
-
 # define MLXFAIL "🍀🌸🦊      Mlx init fail (nice try env -i)     🦊🌸🍀\n"
 # define MAPFAIL "🍀🌸🦊           Map Malloc fail error          🦊🌸🍀\n"
+# define WCHARMAP "🍀🌸🦊     Map is not only ' 01NSWE' chars      🦊🌸🍀\n"
+# define SPLITMAP "🍀🌸🦊      Map is splitted by space line       🦊🌸🍀\n"
 
-# define WCHARMAP "🍀🌸🦊  Map is not only 0, 1, N, S, W, E chars  🦊🌸🍀\n"
 # define NCLOSEDMAP "🍀🌸🦊        Map is not closed by 1 chars      🦊🌸🍀\n"
 # define ZEROPMAP "🍀🌸🦊             Map has no player            🦊🌸🍀\n"
-# define MULTIPMAP "🍀🌸🦊        Map has more than one player       🦊🌸🍀\n"
+# define MULTIPMAP "🍀🌸🦊       Map has more than one player       🦊🌸🍀\n"
 # define GNLFAIL "🍀🌸🦊           Gnl Malloc fail error          🦊🌸🍀\n"
 # define SCREENFAIL "🍀🌸🦊           Screen Malloc fail error        🦊🌸🍀\n"
 # define IMGFAIL "🍀🌸🦊           Image Malloc fail error        🦊🌸🍀\n"

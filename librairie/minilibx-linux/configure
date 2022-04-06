@@ -57,7 +57,8 @@ get_xlib_include_path(){
 		/usr/openwin/include      \
 		/usr/openwin/share/include
 	do
-		if [ -f "$inc/X11/Xlib.h" -a -f "$inc/X11/extensions/XShm.h" ]; then
+		if [ -f "$inc/X11/Xlib.h" ] && [ -f "$inc/X11/extensions/XShm.h" ]
+		then
 			result=$inc
 			break
 		fi
@@ -76,6 +77,8 @@ EOF
 clean(){
 	log_info 'Execute "make clean" from "makefile.gen"'
 	${MAKE} -f Makefile.gen clean
+	# log_info 'Execute "make clean" from "test/makefile.gen"'
+	# ${MAKE} -f Makefile.gen -C test/ --no-print-directory clean
 }
 
 parse_args(){
@@ -97,8 +100,8 @@ main(){
 	local xlib_inc="$(get_xlib_include_path)"
 
 	case $(uname) in
-		FreeBSD) MAKE=gmake ;;
-		*) MAKE=make ;;
+		FreeBSD) MAKE="gmake" ;;
+		*) MAKE="make" ;;
 	esac
 
 	parse_args "$@"
@@ -117,8 +120,6 @@ main(){
 
 	log_info 'Execute "make all" from file "makefile.gen"'
 		${MAKE} -f Makefile.gen all
-	# log_info 'Execute "make all" from file "test/makefile.gen"'
-	# 	(cd test ; ${MAKE} -f Makefile.gen all )
 }
 
 main "$@"

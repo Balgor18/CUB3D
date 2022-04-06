@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 04:05:39 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:57:01 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_min_map(t_mlx *mlx)
 {
-	int		rayon[60];
+	int		rayon[WIDTH];
 	int		x;
 	int		r;
 	float	ra;
@@ -22,7 +22,7 @@ void	print_min_map(t_mlx *mlx)
 
 	x = ((r = 0, 0));
 	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
-	while (r < 60)
+	while (r < WIDTH)
 	{
 		if (ra < 0)
 			ra += (2 * M_PI);
@@ -34,11 +34,8 @@ void	print_min_map(t_mlx *mlx)
 			rayon[r] = dist[1];
 		if (dist[0] < dist[1])
 			rayon[r] = dist[0];
-		printf("---------------\n");
-		printf("distH = %f\ndistV = %f\n", dist[0], dist[1]);
-		printf("rayon[r] = %d\n", rayon[r]);
 		print_3d(mlx, rayon[r], ra, &x);
-		ra += 1 * M_PI / 180;
+		ra += (60 * M_PI / 180) / WIDTH;
 		r++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 08:58:46 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 03:12:03 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:24:03 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg)
 	printf(K ALED "%s" ALED K, msg);
 	printf("[%d] " YELLOW "[%s]" RESET"\n", i, line);
 	ft_lst_clear(list);
+	exit(EXIT_FAILURE);
+}
+
+void	clear_data_syntax_exit(t_data **data, int i, char *line, char *msg)
+{
+	write(2, "Error\n", 6);
+	printf(K ALED "%s" ALED K, msg);
+	printf("[%d] " YELLOW "[%s]" RESET"\n", i, line);
+	clear_data(data);
 	exit(EXIT_FAILURE);
 }
 

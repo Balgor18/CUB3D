@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 02:35:26 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 03:51:22 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:28:48 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static double	vertical_while(t_mlx *mlx, double rayon[2], double offset[2])
 
 	dof = 0;
 	map[1] = 0;
-	while (map[1] >= 0 && map[1] < mlx->data->map_height && dof < (int)ft_strlen(mlx->data->map[map[1]])) //modif value
+	while (map[1] >= 0 && map[1] < mlx->data->map_height && dof < ft_strlen(mlx->data->map[map[1]])) //modif value
 	{
 		map[X] = (int)(rayon[X]) >> 6;
 		map[1] = (int)(rayon[1]) >> 6;
 		if (map[1] < 0 && map[X] < 0)
 			break ;
-		if (0 <= map[1] && map[1] < 6 && 0 <= map[X]
+		if (0 <= map[1] && map[1] < mlx->data->map_height && 0 <= map[X]
 			&& map[X] < (int)ft_strlen(mlx->data->map[map[1]])
 			&& mlx->data->map[map[1]][map[X]] == '1')
 			return (dist(mlx->player[X_PIXEL], mlx->player[Y_PIXEL]

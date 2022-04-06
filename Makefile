@@ -11,6 +11,7 @@ vpath %.c $(foreach dir, $(SRC_DIR), $(dir):)
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
 SRCS =	tab_utils.c                 	\
+		string_utils3.c             	\
 		string_utils2.c             	\
 		string_utils.c              	\
 		print.c                     	\
@@ -18,6 +19,8 @@ SRCS =	tab_utils.c                 	\
 		main.c                      	\
 		lst_utils.c                 	\
 		init_player.c               	\
+		fill_textures.c             	\
+		check_closed_map.c             	\
 		ft_split.c                  	\
 		free2.c                     	\
 		free.c                      	\
@@ -38,6 +41,7 @@ SRCS =	tab_utils.c                 	\
 		check_textures.c            	\
 		check_syntax.c              	\
 		check_duplicates.c          	\
+
 
 # --   Compilation flags  -- #
 CC			=	clang

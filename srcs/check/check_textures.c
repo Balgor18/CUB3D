@@ -6,60 +6,68 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 03:30:46 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:25:55 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	open_all_textures(t_data **data, int *fd)
+	// printf("In check textures extensiions\n");
+void	check_textures_extensions(t_data **data)
 {
-	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
-	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
-	fd[WEST] = open((*data)->west_texture, O_RDONLY);
-	fd[EAST] = open((*data)->east_texture, O_RDONLY);
+	if (check_extension((*data)->north_texture, ".xpm"))
+		clear_data_exit(data, WNOEXT);
+	else if (check_extension((*data)->south_texture, ".xpm"))
+		clear_data_exit(data, WSOEXT);
+	else if (check_extension((*data)->west_texture, ".xpm"))
+		clear_data_exit(data, WWEEXT);
+	else if (check_extension((*data)->east_texture, ".xpm"))
+		clear_data_exit(data, WEAEXT);
 }
 
-static void	close_error_exit(t_data **data, int *fd)
+	// printf("In close error exit\n");
+void	close_error_exit(t_data **data, int *fd)
 {
+	close_all_textures(fd);
 	if (fd[NORTH] == -1)
-	{
-		close(fd[NORTH]);
 		clear_data_exit(data, OPENNOTEX);
-	}
-	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
 	if (fd[SOUTH] == -1)
-	{
-		close(fd[SOUTH]);
 		clear_data_exit(data, OPENSOTEX);
-	}
-	fd[WEST] = open((*data)->west_texture, O_RDONLY);
 	if (fd[WEST] == -1)
-	{
-		close(fd[WEST]);
 		clear_data_exit(data, OPENWETEX);
-	}
-	fd[EAST] = open((*data)->east_texture, O_RDONLY);
 	if (fd[EAST] == -1)
-	{
-		close(fd[EAST]);
 		clear_data_exit(data, OPENEATEX);
-	}
 }
 
-void	close_all_textures(int *fd)
+// for directory texture
+void	close_dir_error_exit(t_data **data, int *fd)
 {
 	if (fd[NORTH] != -1)
-		close(fd[NORTH]);
-	else if (fd[SOUTH] != -1)
-		close(fd[SOUTH]);
-	else if (fd[WEST] != -1)
-		close(fd[WEST]);
-	else if (fd[EAST] != -1)
-		close(fd[EAST]);
+	{
+		close_all_textures(fd);
+		clear_data_exit(data, OPENDIRNOTEX);
+	}
+	if (fd[SOUTH] != -1)
+	{
+		close_all_textures(fd);
+		clear_data_exit(data, OPENDIRSOTEX);
+	}
+	if (fd[WEST] != -1)
+	{
+		close_all_textures(fd);
+		clear_data_exit(data, OPENDIRWETEX);
+	}
+	if (fd[EAST] != -1)
+	{
+		close_all_textures(fd);
+		clear_data_exit(data, OPENDIREATEX);
+	}
 }
 
+	// printf("In check texture size\n");
 // printf("In check texture size, width = %d, height = %d\n\n", width, height);
+	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
+	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 static int	check_texture_size(char *path, void *mlx)
 {
 	void	*image;
@@ -81,9 +89,7 @@ static int	check_texture_size(char *path, void *mlx)
 	return (EXIT_SUCCESS);
 }
 
-// Use mlx to image to fill width and height et elles doivent etre de 64x64
-// init mlx et return in ptr mlx
-// call mlx_xp_file_to_image to fill width and height
+	// printf("In check open textures\n");
 void	check_open_textures(t_data **data)
 {
 	void	*mlx;
@@ -92,14 +98,10 @@ void	check_open_textures(t_data **data)
 	bzero_int_tab(fd, 4, 0);
 	mlx = mlx_init();
 	if (!mlx)
-		clear_data_exit(data, MLXFAIL);
-	open_all_textures(data, fd);
-	if (fd[NORTH] == -1 || fd[SOUTH] == -1 || fd[WEST] == -1 || fd [EAST] == -1)
-	{
-		mlx_destroy_display(mlx);
-		free(mlx);
-		close_error_exit(data, fd);
-	}
+		clear_data_exit(data, MLXINITFAIL);
+	open_all_dir_textures(data, fd, mlx);
+	bzero_int_tab(fd, 4, 0);
+	open_all_textures(data, fd, mlx);
 	if (check_texture_size((*data)->north_texture, mlx))
 		clear_mlx_fd_data_exit(data, mlx, fd, SIZENOTEX);
 	if (check_texture_size((*data)->south_texture, mlx))
@@ -109,5 +111,5 @@ void	check_open_textures(t_data **data)
 	if (check_texture_size((*data)->east_texture, mlx))
 		clear_mlx_fd_data_exit(data, mlx, fd, SIZEEATEX);
 	close_all_textures(fd);
-	free(mlx);
+	mlx_destroy_display(mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:49:42 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 15:50:19 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:07:56 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_cardinal_syntax(char *str)
 	return (EXIT_FAILURE);
 }
 
-static int	check_floor_ceiling_syntax(char *str)
+static int	check_fc_syntax(char *str)
 {
 	if ((ft_strncmp(str, "F ", 2) != 0) && (ft_strncmp(str, "C ", 2) != 0))
 		return (EXIT_FAILURE);
@@ -46,7 +46,7 @@ static void	check_last_element(t_list **list)
 		tmp = tmp->next;
 		i++;
 	}
-	if (tmp->line[0] != '1' && tmp->line[0] != '0' && tmp->line[0] != '\0')
+	if (is_map_str(tmp->line))
 		clear_list_syntax_exit(list, i, tmp->line, ENDFILE);
 }
 
@@ -61,14 +61,34 @@ void	check_list_syntax(t_list **list)
 		clear_list_exit(list, EMPTYMAP);
 	while (tmp)
 	{
-		if (tmp->type == 5)
+		if (tmp->type == ERROR_LINE)
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 2 && check_cardinal_syntax(tmp->line))
+		else if (tmp->type == TEXTURE_LINE && check_cardinal_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
-		if (tmp->type == 3 && check_floor_ceiling_syntax(tmp->line))
+		else if (tmp->type == COLOR_LINE && check_fc_syntax(tmp->line))
 			clear_list_syntax_exit(list, i, tmp->line, SYNTAX);
+		else if (tmp->type == MAP_LINE && is_map_str(tmp->line))
+			clear_list_syntax_exit(list, i, tmp->line, WCHARMAP);
 		i++;
 		tmp = tmp->next;
 	}
 	check_last_element(list);
+}
+
+void	check_splitted_map(t_list **list)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *list;
+	i = 0;
+	while (tmp && tmp->type != MAP_LINE)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->type == EMPTY_LINE)
+			clear_list_syntax_exit(list, i, tmp->line, SPLITMAP);
+		i++;
+		tmp = tmp->next;
+	}
 }

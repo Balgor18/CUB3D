@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:46:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 21:47:04 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:58:37 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,34 @@ void	check_open(char *filename, int *fd)
 		exit_error(OPENERR);
 }
 
+// for directory texture
+void	open_all_dir_textures(t_data **data, int *fd, void *mlx)
+{
+	fd[NORTH] = open((*data)->north_texture, __O_DIRECTORY | O_RDONLY);
+	fd[SOUTH] = open((*data)->south_texture, __O_DIRECTORY | O_RDONLY);
+	fd[WEST] = open((*data)->west_texture, __O_DIRECTORY | O_RDONLY);
+	fd[EAST] = open((*data)->east_texture, __O_DIRECTORY | O_RDONLY);
+	if (fd[NORTH] != -1 || fd[SOUTH] != -1 || fd[WEST] != -1 || fd [EAST] != -1)
+	{
+		mlx_destroy_display(mlx);
+		close_dir_error_exit(data, fd);
+	}
+}
+
+	// printf("In open all textures\n");
+void	open_all_textures(t_data **data, int *fd, void *mlx)
+{
+	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
+	fd[SOUTH] = open((*data)->south_texture, O_RDONLY);
+	fd[WEST] = open((*data)->west_texture, O_RDONLY);
+	fd[EAST] = open((*data)->east_texture, O_RDONLY);
+	if (fd[NORTH] == -1 || fd[SOUTH] == -1 || fd[WEST] == -1 || fd [EAST] == -1)
+	{
+		mlx_destroy_display(mlx);
+		close_error_exit(data, fd);
+	}
+}
+
 int	check_close(int fd, t_list *list)
 {
 	int	ret;
@@ -35,56 +63,15 @@ int	check_close(int fd, t_list *list)
 	return (EXIT_SUCCESS);
 }
 
-void	check_open_directory_texture(t_data **data, t_list **list, int cardinal)
+	// printf("In close all textures\n");
+void	close_all_textures(int *fd)
 {
-	int	fd;
-
-	fd = 0;
-	if (cardinal == NORTH)
-		fd = open((*data)->north_texture, __O_DIRECTORY | O_RDONLY);
-	else if (cardinal == SOUTH)
-		fd = open((*data)->south_texture, __O_DIRECTORY | O_RDONLY);
-	else if (cardinal == EAST)
-		fd = open((*data)->east_texture, __O_DIRECTORY | O_RDONLY);
-	else if (cardinal == WEST)
-		fd = open((*data)->west_texture, __O_DIRECTORY | O_RDONLY);
-	if (fd != -1)
-	{
-		close(fd);
-		if (cardinal == NORTH)
-			clear_all_exit(data, list, OPENDIRNOTEX);
-		else if (cardinal == SOUTH)
-			clear_all_exit(data, list, OPENDIRSOTEX);
-		else if (cardinal == WEST)
-			clear_all_exit(data, list, OPENDIRWETEX);
-		else if (cardinal == EAST)
-			clear_all_exit(data, list, OPENDIREATEX);
-	}
-}
-
-void	check_open_texture(t_data **data, t_list **list, int cardinal)
-{
-	int	fd;
-
-	fd = 0;
-	if (cardinal == NORTH)
-		fd = open((*data)->north_texture, O_RDONLY);
-	else if (cardinal == SOUTH)
-		fd = open((*data)->south_texture, O_RDONLY);
-	else if (cardinal == EAST)
-		fd = open((*data)->east_texture, O_RDONLY);
-	else if (cardinal == WEST)
-		fd = open((*data)->west_texture, O_RDONLY);
-	if (fd == -1)
-	{
-		close(fd);
-		if (cardinal == NORTH)
-			clear_all_exit(data, list, OPENNOTEX);
-		else if (cardinal == SOUTH)
-			clear_all_exit(data, list, OPENSOTEX);
-		else if (cardinal == WEST)
-			clear_all_exit(data, list, OPENWETEX);
-		else if (cardinal == EAST)
-			clear_all_exit(data, list, OPENEATEX);
-	}
+	if (fd[NORTH] != -1)
+		close(fd[NORTH]);
+	else if (fd[SOUTH] != -1)
+		close(fd[SOUTH]);
+	else if (fd[WEST] != -1)
+		close(fd[WEST]);
+	else if (fd[EAST] != -1)
+		close(fd[EAST]);
 }

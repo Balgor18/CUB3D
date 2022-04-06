@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 14:50:55 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/30 18:28:44 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 02:40:00 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,16 @@ void	clear_data_exit(t_data **data, char *msg)
 
 void	clear_all_exit(t_data **data, t_list **list, char *msg)
 {
-	if (data)
-		clear_data(data);
 	if (*list)
 		ft_lst_clear(list);
+	if (data)
+		clear_data(data);
 	exit_error(msg);
 }
 
 void	clear_mlx_fd_data_exit(t_data **data, void *mlx, int *fd, char *msg)
 {
 	mlx_destroy_display(mlx);
-	free(mlx);
 	close_all_textures(fd);
 	clear_data_exit(data, msg);
 }

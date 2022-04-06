@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:16:50 by grannou           #+#    #+#             */
-/*   Updated: 2022/03/27 20:23:50 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/03 18:03:54 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,17 @@ int	is_color_char(char c)
 	return (c == 'F' || c == 'C');
 }
 
-char	*ft_strndup(char *str, int n)
+int	is_map_str(char *str)
 {
-	char	*new_str;
-	int		i;
+	int	i;
 
 	i = 0;
-	new_str = (char *)malloc(sizeof(char) * (n + 1));
-	if (!new_str)
-		return (NULL);
-	while (i < n)
+	while (str[i])
 	{
-		new_str[i] = str[i];
+		if (str[i] != '1' && str[i] != '0' && str[i] != ' ' && str[i] != '\0' \
+			&& !is_cardinal_char(str[i]))
+			return (EXIT_FAILURE);
 		i++;
 	}
-	new_str[i] = '\0';
-	return (new_str);
+	return (EXIT_SUCCESS);
 }
