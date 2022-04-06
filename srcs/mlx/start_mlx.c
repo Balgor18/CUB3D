@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 02:05:17 by fcatinau         ###   ########.fr       */
+/*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
+/*   Updated: 2022/04/06 04:05:39 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	print_min_map(t_mlx *mlx)
 			rayon[r] = dist[1];
 		if (dist[0] < dist[1])
 			rayon[r] = dist[0];
+		printf("---------------\n");
+		printf("distH = %f\ndistV = %f\n", dist[0], dist[1]);
+		printf("rayon[r] = %d\n", rayon[r]);
 		print_3d(mlx, rayon[r], ra, &x);
 		ra += 1 * M_PI / 180;
 		r++;
@@ -43,18 +46,20 @@ void	print_min_map(t_mlx *mlx)
 /**
  *	@brief	Function start to create the mlx for the graphics
  *
- *	@param	t_tmp	Take in param all the info from the parsing
+ *	@param	t_data	Take in param all the info from the parsing
  *
  *	@return	Return void
  **/
-void	start_mlx(char **map)
+void	start_mlx(t_data *data)
 {
 	t_mlx	mlx;
 
 	mlx = (t_mlx){0};
-	mlx.map = map;
-	find_player_pos(map, &mlx);
+	mlx.data = data;
+	find_player_pos(data->map, &mlx);
 	create_texture(&mlx);
+	if (!mlx.mlx_ptr)
+		return;
 	print_min_map(&mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, ClientMessage, StructureNotifyMask, ft_close, &mlx);
