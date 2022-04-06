@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:00:22 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 03:51:54 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:37:38 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static double	horizontal_while(t_mlx *mlx, double ray[2], double offset[2])
 	int		dof;
 
 	dof = 0;
-	while (dof < mlx->data->map_height) // modif the value
+	while (dof < mlx->data->map_height)
 	{
 		map[X] = (int)(ray[X]) >> 6;
 		map[1] = (int)(ray[1]) >> 6;

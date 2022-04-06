@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 04:25:33 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 04:05:34 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:36:13 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static void	init_player(t_mlx *mlx, int *pos)
 	mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 }
 
-// pos[0] = X;
-// pos[1] = Y;
 /**
  * @brief	Function find the player position
  * 			fill the struct with the value
@@ -60,7 +58,6 @@ void	find_player_pos(char **tmp, t_mlx *mlx)
 	pos[1] = 0;
 	while (tmp)
 	{
-		printf("tmp = %s\n", *tmp);
 		pos[0] = 0;
 		s = *tmp;
 		while (*s)
