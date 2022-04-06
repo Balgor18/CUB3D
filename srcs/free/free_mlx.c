@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:10:22 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 03:33:48 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:02:03 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 **/
 static void	free_texture(t_mlx *mlx)
 {
-	if (mlx->pict[PLAYER].img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[PLAYER].img);
-	if (mlx->pict[WALL_IMG].img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_IMG].img);
+	if (mlx->pict[WALL_NORTH].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_NORTH].img);
+	if (mlx->pict[WALL_SOUTH].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_SOUTH].img);
+	if (mlx->pict[WALL_WEST].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_WEST].img);
+	if (mlx->pict[WALL_EAST].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_EAST].img);
 	if (mlx->pict[FLOOR_IMG].img)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[FLOOR_IMG].img);
 	if (mlx->pict[CEILING_IMG].img)

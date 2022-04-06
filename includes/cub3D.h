@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 19:37:53 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:01:00 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,11 @@ enum	e_RGB
 /*
 **--------------struct--------------
 */
-typedef struct s_tmp	t_tmp;
 typedef struct s_img	t_img;
 typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
-typedef struct s_rgb	t_rgb;
 typedef struct s_list	t_list;
-typedef struct s_mlx	t_mlx;
+typedef struct s_rayon	t_rayon;
 
 struct s_data
 {
@@ -136,6 +134,13 @@ struct s_list
 	t_list	*next;
 };
 
+struct s_rayon
+{
+	int		dist;
+	double	angle;
+	char	type;
+};
+
 struct s_img
 {
 	void	*img;
@@ -154,8 +159,10 @@ struct s_mlx
 	t_img	pict[MAX_IMG];
 	double	player[MAX_POS];
 	double	delta[2];
+	t_rayon	rayon[WIDTH];
 	t_data	*data;
 };
+
 
 /*
 **----------------------------------

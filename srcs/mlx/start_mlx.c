@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 19:42:55 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 20:00:22 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_min_map(t_mlx *mlx)
 {
-	int		rayon[WIDTH];
+	// int		rayon[WIDTH];
 	int		x;
 	int		r;
 	float	ra;
@@ -31,10 +31,22 @@ void	print_min_map(t_mlx *mlx)
 		dist[0] = horizontal_check(mlx, ra);
 		dist[1] = vertical_check(mlx, ra);
 		if (dist[1] < dist[0])
-			rayon[r] = dist[1];
+		{
+			mlx->rayon[r].dist = dist[1];
+			mlx->rayon[r].type = 'V';
+		}
 		if (dist[0] < dist[1])
-			rayon[r] = dist[0];
-		print_3d(mlx, rayon[r], ra, &x);
+		{
+			mlx->rayon[r].dist = dist[0];
+			mlx->rayon[r].type = 'H';
+		}
+		print_3d(mlx, mlx->rayon[r].dist, ra, &x);
+		// if (dist[1] < dist[0])
+		// 	rayon[r] = dist[1];
+		// if (dist[0] < dist[1])
+		// 	rayon[r] = dist[0];
+		// print_3d(mlx, rayon[r], ra, &x);
+		mlx->rayon[r].angle = ra;
 		ra += (60 * M_PI / 180) / WIDTH;
 		r++;
 	}
