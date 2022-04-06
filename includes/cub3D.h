@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 18:20:11 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:26:21 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ enum	e_player
 
 enum	e_img
 {
-	PLAYER,
-	WALL_IMG,
+	WALL_NORTH,
+	WALL_SOUTH,
+	WALL_WEST,
+	WALL_EAST,
 	FLOOR_IMG,
 	CEILING_IMG,
 	MAX_IMG,
@@ -81,14 +83,6 @@ enum	e_INFOS
 	FLOOR,
 	CEILING,
 };
-
-// enum	e_MOVE
-// {
-// 	UP = 0,
-// 	DOWN,
-// 	LEFT,
-// 	RIGHT
-// };
 
 enum	e_TEXTURE
 {
@@ -150,6 +144,8 @@ struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 };
 
 struct s_mlx

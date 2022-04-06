@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:17:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 03:22:13 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:10:53 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ static void	check_player_and_move(t_mlx *mlx, char move, double d[2])
 		d[0] = ((d[1] = mlx->player[Y_POS] - (0.005f * pos[0]),
 					mlx->player[X_POS] + (0.005f * pos[1])));
 	printf("-----------------------\n");
+	d[0] += 0.5;// error here
+	d[1] += 0.5;
 	printf("[%f][%f]\n", d[1], d[0]);
 	printf("[%d][%d]\n", (int)d[1], (int)d[0]);
 	if (d[1] == -1 || mlx->data->map[(int)d[1]][(int)d[0]] == '1')
 		return ;
-	mlx->player[X_POS] = d[0];
-	mlx->player[Y_POS] = d[1];
+	mlx->player[X_POS] = d[0] - 0.5;
+	mlx->player[Y_POS] = d[1] - 0.5;
 	return ;
 }
 

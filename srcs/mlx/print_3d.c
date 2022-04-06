@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:10:45 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 18:57:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:01:21 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	print_3d(t_mlx *mlx, int rayon, double ra, int *x)
 {
-	// int		height;
 	double	ca;
 	float	lineh;
 	float	lineo;
 
-	// height = 0;
 	ca = mlx->player[ANGLE] - ra;
 	if (ca < 0)
 		ca += 2 * M_PI;
