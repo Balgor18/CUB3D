@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 23:40:35 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:59:21 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_error(char *msg)
 {
 	write(2, "Error\n", 6);
-	printf(K A "%s" A K, msg);
+	printf(KYU BIE "%s" BIE KYU, msg);
 	exit(EXIT_FAILURE);
 }
 
@@ -24,7 +24,7 @@ void	print_list(t_list *list)
 	int	i;
 
 	i = 0;
-	printf(K A LIST A K "\n");
+	printf(KYU BIE LIST BIE KYU "\n");
 	while (list)
 	{
 		printf("[%3d] [len = %3d] [type = %d] " GREEN "[" RESET "%s" GREEN "]" \
@@ -37,7 +37,7 @@ void	print_list(t_list *list)
 
 void	print_data(t_data *data)
 {
-	printf(K A GAME A K "\n");
+	printf(KYU BIE GAME BIE KYU "\n");
 	printf("North texture path : %s\n", data->north_texture);
 	printf("South texture path : %s\n", data->south_texture);
 	printf("West texture path  : %s\n", data->west_texture);
@@ -52,7 +52,6 @@ void	print_data(t_data *data)
 	print_map(data->map);
 }
 
-	// printf("In print map\n");
 void	print_map(char **map)
 {
 	int	x;
@@ -63,7 +62,7 @@ void	print_map(char **map)
 		return ;
 	while (map[y])
 	{
-		printf(GREEN "[" RESET);
+		printf(YELLOW "[" RESET "%3d" YELLOW "] " GREEN "[" RESET, y);
 		x = 0;
 		while (map[y][x])
 		{
@@ -89,7 +88,7 @@ void	print_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		printf("[%d]: [%s]\n", i, array[i]);
+		printf("%s\n", array[i]);
 		i++;
 	}
 }

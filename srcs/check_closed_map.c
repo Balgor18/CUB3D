@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 23:20:30 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 23:21:58 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:48:36 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,6 @@ static void	check_inner_map(t_data **data)
 	}
 }
 
-// CHECK QUE FIRST LINE EST ONLY 1 OR SPACE
-// CHECK QUE LAST LINE EST ONLY 1 OR SPACE
-// CHECK QUE ALL LINES START WITH 1 OR SPACE
-// CHECK QUE ALL LINES END WITH 1 OR SPACE
-// START CHECK INNER MAP (MAP[1][1] ---> MAP[HEIGHT - 1][WIDTH -1]
-// SI MAP[Y][X] EST UN 0
-	// SI [Y-1][X] OU [Y+1][X] OU [Y][X-1] OU [Y][X+1] NEST PAS 0 OU 1
-	// ALORS MAP EST NON FERMEE
 void	check_closed_map(t_data **data)
 {
 	if (is_not_only_one_or_space_str((*data)->map[0]))

@@ -6,13 +6,12 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:22:59 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 18:43:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:50:01 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-	// printf("In check textures extensiions\n");
 void	check_textures_extensions(t_data **data)
 {
 	if (check_extension((*data)->north_texture, ".xpm"))
@@ -25,7 +24,6 @@ void	check_textures_extensions(t_data **data)
 		clear_data_exit(data, WEAEXT);
 }
 
-	// printf("In close error exit\n");
 void	close_error_exit(t_data **data, int *fd)
 {
 	close_all_textures(fd);
@@ -39,7 +37,6 @@ void	close_error_exit(t_data **data, int *fd)
 		clear_data_exit(data, OPENEATEX);
 }
 
-// for directory texture
 void	close_dir_error_exit(t_data **data, int *fd)
 {
 	if (fd[NORTH] != -1)
@@ -64,10 +61,6 @@ void	close_dir_error_exit(t_data **data, int *fd)
 	}
 }
 
-	// printf("In check texture size\n");
-// printf("In check texture size, width = %d, height = %d\n\n", width, height);
-	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
-	// printf("test: %p\n%s\n%d\n%d\n", mlx, path, width, height);
 static int	check_texture_size(char *path, void *mlx)
 {
 	void	*image;
@@ -89,7 +82,6 @@ static int	check_texture_size(char *path, void *mlx)
 	return (EXIT_SUCCESS);
 }
 
-	// printf("In check open textures\n");
 void	check_open_textures(t_data **data)
 {
 	void	*mlx;

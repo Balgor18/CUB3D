@@ -6,13 +6,12 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:54:09 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 23:33:06 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:50:26 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-	// printf("In get map size: map height = %d, width = %d\n", height, width);
 void	get_map_size(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -35,7 +34,6 @@ void	get_map_size(t_data **data, t_list **list)
 	(*data)->map_width = width;
 }
 
-	// printf("In init map\n");
 void	init_map(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -75,7 +73,6 @@ char	*copy_str(char *dest, char *src)
 	return (dest);
 }
 
-	// printf("In fill map\n");
 void	fill_map(t_data **data, t_list **list)
 {
 	t_list	*tmp;
@@ -93,7 +90,6 @@ void	fill_map(t_data **data, t_list **list)
 	}
 }
 
-	// printf("In fill data\n");
 void	fill_data(t_data **data, t_list **list)
 {
 	init_data(data, list);

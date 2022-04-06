@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:52:05 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 02:38:37 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:51:13 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int	get_hexa_rgb_value(t_data **data, t_list **list, char **str)
 	return (hexa_color);
 }
 
-	// printf("In fill rgb\n");
 void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 {
 	t_list	*tmp;
@@ -92,7 +91,6 @@ void	fill_rgb(t_data **data, t_list **list, int *dest, char *src)
 	}
 }
 
-	// printf("In fill texture\n");
 void	fill_texture(t_data **data, t_list **list, char **dest, char *src)
 {
 	t_list	*tmp;

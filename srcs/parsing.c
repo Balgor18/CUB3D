@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/05 23:33:51 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:56:56 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	check_argc(int argc, char **argv)
 	@param data structure with all infos parsed in map file
 	@return nothing
 **/
-	// printf("In parsing\n");
 void	parsing(int argc, char **argv, t_data **data)
 {
 	int		fd;

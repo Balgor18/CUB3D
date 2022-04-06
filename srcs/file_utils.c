@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:46:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 02:58:37 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:50:18 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	check_open(char *filename, int *fd)
 		exit_error(OPENERR);
 }
 
-// for directory texture
 void	open_all_dir_textures(t_data **data, int *fd, void *mlx)
 {
 	fd[NORTH] = open((*data)->north_texture, __O_DIRECTORY | O_RDONLY);
@@ -39,7 +38,6 @@ void	open_all_dir_textures(t_data **data, int *fd, void *mlx)
 	}
 }
 
-	// printf("In open all textures\n");
 void	open_all_textures(t_data **data, int *fd, void *mlx)
 {
 	fd[NORTH] = open((*data)->north_texture, O_RDONLY);
@@ -63,7 +61,6 @@ int	check_close(int fd, t_list *list)
 	return (EXIT_SUCCESS);
 }
 
-	// printf("In close all textures\n");
 void	close_all_textures(int *fd)
 {
 	if (fd[NORTH] != -1)
