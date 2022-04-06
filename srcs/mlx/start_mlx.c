@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 22:35:13 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 05:23:09 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:05:17 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	start_mlx(char **map)
 	find_player_pos(map, &mlx);
 	create_texture(&mlx);
 	print_min_map(&mlx);
-	mlx_hook(mlx.win_ptr, 2, 1L << 0, key_hook, &mlx);
-	mlx_hook(mlx.win_ptr, 33, 1L << 17, ft_close, &mlx);
+	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, key_hook, &mlx);
+	mlx_hook(mlx.win_ptr, ClientMessage, StructureNotifyMask, ft_close, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

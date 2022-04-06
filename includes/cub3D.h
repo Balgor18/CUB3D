@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/05 05:24:19 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:04:48 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "get_next_line.h"
+# include <X11/X.h>
 # include <stdio.h>
 # include "mlx.h"
 # include <stdbool.h>
