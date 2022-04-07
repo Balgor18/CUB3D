@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 17:56:56 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/07 23:40:38 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	check_argc(int argc, char **argv)
 	else if (argc > 2)
 		exit_error(TMARG);
 }
+
+// LAST: try to break everything to check
 
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
