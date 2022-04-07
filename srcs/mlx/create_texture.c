@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   create_texture.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:00:40 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 21:08:40 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/07 03:42:25 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	xpm_file_and_addr(void *mlx_ptr, t_img *img, int byte)
+static int	xpm_file_and_addr(void *mlx_ptr, t_img *img)
 {
 	size_t	i;
 
 	i = 0;
-	img->img = mlx_new_image(mlx_ptr, WIDTH, HEIGHT / 2);
+	img->img = mlx_new_image(mlx_ptr, WIDTH, HEIGHT);
 	if (!img->img)
 		return (EXIT_FAILURE);
 	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
-	while (i < WIDTH * (HEIGHT / 2))
-	{
-		img->addr[i] = byte;
-		i++;
-	}
+	img->width = WIDTH;
+	img->height = HEIGHT;
 	return (EXIT_SUCCESS);
 }
 
@@ -56,12 +53,15 @@ void	create_texture(t_mlx *mlx)
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
 	if (!mlx->win_ptr)
 		return (free_mlx(mlx));
-	if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING_IMG],
-			mlx->data->ceiling_rgb))
+	// if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING_IMG], HEIGHT / 2,
+	// 		mlx->data->ceiling_rgb))
+	// 	return (free_mlx(mlx));
+	// if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR_IMG], HEIGHT / 2,
+	// 		mlx->data->floor_rgb))
+	// 	return (free_mlx(mlx));
+	if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[IMAGE]))
 		return (free_mlx(mlx));
-	if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR_IMG],
-			mlx->data->floor_rgb))
-		return (free_mlx(mlx));
+
 	if (xpm_texture_and_addr(mlx->mlx_ptr, mlx->data->north_texture,
 			&mlx->pict[WALL_NORTH]))
 		return (free_mlx(mlx));

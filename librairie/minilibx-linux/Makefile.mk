@@ -22,7 +22,7 @@ endif
 NAME		= libmlx.a
 NAME_UNAME	= libmlx_$(UNAME).a
 
-				
+
 SRC			=	\
 				mlx_anti_leaks.c				\
 				mlx_clear_window.c				\

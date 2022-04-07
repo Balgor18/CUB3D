@@ -6,36 +6,46 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:17:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 19:35:48 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/07 04:57:35 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	check_player_and_move(t_mlx *mlx, char move, double d[2])
-{
-	double	pos[2];
+#ifdef X
+# undef X
+#endif
 
-	pos[0] = cos(mlx->player[ANGLE]) * 5;
-	pos[1] = sin(mlx->player[ANGLE]) * 5;
+#ifdef Y
+# undef Y
+#endif
+
+#define X 0
+#define Y 1
+
+static void	check_player_and_move(t_mlx *mlx, char move, double newpos[2])
+{
+	double	dist[2];
+
+	dist[X] = cos(mlx->player[ANGLE]) * 5;
+	dist[Y] = sin(mlx->player[ANGLE]) * 5;
 	if (move == 'H')
-		d[0] = ((d[1] = mlx->player[Y_POS] - (0.005f * pos[1]),
-					mlx->player[X_POS] - (0.005f * pos[0])));
+		newpos[X] = mlx->player[X_POS] - (0.005f * dist[X]),
+		newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[Y]);
 	else if (move == 'B')
-		d[0] = ((d[1] = mlx->player[Y_POS] + (0.005f * pos[1]),
-					mlx->player[X_POS] + (0.005f * pos[0])));
+		newpos[X] = mlx->player[X_POS] + (0.005f * dist[X]),
+		newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[Y]);
 	else if (move == 'G')
-		d[0] = ((d[1] = mlx->player[Y_POS] + (0.005f * pos[0]),
-					mlx->player[X_POS] - (0.005f * pos[1])));
+		newpos[X] = mlx->player[X_POS] - (0.005f * dist[Y]),
+		newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[X]);
 	else if (move == 'D')
-		d[0] = ((d[1] = mlx->player[Y_POS] - (0.005f * pos[0]),
-					mlx->player[X_POS] + (0.005f * pos[1])));
-	d[0] += 0.5;// error here
-	d[1] += 0.5;
-	if (d[1] == -1 || mlx->data->map[(int)d[1]][(int)d[0]] == '1')
+		newpos[X] = mlx->player[X_POS] + (0.005f * dist[Y]),
+		newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[X]);
+	printf("[%d][%d]\n", (int)newpos[Y], (int)newpos[X]);
+	if (newpos[Y] == -1 || mlx->data->map[(int)newpos[Y]][(int)newpos[X]] == '1')
 		return ;
-	mlx->player[X_POS] = d[0] - 0.5;
-	mlx->player[Y_POS] = d[1] - 0.5;
+	mlx->player[X_POS] = newpos[X];
+	mlx->player[Y_POS] = newpos[Y];
 	return ;
 }
 
@@ -44,7 +54,7 @@ static void	check_player_and_move(t_mlx *mlx, char move, double d[2])
  *
  * @param mlx struct mlx
  * @param move value of the player move
- * @param t a Array of 2 with the value of t[0] = 0.1f & t[1] = -0.1f
+ * @param t a Array of 2 with the value of t[0] = -1f & t[1] = -1f
  *
  * @return void
  */
@@ -69,8 +79,8 @@ static void	player_move(t_mlx *mlx, char move, double t[2])
 		check_player_and_move(mlx, 'G', (double [2]){-1, -1});
 	else if (move == 'D')
 		check_player_and_move(mlx, 'D', (double [2]){-1, -1});
-	mlx->player[X_PIXEL] = (mlx->player[X_POS] * 64) + 40;
-	mlx->player[Y_PIXEL] = (mlx->player[Y_POS] * 64) + 40;
+	mlx->player[X_PIXEL] = (mlx->player[X_POS] * 64);
+	mlx->player[Y_PIXEL] = (mlx->player[Y_POS] * 64);
 }
 
 int	key_hook(int key, t_mlx *mlx)

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 20:08:35 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/07 04:25:47 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	print_min_map(t_mlx *mlx)
 
 	x = ((r = 0, 0));
 	ra = mlx->player[ANGLE] - ((1 * M_PI / 180) * 30);
+	// fill_floor_and_ceiling(&mlx->pict[IMAGE], mlx->data);
+	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[CEILING_IMG].img, 0, 0);
+	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[FLOOR_IMG].img, 0, HEIGHT / 2);
 	while (r < WIDTH)
 	{
 		if (ra < 0)
@@ -39,6 +42,7 @@ void	print_min_map(t_mlx *mlx)
 		mlx->rayon[r].angle = ra;
 		r += ((ra += (60 * M_PI / 180) / WIDTH, 1));
 	}
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->pict[IMAGE].img, 0, 0);
 }
 
 /**

@@ -61,7 +61,7 @@ endif
 .PHONY: all
 ifeq ($(DEBUG), 1)
 all : librairie/minilibx-linux/libmlx.a $(NAME)
-	./cub3D
+# ./cub3D
 # valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./cub3D
 # norminette srcs | grep Error
 

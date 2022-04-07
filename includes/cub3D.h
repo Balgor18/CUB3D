@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 20:08:54 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/07 04:17:00 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ enum	e_player
 
 enum	e_img
 {
+	IMAGE,
 	WALL_NORTH,
 	WALL_SOUTH,
 	WALL_WEST,
@@ -136,7 +137,7 @@ struct s_list
 
 struct s_rayon
 {
-	int		dist;
+	float	dist;
 	double	angle;
 	char	type;
 };
@@ -173,6 +174,7 @@ void	start_mlx(t_data *data);
 void	find_player_pos(char **tmp, t_mlx *mlx);
 void	create_texture(t_mlx *mlx);
 void	print_min_map(t_mlx *mlx);
+
 /*
 **-------------Check---------------
 */
@@ -189,7 +191,7 @@ int		ft_close(t_mlx *mlx);
 **-------------Utils---------------
 */
 double	dist(double ax, double ay, double bx, double by);
-void	print_3d(t_mlx *mlx, int rayon, double ra, int *x);
+void	print_3d(t_mlx *mlx, float dist, double ra, int *x);
 void	mlx_print_line(t_mlx *mlx, int const a[2], int const b[2],
 			int const color);
 

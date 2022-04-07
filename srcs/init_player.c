@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 04:25:33 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 19:36:13 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/07 04:55:07 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static bool	is_player(char c, double *angle)
 		else if (c == 'S')
 			*angle = 1.5 * M_PI;
 		else if (c == 'E')
-			*angle = 0;
-		else if (c == 'W')
 			*angle = M_PI;
+		else if (c == 'W')
+			*angle = 0;
 		return (true);
 	}
 	return (false);
@@ -31,10 +31,10 @@ static bool	is_player(char c, double *angle)
 
 static void	init_player(t_mlx *mlx, int *pos)
 {
-	mlx->player[X_POS] = pos[0];
-	mlx->player[Y_POS] = pos[1];
-	mlx->player[X_PIXEL] = (pos[0] * 64) + 40;
-	mlx->player[Y_PIXEL] = (pos[1] * 64) + 40;
+	mlx->player[X_POS] = pos[0] + 0.5f;
+	mlx->player[Y_POS] = pos[1] + 0.5f;
+	mlx->player[X_PIXEL] = pos[0] * 64;
+	mlx->player[Y_PIXEL] = pos[1] * 64;
 	mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
 	mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 }
