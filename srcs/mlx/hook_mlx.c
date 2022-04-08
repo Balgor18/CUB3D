@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:17:02 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 04:57:35 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:54:40 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ static void	check_player_and_move(t_mlx *mlx, char move, double newpos[2])
 	dist[X] = cos(mlx->player[ANGLE]) * 5;
 	dist[Y] = sin(mlx->player[ANGLE]) * 5;
 	if (move == 'H')
-		newpos[X] = mlx->player[X_POS] - (0.005f * dist[X]),
-		newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[Y]);
+		newpos[X] = ((newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[Y]),
+					mlx->player[X_POS] - (0.005f * dist[X])));
 	else if (move == 'B')
-		newpos[X] = mlx->player[X_POS] + (0.005f * dist[X]),
-		newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[Y]);
+		newpos[X] = ((newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[Y]),
+					mlx->player[X_POS] + (0.005f * dist[X])));
 	else if (move == 'G')
-		newpos[X] = mlx->player[X_POS] - (0.005f * dist[Y]),
-		newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[X]);
+		newpos[X] = ((newpos[Y] = mlx->player[Y_POS] + (0.005f * dist[X]),
+					mlx->player[X_POS] - (0.005f * dist[Y])));
 	else if (move == 'D')
-		newpos[X] = mlx->player[X_POS] + (0.005f * dist[Y]),
-		newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[X]);
-	printf("[%d][%d]\n", (int)newpos[Y], (int)newpos[X]);
-	if (newpos[Y] == -1 || mlx->data->map[(int)newpos[Y]][(int)newpos[X]] == '1')
+		newpos[X] = ((newpos[Y] = mlx->player[Y_POS] - (0.005f * dist[X]),
+					mlx->player[X_POS] + (0.005f * dist[Y])));
+	if (newpos[Y] == -1
+		|| mlx->data->map[(int)newpos[Y]][(int)newpos[X]] == '1')
 		return ;
 	mlx->player[X_POS] = newpos[X];
 	mlx->player[Y_POS] = newpos[Y];

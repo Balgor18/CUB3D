@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:10:22 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/06 20:02:03 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:29:13 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 **/
 static void	free_texture(t_mlx *mlx)
 {
+	if (mlx->pict[IMAGE].img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[IMAGE].img);
 	if (mlx->pict[WALL_NORTH].img)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->pict[WALL_NORTH].img);
 	if (mlx->pict[WALL_SOUTH].img)

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 04:17:00 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:19:10 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ struct s_rayon
 	float	dist;
 	double	angle;
 	char	type;
+	double	end_pos[2];
 };
 
 struct s_img
@@ -178,8 +179,8 @@ void	print_min_map(t_mlx *mlx);
 /*
 **-------------Check---------------
 */
-double	vertical_check(t_mlx *mlx, double ra);
-double	horizontal_check(t_mlx *mlx, double ra);
+double	vertical_check(t_mlx *mlx, double ra, double *end_pos);
+double	horizontal_check(t_mlx *mlx, double ra, double *end_pos);
 
 /*
 **--------------Hook---------------

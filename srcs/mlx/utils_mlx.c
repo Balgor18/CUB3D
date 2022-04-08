@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 23:59:09 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 03:35:57 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:49:08 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ ori[2], c[2], err[2];
 	__init1(err, dist, c, a);
 	while (42)
 	{
-		// mlx_pixel_put(mlx->mlx_ptr, mlx->pict[IMAGE].img, c[X], c[Y], color);
 		mlx->pict[IMAGE].addr[c[X] * c[Y] + WIDTH] = color;
 		if (c[X] == b[X] && c[Y] == b[Y])
 			break ;

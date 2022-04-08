@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:46:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/03 02:58:37 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/08 16:32:04 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	close_all_textures(int *fd)
 {
 	if (fd[NORTH] != -1)
 		close(fd[NORTH]);
-	else if (fd[SOUTH] != -1)
+	if (fd[SOUTH] != -1)
 		close(fd[SOUTH]);
-	else if (fd[WEST] != -1)
+	if (fd[WEST] != -1)
 		close(fd[WEST]);
-	else if (fd[EAST] != -1)
+	if (fd[EAST] != -1)
 		close(fd[EAST]);
 }

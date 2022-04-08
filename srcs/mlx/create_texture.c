@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 05:00:40 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 03:42:25 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:47:14 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,8 @@ void	create_texture(t_mlx *mlx)
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "CUB3D");
 	if (!mlx->win_ptr)
 		return (free_mlx(mlx));
-	// if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[CEILING_IMG], HEIGHT / 2,
-	// 		mlx->data->ceiling_rgb))
-	// 	return (free_mlx(mlx));
-	// if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[FLOOR_IMG], HEIGHT / 2,
-	// 		mlx->data->floor_rgb))
-	// 	return (free_mlx(mlx));
 	if (xpm_file_and_addr(mlx->mlx_ptr, &mlx->pict[IMAGE]))
 		return (free_mlx(mlx));
-
 	if (xpm_texture_and_addr(mlx->mlx_ptr, mlx->data->north_texture,
 			&mlx->pict[WALL_NORTH]))
 		return (free_mlx(mlx));

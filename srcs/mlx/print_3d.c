@@ -6,16 +6,17 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:10:45 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 04:15:59 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:55:30 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	fill_floor_wall_and_ceiling(t_img *img, t_data *data, float lineh, int const x)
+void	fill_floor_wall_and_ceiling(t_img *img, t_data *data, float lineh
+	, int const x)
 {
-	const float ceil_h = (HEIGHT - lineh) / 2;
-	float	i;
+	const float	ceil_h = (HEIGHT - lineh) / 2;
+	float		i;
 
 	i = 0;
 	while (i < ceil_h)
@@ -50,6 +51,5 @@ void	print_3d(t_mlx *mlx, float dist, double ra, int *x)
 	if (lineh > HEIGHT)
 		lineh = HEIGHT;
 	fill_floor_wall_and_ceiling(&mlx->pict[IMAGE], mlx->data, lineh, *x);
-	// mlx_print_line(mlx, (int [2]){*x, lineo}, (int [2]){*x, lineh + lineo}, 0x00FF0000);
 	*x += 1;
 }
