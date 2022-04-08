@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 20:46:10 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/06 17:50:18 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/08 18:21:41 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	close_all_textures(int *fd)
 {
 	if (fd[NORTH] != -1)
 		close(fd[NORTH]);
-	else if (fd[SOUTH] != -1)
+	if (fd[SOUTH] != -1)
 		close(fd[SOUTH]);
-	else if (fd[WEST] != -1)
+	if (fd[WEST] != -1)
 		close(fd[WEST]);
-	else if (fd[EAST] != -1)
+	if (fd[EAST] != -1)
 		close(fd[EAST]);
 }
