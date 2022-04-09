@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 04:07:30 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:13:21 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ toutes les fonctions de math.h
 **--------------Define--------------
 */
 # define WIDTH 1024
+// # define WIDTH 683
 # define HEIGHT 384
 
 /*

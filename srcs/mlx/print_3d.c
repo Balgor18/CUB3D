@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:10:45 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 04:06:17 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:33:07 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void	print_3d(t_mlx *const mlx, t_rayon *const rayon, double ra, int *x)
 	if (ca > 2 * M_PI)
 		ca -= 2 * M_PI;
 	rayon->dist = rayon->dist * cos(ca);
-	lineh = (mlx->data->map_height * mlx->data->map_width)
-		* HEIGHT / rayon->dist;
+	lineh = HEIGHT / 64 * rayon->dist;
 	fill_floor_wall_and_ceiling(mlx, rayon, lineh, *x);
 	*x += 1;
 }
