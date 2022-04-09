@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/07 23:40:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/09 15:26:30 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_splitted_map(&list);
 	check_close(fd, list);
 	fill_data(data, &list);
-	print_list(list);
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);
