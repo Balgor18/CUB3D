@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_3d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:10:45 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 21:16:03 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:21:02 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	print_3d(t_mlx *const mlx, t_rayon *const rayon, double ra, int *x)
 	if (opposite <= 0)
 		opposite = 0.1;
 	lineh = 64 * HEIGHT / opposite;
-	// lineh = (mlx->data->map_height * mlx->data->map_width * HEIGHT / rayon->dist;
 	fill_floor_wall_and_ceiling(mlx, rayon, lineh, *x);
 	*x += 1;
 }
