@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:10:45 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 20:33:07 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:16:03 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	print_3d(t_mlx *const mlx, t_rayon *const rayon, double ra, int *x)
 {
 	double	ca;
 	float	lineh;
+	double	opposite;
 
 	ca = mlx->player[ANGLE] - ra;
 	if (ca < 0)
@@ -57,7 +58,11 @@ void	print_3d(t_mlx *const mlx, t_rayon *const rayon, double ra, int *x)
 	if (ca > 2 * M_PI)
 		ca -= 2 * M_PI;
 	rayon->dist = rayon->dist * cos(ca);
-	lineh = HEIGHT / 64 * rayon->dist;
+	opposite = 2 * 0.57735026919 * rayon->dist;
+	if (opposite <= 0)
+		opposite = 0.1;
+	lineh = 64 * HEIGHT / opposite;
+	// lineh = (mlx->data->map_height * mlx->data->map_width * HEIGHT / rayon->dist;
 	fill_floor_wall_and_ceiling(mlx, rayon, lineh, *x);
 	*x += 1;
 }
