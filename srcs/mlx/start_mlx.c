@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 02:50:57 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/08 16:48:00 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:05:00 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,40 @@
 # undef V
 #endif
 
+#ifdef X
+# undef X
+#endif
+
+#ifdef Y
+# undef Y
+#endif
+
+#define X 0
+#define Y 1
 #define H 0
 #define V 1
 
-static void	choose_h_or_v(t_mlx *mlx, double dist[2], int r
-	, double end_pos[2][2])
+static void	choose_h_or_v(t_rayon *rayon, double dist[2], double end_pos[2][2])
 {
-	if (dist[1] < dist[0])
+	if (dist[V] < dist[H])
 	{
-		mlx->rayon[r].dist = dist[1];
-		mlx->rayon[r].end_pos[0] = end_pos[0][0];
-		mlx->rayon[r].end_pos[1] = end_pos[0][1];
-		mlx->rayon[r].type = 'V';
+		rayon->dist = dist[V];
+		rayon->end_pos[X] = end_pos[V][X];
+		rayon->end_pos[Y] = end_pos[V][Y];
+		if ((M_PI / 2) < rayon->angle && rayon->angle < (3 * M_PI / 2))
+			rayon->type = WALL_EAST;
+		else if (rayon->angle < (M_PI / 2) || rayon->angle > (3 * M_PI / 2))
+			rayon->type = WALL_WEST;
 	}
-	else if (dist[0] < dist[1])
+	else if (dist[H] < dist[V])
 	{
-		mlx->rayon[r].dist = dist[0];
-		mlx->rayon[r].end_pos[0] = end_pos[1][0];
-		mlx->rayon[r].end_pos[1] = end_pos[1][1];
-		mlx->rayon[r].type = 'H';
+		rayon->dist = dist[H];
+		rayon->end_pos[X] = end_pos[H][X];
+		rayon->end_pos[Y] = end_pos[H][Y];
+		if (0 < rayon->angle && rayon->angle < M_PI)
+			rayon->type = WALL_NORTH;
+		else if (M_PI < rayon->angle && rayon->angle < (2 * M_PI))
+			rayon->type = WALL_SOUTH;
 	}
 }
 
@@ -58,11 +73,11 @@ void	print_min_map(t_mlx *mlx)
 			ra += (2 * M_PI);
 		else if (ra > 2 * M_PI)
 			ra -= (2 * M_PI);
-		dist[0] = horizontal_check(mlx, ra, end_pos[H]);
-		dist[1] = vertical_check(mlx, ra, end_pos[V]);
-		choose_h_or_v(mlx, dist, r, end_pos);
-		print_3d(mlx, mlx->rayon[r].dist, ra, &x);
+		dist[H] = horizontal_check(mlx, ra, end_pos[H]);
+		dist[V] = vertical_check(mlx, ra, end_pos[V]);
 		mlx->rayon[r].angle = ra;
+		choose_h_or_v(&mlx->rayon[r], dist, end_pos);
+		print_3d(mlx, &mlx->rayon[r], ra, &x);
 		r += ((ra += (60 * M_PI / 180) / WIDTH, 1));
 	}
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,

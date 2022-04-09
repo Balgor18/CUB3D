@@ -6,11 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 11:01:23 by grannou           #+#    #+#             */
-<<<<<<< HEAD:srcs/utils/print.c
-/*   Updated: 2022/04/08 17:12:43 by fcatinau         ###   ########.fr       */
-=======
-/*   Updated: 2022/04/06 17:59:21 by grannou          ###   ########.fr       */
->>>>>>> grannou:srcs/print.c
+/*   Updated: 2022/04/08 21:26:36 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +15,7 @@
 void	exit_error(char *msg)
 {
 	write(2, "Error\n", 6);
-<<<<<<< HEAD:srcs/utils/print.c
-	printf(K ALED "%s" ALED K, msg);
-=======
 	printf(KYU BIE "%s" BIE KYU, msg);
->>>>>>> grannou:srcs/print.c
 	exit(EXIT_FAILURE);
 }
 
@@ -32,11 +24,7 @@ void	print_list(t_list *list)
 	int	i;
 
 	i = 0;
-<<<<<<< HEAD:srcs/utils/print.c
-	printf(K ALED LIST ALED K "\n");
-=======
 	printf(KYU BIE LIST BIE KYU "\n");
->>>>>>> grannou:srcs/print.c
 	while (list)
 	{
 		printf("[%3d] [len = %3d] [type = %d] " GREEN "[" RESET "%s" GREEN "]" \
@@ -49,11 +37,7 @@ void	print_list(t_list *list)
 
 void	print_data(t_data *data)
 {
-<<<<<<< HEAD:srcs/utils/print.c
-	printf(K ALED GAME ALED K "\n");
-=======
 	printf(KYU BIE GAME BIE KYU "\n");
->>>>>>> grannou:srcs/print.c
 	printf("North texture path : %s\n", data->north_texture);
 	printf("South texture path : %s\n", data->south_texture);
 	printf("West texture path  : %s\n", data->west_texture);

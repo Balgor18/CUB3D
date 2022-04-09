@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 04:25:33 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/07 04:55:07 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/08 21:35:06 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	init_player(t_mlx *mlx, int *pos)
 {
 	mlx->player[X_POS] = pos[0] + 0.5f;
 	mlx->player[Y_POS] = pos[1] + 0.5f;
-	mlx->player[X_PIXEL] = pos[0] * 64;
-	mlx->player[Y_PIXEL] = pos[1] * 64;
+	mlx->player[X_PIXEL] = mlx->player[X_POS] * 64;
+	mlx->player[Y_PIXEL] = mlx->player[Y_POS] * 64;
 	mlx->delta[0] = cos(mlx->player[ANGLE]) * 5;
 	mlx->delta[1] = sin(mlx->player[ANGLE]) * 5;
 }

@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/08 16:19:10 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 04:07:30 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ enum	e_player
 
 enum	e_img
 {
-	IMAGE,
 	WALL_NORTH,
 	WALL_SOUTH,
 	WALL_WEST,
 	WALL_EAST,
+	IMAGE,
 	FLOOR_IMG,
 	CEILING_IMG,
 	MAX_IMG,
@@ -139,7 +139,7 @@ struct s_rayon
 {
 	float	dist;
 	double	angle;
-	char	type;
+	int		type;
 	double	end_pos[2];
 };
 
@@ -175,6 +175,11 @@ void	start_mlx(t_data *data);
 void	find_player_pos(char **tmp, t_mlx *mlx);
 void	create_texture(t_mlx *mlx);
 void	print_min_map(t_mlx *mlx);
+void	print_nord(t_img *const img[2], t_rayon const *const rayon, float i[4]);
+void	print_south(t_img *const img[2], t_rayon const *const rayon,
+			float i[4]);
+void	print_west(t_img *const img[2], t_rayon const *const rayon, float i[4]);
+void	print_east(t_img *const img[2], t_rayon const *const rayon, float i[4]);
 
 /*
 **-------------Check---------------
@@ -192,7 +197,8 @@ int		ft_close(t_mlx *mlx);
 **-------------Utils---------------
 */
 double	dist(double ax, double ay, double bx, double by);
-void	print_3d(t_mlx *mlx, float dist, double ra, int *x);
+void	print_3d(t_mlx *const mlx, t_rayon *const rayon, double ra, int *x)
+		__attribute__((nonnull));
 void	mlx_print_line(t_mlx *mlx, int const a[2], int const b[2],
 			int const color);
 

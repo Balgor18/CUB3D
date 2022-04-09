@@ -29,6 +29,7 @@ SRCS =	tab_utils.c                 	\
 		fill_data.c                 	\
 		file_utils.c                	\
 		data_utils.c                	\
+		get_texture_pixel.c         	\
 		create_texture.c            	\
 		atoi_base.c                 	\
 		ft_ternary.c                	\
