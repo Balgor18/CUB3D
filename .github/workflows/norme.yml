@@ -19,4 +19,4 @@ jobs:
     - name: norminette
       run: |
         pip3 install norminette
-        norminette
+        norminette srcs/ includes/
