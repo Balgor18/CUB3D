@@ -6,7 +6,7 @@
 /*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 02:30:13 by grannou           #+#    #+#             */
-/*   Updated: 2022/04/07 23:40:38 by grannou          ###   ########.fr       */
+/*   Updated: 2022/04/09 15:32:05 by grannou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	check_argc(int argc, char **argv)
 	else if (argc > 2)
 		exit_error(TMARG);
 }
-
-// LAST: try to break everything to check
 
 /**
 	@brief parse the map file. check the extension, open, syntax, dupplicates,
@@ -51,7 +49,6 @@ void	parsing(int argc, char **argv, t_data **data)
 	check_splitted_map(&list);
 	check_close(fd, list);
 	fill_data(data, &list);
-	print_list(list);
 	ft_lst_clear(&list);
 	check_textures_extensions(data);
 	check_open_textures(data);

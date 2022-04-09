@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 04:02:25 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 18:13:21 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:33:59 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,7 @@ void	clear_list_exit(t_list **list, char *msg);
 void	clear_list_syntax_exit(t_list **list, int i, char *line, char *msg);
 void	clear_data_syntax_exit(t_data **data, int i, char *line, char *msg);
 void	clear_list_free_line_exit(t_list **list, char *line);
-void	clear_data(t_data **data);
+void	clear_data_nclosedmap_exit(t_data **data, int i, char *msg);
 
 // free2.c
 void	free_array(char **array);
