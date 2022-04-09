@@ -6,7 +6,7 @@
 /*   By: fcatinau <fcatinau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 02:36:00 by fcatinau          #+#    #+#             */
-/*   Updated: 2022/04/09 04:04:28 by fcatinau         ###   ########.fr       */
+/*   Updated: 2022/04/09 04:33:57 by fcatinau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	print_nord(t_img *const img[2], t_rayon const *const rayon, float i[4])
 	int	tmp;
 
 	tmp = i[CEIL_H];
-	i[CEIL_H] += i[LINE_H];
+	if (i[LINE_H] > HEIGHT)
+		i[CEIL_H] = HEIGHT;
+	else
+		i[CEIL_H] += i[LINE_H];
 	pos[X] = (int)rayon->end_pos[X] % 64;
 	while (i[Y] < i[CEIL_H])
 	{
@@ -50,7 +53,10 @@ void	print_south(t_img *const img[2], t_rayon const *const rayon, float i[4])
 	int	tmp;
 
 	tmp = i[CEIL_H];
-	i[CEIL_H] += i[LINE_H];
+	if (i[LINE_H] > HEIGHT)
+		i[CEIL_H] = HEIGHT;
+	else
+		i[CEIL_H] += i[LINE_H];
 	pos[X] = 64 - (int)rayon->end_pos[X] % 64 - 1;
 	while (i[Y] < i[CEIL_H])
 	{
@@ -67,7 +73,10 @@ void	print_west(t_img *const img[2], t_rayon const *const rayon, float i[4])
 	int	tmp;
 
 	tmp = i[CEIL_H];
-	i[CEIL_H] += i[LINE_H];
+	if (i[LINE_H] > HEIGHT)
+		i[CEIL_H] = HEIGHT;
+	else
+		i[CEIL_H] += i[LINE_H];
 	pos[X] = 64 - (int)rayon->end_pos[Y] % 64 - 1;
 	while (i[Y] < i[CEIL_H])
 	{
@@ -84,7 +93,10 @@ void	print_east(t_img *const img[2], t_rayon const *const rayon, float i[4])
 	int	tmp;
 
 	tmp = i[CEIL_H];
-	i[CEIL_H] += i[LINE_H];
+	if (i[LINE_H] > HEIGHT)
+		i[CEIL_H] = HEIGHT;
+	else
+		i[CEIL_H] += i[LINE_H];
 	pos[X] = (int)rayon->end_pos[Y] % 64;
 	while (i[Y] < i[CEIL_H])
 	{
